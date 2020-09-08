@@ -1,3 +1,56 @@
-const createLocalStorage = () => {
-  if()
+const defaultStorage = {
+  mealsToken: 1,
+  cocktailsToken: 1,
+  doneRecipes: [],
+  favoriteRecipes: [],
+  inProgressRecipes: {},
+  user: {
+    email: ''
+  },
+};
+
+const isStorageExists = () => {
+  if (typeof(Storage) !== 'undefined') {
+    Alert('Seu browser não tem suporte para o LocalStorage');
+    return false;
+  }
+  return true;
+};
+
+// Inicia um Storage
+const initStorage = () => {
+  if (!isStorageExists) return;
+  Object.entries(defaultStorage).forEach(({ 0: key, 1: value }) => {
+    const currentValue = localStorage.getItem(key) || value;
+    localStorage.setItem(key, JSON.stringify(currentValue));
+  });
+};
+
+// Salva um valor em uma chave
+const setValueByKey = (key, value) => {
+  if (!isStorageExists) return;
+  localStorage.setItem(key, JSON.stringify(value));
+};
+
+// Retorna um valor de uma chave
+const getValueByKey = (key) => {
+  if (!isStorageExists) return 'undefined';
+  return JSON.parse(localStorage.getItem(key));
+}
+
+// Retorna o Storage como um objeto
+const getStorageAsObject = () => {
+  if (!isStorageExists) return {};
+  const result = [...defaultStorage];
+  Object.keys(result).forEach((key) => {
+    result[key] = JSON.parse(localStorage.getItem(key)) || result[key];
+  })
+  return result;
+};
+
+export default {
+  initStorage,
+  setValueByKey,
+  getValueByKey,
+  getStorageAsObject,
 };
