@@ -16,42 +16,42 @@ export const Provider = (props) => {
     addFoodByName: async (name) => {
       setIsFetching(true);
       await APIS.food.searchByName(name)
-        .then((response) => { setComidas12([...comidas12, ...response]); })
+        .then((response) => { setComidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
     addDrinkByName: async (name) => {
       setIsFetching(true);
       await APIS.drink.searchByName(name)
-        .then((response) => { setBebidas12([...bebidas12, ...response]); })
+        .then((response) => { setBebidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
     addFoodByLetter: async (letter) => {
       setIsFetching(true);
       await APIS.food.searchByFirstLetter(letter)
-        .then((response) => { setComidas12([...comidas12, ...response]); })
+        .then((response) => { setComidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
     addDrinkByLetter: async (letter) => {
       setIsFetching(true);
       await APIS.drink.searchByFirstLetter(letter)
-        .then((response) => { setBebidas12([...bebidas12, ...response]); })
+        .then((response) => { setBebidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
     addFoodByIngredient: async (ingredient) => {
       setIsFetching(true);
       await APIS.food.searchByIngredient(ingredient)
-        .then((response) => { setComidas12([...comidas12, ...response]); })
+        .then((response) => { setComidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
     addDrinkByIngredient: async (ingredient) => {
       setIsFetching(true);
       await APIS.drink.searchByIngredient(ingredient)
-        .then((response) => { setBebidas12([...bebidas12, ...response]); })
+        .then((response) => { setBebidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
@@ -79,4 +79,4 @@ export const Provider = (props) => {
 
 Provider.propTypes = {
   children: PropTypes.element.isRequired,
-}
+};

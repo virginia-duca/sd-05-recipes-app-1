@@ -1,13 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import AppContext from '../Context/AppContext';
-
 import storage from '../Services/LocalStorage';
 
 function Login() {
   const { fetch } = useContext(AppContext);
   
   useEffect(() => {
-    fetch.addFoodByName('Fish');
+    fetch.addFoodByName('Goat');
     storage.initStorage();
     storage.setValueByKey('user', { email: 'a@a.com' });
     console.log(storage.getStorageAsObject());

@@ -8,7 +8,7 @@ function Rotas() {
 		<BrowserRouter>
 			<Switch>
         <Route exact path="/">
-          <LoginPage/>
+          <LoginPage />
         </Route>
 				<Route path="/comidas" />
 				<Route path="/comidas/{id-da-receita}" />
