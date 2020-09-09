@@ -32,7 +32,7 @@ const fetchAPI = (url) => (
 export default {
   food: {
     baseUrl: 'https://www.themealdb.com/api/json/v1/1/',
-    searchByName(name) { 
+    searchByName(name) {
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
     },
     searchByIngredient(ingredient) {
@@ -41,14 +41,14 @@ export default {
     searchByFirstLetter(letter) {
       if (letter.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
-        return;
+        return [];
       }
       return fetchAPI(`${this.baseUrl}search.php?f=${letter}`);
-    }
+    },
   },
   drink: {
     baseUrl: 'https://www.thecocktaildb.com/api/json/v1/1/',
-    searchByName(name) { 
+    searchByName(name) {
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
     },
     searchByIngredient(ingredient) {
@@ -57,9 +57,9 @@ export default {
     searchByFirstLetter(letter) {
       if (letter.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
-        return;
+        return [];
       }
       return fetchAPI(`${this.baseUrl}search.php?f=${letter}`);
-    }
+    },
   },
 };

@@ -10,14 +10,14 @@ const Provider = (props) => {
   const [error, setError] = useState('');
 
   const fetch = {
-    async setFood (functionOfFetch) {
+    async setFood(functionOfFetch) {
       setIsFetching(true);
       await functionOfFetch
         .then((response) => { setComidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
-    async setDrink (functionOfFetch) {
+    async setDrink(functionOfFetch) {
       setIsFetching(true);
       await functionOfFetch
         .then((response) => { setBebidas12([...response]); })

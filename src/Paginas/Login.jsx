@@ -6,7 +6,7 @@ import storage from '../Services/LocalStorage';
 
 function Login() {
   const { fetch } = useContext(AppContext);
-  
+
   useEffect(() => {
     fetch.setFood(APIS.food.searchByName('Fish'));
     storage.initStorage();
@@ -15,23 +15,26 @@ function Login() {
     // eslint-disable-next-line
   }, []);
 
-  return(
+  return (
     <AppContext.Consumer>
       {
-        ({ comidas12, isFetching }) => (isFetching) ? 
+        ({ comidas12, isFetching }) => ((isFetching) ? 
           (
             <div>Loading...</div>
           ) : (
             <div>
               <h1>Login Page</h1>
-              <h3>Teste (pesquisa por 'Fish')</h3>
+              <h3>Teste - pesquisa por 'Fish'</h3>
               {
                 comidas12.map(({ strMeal, idMeal }) => (
-                  <p key={idMeal}>{ strMeal }</p>
+                  <p key={idMeal}>
+                    { strMeal }
+                  </p>
                 ))
               }
             </div>
           )
+        )
       }
     </AppContext.Consumer>
   );

@@ -24,10 +24,10 @@ function Rotas() {
         <Route path="/explorar/comidas/area" />
         <Route path="/perfil" />
         <Route path="/receitas-feitas" />
-        <Route path="/receitas-favoritas" />				
+        <Route path="/receitas-favoritas" />	
       </Switch>
     </BrowserRouter>
   );
-};
+}
 
 export default Rotas;
