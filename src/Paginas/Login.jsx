@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import AppContext from '../Context/AppContext';
+import APIS from '../Services/FetchAPI';
 
 function Login() {
   const { fetch } = useContext(AppContext);
   
   useEffect(() => {
-    fetch.addFoodByName('Fish');
+    fetch.getFood(APIS.food.searchByName('Fish'));
+    console.log(APIS.food.searchByName)
     // eslint-disable-next-line
   }, []);
 

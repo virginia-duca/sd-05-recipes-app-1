@@ -13,51 +13,23 @@ export const Provider = (props) => {
   const [bebidas12, setBebidas12] = useState([]);
   const [error, setError] = useState('');
 
-  // Funções de fetch organizadas
   const fetch = {
-    addFoodByName: async (name) => {
+    getFood: async (functionOfFetch) => {
+      console.log('entrou em get food')
       setIsFetching(true);
-      await APIS.food.searchByName(name)
-        .then((response) => { setComidas12([...comidas12, ...response]); })
+      await functionOfFetch
+        .then((response) => { setComidas12([...response]); /* console.log(response) */})
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
-    addDrinkByName: async (name) => {
+    getDrink: async (functionOfFetch) => {
       setIsFetching(true);
-      await APIS.drink.searchByName(name)
-        .then((response) => { setBebidas12([...bebidas12, ...response]); })
+      await functionOfFetch
+        .then((response) => { setBebidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
-    addFoodByLetter: async (letter) => {
-      setIsFetching(true);
-      await APIS.food.searchByFirstLetter(letter)
-        .then((response) => { setComidas12([...comidas12, ...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
-    },
-    addDrinkByLetter: async (letter) => {
-      setIsFetching(true);
-      await APIS.drink.searchByFirstLetter(letter)
-        .then((response) => { setBebidas12([...bebidas12, ...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
-    },
-    addFoodByIngredient: async (ingredient) => {
-      setIsFetching(true);
-      await APIS.food.searchByIngredient(ingredient)
-        .then((response) => { setComidas12([...comidas12, ...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
-    },
-    addDrinkByIngredient: async (ingredient) => {
-      setIsFetching(true);
-      await APIS.drink.searchByIngredient(ingredient)
-        .then((response) => { setBebidas12([...bebidas12, ...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
-    },
-  };
+  }
 
   // Isso aqui corresponde ao store, ou seja, é um state
   // que todos os componentes filhos têm acesso
