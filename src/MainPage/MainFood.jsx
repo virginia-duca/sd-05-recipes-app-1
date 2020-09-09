@@ -64,8 +64,7 @@ const MainFood = () => {
           {
             comidas12.slice(0, 12).map(({ strMealThumb, strMeal, idMeal }, i) => (
               <Card key={idMeal} imageSrc={strMealThumb} title={strMeal} index={i} />
-              )
-            )
+            ))
           }
         </div>
       </div>
@@ -79,7 +78,7 @@ SmallCards.propTypes = {
 };
 
 RenderCategories.propTypes = {
-  categories: PropTypes.array.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   getValue: PropTypes.func,
 };
 
