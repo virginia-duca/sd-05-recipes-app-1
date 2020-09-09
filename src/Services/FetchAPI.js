@@ -32,13 +32,13 @@ const fetchAPI = (url) => (
 export default {
   food: {
     baseUrl: 'https://www.themealdb.com/api/json/v1/1/',
-    searchByName: async function(name) { 
+    searchByName(name) { 
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
     },
-    searchByIngredient: async function(ingredient) {
+    searchByIngredient(ingredient) {
       return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
     },
-    searchByFirstLetter: async function(letter) {
+    searchByFirstLetter(letter) {
       if (letter.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
         return;
@@ -48,18 +48,18 @@ export default {
   },
   drink: {
     baseUrl: 'https://www.thecocktaildb.com/api/json/v1/1/',
-    searchByName: async function(name) { 
+    searchByName(name) { 
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
     },
-    searchByIngredient: async function(ingredient) {
+    searchByIngredient(ingredient) {
       return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
     },
-    searchByFirstLetter: async function(letter) {
+    searchByFirstLetter(letter) {
       if (letter.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
         return;
       }
       return fetchAPI(`${this.baseUrl}search.php?f=${letter}`);
-    }    
-  }
+    }
+  },
 };

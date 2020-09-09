@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Rotas from './Paginas/Rotas'
-import { Provider } from './Context/Provider';
+import Rotas from './Paginas/Rotas';
+import Provider from './Context/Provider';
 
 function App() {
   return (

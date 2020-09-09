@@ -1,56 +1,25 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
-import APIS from '../Services/FetchAPI';
 
-export const Provider = (props) => {
-
+const Provider = (props) => {
   // Aqui declaro os states globais
   const [isFetching, setIsFetching] = useState(true);
   const [comidas12, setComidas12] = useState([]);
   const [bebidas12, setBebidas12] = useState([]);
   const [error, setError] = useState('');
 
-  // Funções de fetch organizadas
   const fetch = {
-    addFoodByName: async (name) => {
+    async setFood (functionOfFetch) {
       setIsFetching(true);
-      await APIS.food.searchByName(name)
+      await functionOfFetch
         .then((response) => { setComidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
     },
-    addDrinkByName: async (name) => {
+    async setDrink (functionOfFetch) {
       setIsFetching(true);
-      await APIS.drink.searchByName(name)
-        .then((response) => { setBebidas12([...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
-    },
-    addFoodByLetter: async (letter) => {
-      setIsFetching(true);
-      await APIS.food.searchByFirstLetter(letter)
-        .then((response) => { setComidas12([...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
-    },
-    addDrinkByLetter: async (letter) => {
-      setIsFetching(true);
-      await APIS.drink.searchByFirstLetter(letter)
-        .then((response) => { setBebidas12([...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
-    },
-    addFoodByIngredient: async (ingredient) => {
-      setIsFetching(true);
-      await APIS.food.searchByIngredient(ingredient)
-        .then((response) => { setComidas12([...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
-    },
-    addDrinkByIngredient: async (ingredient) => {
-      setIsFetching(true);
-      await APIS.drink.searchByIngredient(ingredient)
+      await functionOfFetch
         .then((response) => { setBebidas12([...response]); })
         .catch((err) => { setError(err); });
       setIsFetching(false);
@@ -75,8 +44,10 @@ export const Provider = (props) => {
       {props.children}
     </AppContext.Provider>
   );
-}
+};
 
 Provider.propTypes = {
   children: PropTypes.element.isRequired,
 };
+
+export default Provider;

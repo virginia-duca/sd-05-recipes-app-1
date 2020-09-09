@@ -5,12 +5,12 @@ const defaultStorage = {
   favoriteRecipes: [],
   inProgressRecipes: {},
   user: {
-    email: ''
+    email: '',
   },
 };
 
 const isStorageExists = () => {
-  if (typeof(Storage) !== 'undefined') {
+  if (typeof (Storage) !== 'undefined') {
     alert('Seu browser não tem suporte para o LocalStorage');
     return false;
   }
@@ -21,7 +21,7 @@ const isStorageExists = () => {
 const initStorage = () => {
   if (!isStorageExists) return;
   Object.entries(defaultStorage).forEach(({ 0: key, 1: value }) => {
-    if(!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify(value));
+    if (!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify(value));
   });
 };
 
@@ -29,7 +29,7 @@ const clearStorage = () => {
   if (!isStorageExists) return;
   Object.entries(defaultStorage).forEach(({ 0: key, 1: value }) => {
     localStorage.setItem(key, JSON.stringify(value));
-  }); 
+  });
 };
 
 // Salva um valor em uma chave
@@ -42,15 +42,15 @@ const setValueByKey = (key, value) => {
 const getValueByKey = (key) => {
   if (!isStorageExists) return 'undefined';
   return JSON.parse(localStorage.getItem(key));
-}
+};
 
 // Retorna o Storage como um objeto
 const getStorageAsObject = () => {
   if (!isStorageExists) return {};
-  const result = {...defaultStorage};
+  const result = { ...defaultStorage };
   Object.keys(result).forEach((key) => {
     result[key] = JSON.parse(localStorage.getItem(key)) || result[key];
-  })
+  });
   return result;
 };
 
