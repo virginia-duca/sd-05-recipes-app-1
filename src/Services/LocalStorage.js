@@ -11,7 +11,7 @@ const defaultStorage = {
 
 const isStorageExists = () => {
   if (typeof(Storage) !== 'undefined') {
-    Alert('Seu browser não tem suporte para o LocalStorage');
+    alert('Seu browser não tem suporte para o LocalStorage');
     return false;
   }
   return true;
@@ -21,8 +21,7 @@ const isStorageExists = () => {
 const initStorage = () => {
   if (!isStorageExists) return;
   Object.entries(defaultStorage).forEach(({ 0: key, 1: value }) => {
-    const currentValue = localStorage.getItem(key) || value;
-    localStorage.setItem(key, JSON.stringify(currentValue));
+    if(!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify(value));
   });
 };
 
@@ -48,7 +47,7 @@ const getValueByKey = (key) => {
 // Retorna o Storage como um objeto
 const getStorageAsObject = () => {
   if (!isStorageExists) return {};
-  const result = [...defaultStorage];
+  const result = {...defaultStorage};
   Object.keys(result).forEach((key) => {
     result[key] = JSON.parse(localStorage.getItem(key)) || result[key];
   })

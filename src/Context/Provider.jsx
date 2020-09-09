@@ -6,8 +6,6 @@ import APIS from '../Services/FetchAPI';
 export const Provider = (props) => {
 
   // Aqui declaro os states globais
-  const [testing] = useState('Hello World!');
-
   const [isFetching, setIsFetching] = useState(true);
   const [comidas12, setComidas12] = useState([]);
   const [bebidas12, setBebidas12] = useState([]);
@@ -62,7 +60,6 @@ export const Provider = (props) => {
   // Isso aqui corresponde ao store, ou seja, é um state
   // que todos os componentes filhos têm acesso
   const store = {
-    testing, // State de teste
     isFetching,
     setIsFetching,
     comidas12,
