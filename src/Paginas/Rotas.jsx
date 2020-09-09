@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import LoginPage from './Login';
+import LogIn from '../Login/LogIn';
 import Profile from './Profile';
 import Search from './Search';
 import MainFood from './MainPage/MainFood';
@@ -12,7 +12,7 @@ function Rotas() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <LoginPage />
+          <LogIn />
         </Route>
         <Route path="/comidas">
           <MainFood />
