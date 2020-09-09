@@ -73,7 +73,7 @@ const MainFood = () => {
   );
 };
 
-SmallCards.PropTypes = {
+SmallCards.propTypes = {
   title: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };
