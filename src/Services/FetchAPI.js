@@ -32,30 +32,6 @@ const fetchAPI = (url) => (
     .catch((err) => { console.error(err); })
 );
 
-const getCategories = () => {
-  return fetchAPI(`${this.baseUrl}list.php?c=list`);
-}
-
-const searchByCategory = (category) => {
-  return fetchAPI(`${this.baseUrl}filter.php?c=${category}`);
-}
-
-const searchByName = (name) => {
-  return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
-}
-
-const searchByIngredient = (ingredient) => {
-  return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
-}
-
-const searchByFirstLetter = (letter) => {
-  if (letter.length > 1) {
-    alert('Sua busca deve conter somente 1 (um) caracter');
-    return [];
-  }
-  return fetchAPI(`${this.baseUrl}search.php?f=${letter}`);
-}
-
 export default {
   food: {
     baseUrl: 'https://www.themealdb.com/api/json/v1/1/',

@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LogIn from '../Login/LogIn';
 import Profile from './Profile';
 import Search from './Search';
-import MainFood from './MainPage/MainFood';
-import MainDrinks from './MainPage/MainDrinks';
+import MainFood from '../MainPage/MainFood';
+import MainDrinks from '../MainPage/MainDrinks';
 
 function Rotas() {
   return (
