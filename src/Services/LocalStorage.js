@@ -17,13 +17,20 @@ const isStorageExists = () => {
   return true;
 };
 
-// Inicia um Storage
+// Inicia um Storage mas não sobrescreve/apaga as keys
 const initStorage = () => {
   if (!isStorageExists) return;
   Object.entries(defaultStorage).forEach(({ 0: key, 1: value }) => {
     const currentValue = localStorage.getItem(key) || value;
     localStorage.setItem(key, JSON.stringify(currentValue));
   });
+};
+
+const clearStorage = () => {
+  if (!isStorageExists) return;
+  Object.entries(defaultStorage).forEach(({ 0: key, 1: value }) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  }); 
 };
 
 // Salva um valor em uma chave
@@ -50,6 +57,7 @@ const getStorageAsObject = () => {
 
 export default {
   initStorage,
+  clearStorage,
   setValueByKey,
   getValueByKey,
   getStorageAsObject,

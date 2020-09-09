@@ -1,10 +1,15 @@
 import React from 'react';
-import { BrowseRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import LoginPage from './Login';
 
 function Rotas() {
 	return(
-		<BrowseRouter>
+		<BrowserRouter>
 			<Switch>
+        <Route exact path="/">
+          <LoginPage/>
+        </Route>
 				<Route path="/comidas" />
 				<Route path="/comidas/{id-da-receita}" />
 				<Route path="/comidas/{id-da-receita}/in-progress" />
@@ -21,7 +26,7 @@ function Rotas() {
 				<Route path="/receitas-feitas" />
 				<Route path="/receitas-favoritas" />				
 			</Switch>
-		</BrowseRouter>
+		</BrowserRouter>
 	)};
 
 export default Rotas;

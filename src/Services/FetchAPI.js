@@ -1,23 +1,65 @@
-//Aqui está a funcao que irá realizar o fetch dos dados, como serao feitas varias requisicoes diferentes, foi feita uma funcao que recebe como parametro o endpoint especificado que esta no objeto APIS
-
-const APIS = {
-  URLcomidas12: 'https://www.themealdb.com/api/json/v1/1/search.php?s=',
-  URLbebidas12: 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
-  EPIngredMeal: `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`,
-  EPLetraMeal: `https://www.themealdb.com/api/json/v1/1/search.php?f=${primeira-letra}`,
-  EPNomeMeal: `${APIS.URLcomidas12}${nome}`,
-  EPIngredDrink: `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`,
-  EPNomeDrink: `${APIS.URLbebidas12}${nome}`,
-  EPLetraDrink: `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${primeira-letra}`,
-};
+// Time, refatorei a API mantendo apenas uma função interna fetchAPI
+// e um objeto APIS contendo tanto a URL de cada API quanto os métodos
+// e funções para interagir com ela. Sendo assim, fica mais fácil
+// manter o controle de tudo e fazer o tratamento das responses
+//
+// Para usar esse service, basta importar o FetchAPI.js para o seu componente
+// e utilizar as seguintes funções correspondentes à 'food' e 'drink':
+//
+// - searchByName(<string>) para obter a response através de um termo
+// - searchByIngredient(<string>) para obter a response através de um ingrediente
+// - searchByFirstLetter(<char>) para obter a response através de uma letra
+//
+// Exemplo:
+//
+// APIS.food.searchByName('Fish Pie')
+// Output -> [{ idMeal: "52802", strMeal: "Fish pie", ...}, ...]
+//
+// APIS.drink.searchByIngredient('Gin')
+// Output -> [{ idDrink: "17255", strDrink: "Gimlet", ... }, ...]
+// --------------------------------------------------------------------------------------
 
 const fetchAPI = (url) => (
   fetch(url)
     .then((response) => (
         response
         .json()
-        .then((data) => (response.ok ? Promise.resolve(data) : Promise.reject(data)))
+        .then((data) => (response.ok ? data.meals || data.drinks || [] : []))
     ))
+    .catch((err) => { console.error(err); })
 );
 
-export { APIS, fetchAPI };
+export default {
+  food: {
+    baseUrl: 'https://www.themealdb.com/api/json/v1/1/',
+    searchByName: async function(name) { 
+      return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
+    },
+    searchByIngredient: async function(ingredient) {
+      return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
+    },
+    searchByFirstLetter: async function(letter) {
+      if (letter.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+        return;
+      }
+      return fetchAPI(`${this.baseUrl}search.php?f=${letter}`);
+    }
+  },
+  drink: {
+    baseUrl: 'https://www.thecocktaildb.com/api/json/v1/1/',
+    searchByName: async function(name) { 
+      return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
+    },
+    searchByIngredient: async function(ingredient) {
+      return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
+    },
+    searchByFirstLetter: async function(letter) {
+      if (letter.length > 1) {
+        alert('Sua busca deve conter somente 1 (um) caracter');
+        return;
+      }
+      return fetchAPI(`${this.baseUrl}search.php?f=${letter}`);
+    }    
+  }
+};

@@ -1,60 +1,68 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
-import { APIS, fetchAPI } from '../Services/FetchAPI';
+import APIS from '../Services/FetchAPI';
 
-const {
-  URLcomidas12,
-  URLbebidas12,
-  EPIngredMeal,
-  EPLetraMeal,
-  EPNomeMeal,
-  EPIngredDrink,
-  EPNomeDrink,
-  EPLetraDrink, 
-} = APIS;
-
-export default Provider = () => {
+export const Provider = (props) => {
 
   // Aqui declaro os states globais
+  const [testing] = useState('Hello World!');
+
   const [isFetching, setIsFetching] = useState(true);
   const [comidas12, setComidas12] = useState([]);
   const [bebidas12, setBebidas12] = useState([]);
   const [error, setError] = useState('');
 
-  function fetchDataSuccess(response, setState) {
-    setIsFetching(false);
-    setState(response);
-  }
+  // Funções de fetch organizadas
+  const fetch = {
+    addFoodByName: async (name) => {
+      setIsFetching(true);
+      await APIS.food.searchByName(name)
+        .then((response) => { setComidas12([...comidas12, ...response]); })
+        .catch((err) => { setError(err); });
+      setIsFetching(false);
+    },
+    addDrinkByName: async (name) => {
+      setIsFetching(true);
+      await APIS.drink.searchByName(name)
+        .then((response) => { setBebidas12([...bebidas12, ...response]); })
+        .catch((err) => { setError(err); });
+      setIsFetching(false);
+    },
+    addFoodByLetter: async (letter) => {
+      setIsFetching(true);
+      await APIS.food.searchByFirstLetter(letter)
+        .then((response) => { setComidas12([...comidas12, ...response]); })
+        .catch((err) => { setError(err); });
+      setIsFetching(false);
+    },
+    addDrinkByLetter: async (letter) => {
+      setIsFetching(true);
+      await APIS.drink.searchByFirstLetter(letter)
+        .then((response) => { setBebidas12([...bebidas12, ...response]); })
+        .catch((err) => { setError(err); });
+      setIsFetching(false);
+    },
+    addFoodByIngredient: async (ingredient) => {
+      setIsFetching(true);
+      await APIS.food.searchByIngredient(ingredient)
+        .then((response) => { setComidas12([...comidas12, ...response]); })
+        .catch((err) => { setError(err); });
+      setIsFetching(false);
+    },
+    addDrinkByIngredient: async (ingredient) => {
+      setIsFetching(true);
+      await APIS.drink.searchByIngredient(ingredient)
+        .then((response) => { setBebidas12([...bebidas12, ...response]); })
+        .catch((err) => { setError(err); });
+      setIsFetching(false);
+    },
+  };
 
-  function fetchDataFail(error1) {
-    setIsFetching(false);
-    setError(error1.message);
-  }
-
-  // olha, olhando assim parece que está tudo ok, mas a gente podia depois
-  // refatorar o API pra tentar simplificar, o que acha?
-  // claro ! 
-
-  // Colocar depois os outros casos de fetch(diferentes endpoints)
-  function fetch(endpoint) {
-    if (isFetching) return;
-    setIsFetching(true);
-    switch (endpoint) {
-      default: // É bom deixar o default pro CC não chorar
-      case 'comidas12':
-        fetchAPI(URLcomidas12)
-        .then(fetchDataSuccess(response, setComidas12), fetchDataFail);
-        break;
-      case 'bebidas12':
-        fetchAPI(URLbebidas12)
-        .then(fetchDataSuccess(response, setBebidas12), fetchDataFail);
-        break;
-    }
-  }
   // Isso aqui corresponde ao store, ou seja, é um state
   // que todos os componentes filhos têm acesso
   const store = {
+    testing, // State de teste
     isFetching,
     setIsFetching,
     comidas12,
@@ -62,11 +70,6 @@ export default Provider = () => {
     error,
     fetch,
   };
-
-  // Essa parte substitui o OnComponentDidMount
-  useEffect(() => {
-    // Inserir a função 'fetch' aqui
-  }, []);
 
   // Aqui declaro um component provider, que é a "mãe" de todos os componentes
   // e tranfere para eles o store
@@ -78,5 +81,5 @@ export default Provider = () => {
 }
 
 Provider.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 }
