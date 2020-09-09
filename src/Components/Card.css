@@ -1,0 +1,29 @@
+.card , .card-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 5px 5px #888888 ;
+  height: 300px;
+  justify-content: space-between;
+  overflow: hidden;
+  width: 250px;
+}
+
+.card .card-header {
+  height: 60%;
+  text-align: center;
+  width: 100%;
+}
+
+.card .card-header .card-img {
+  height: 100%;
+}
+
+.card .card-title {
+  font-size: 22px;
+  padding: 3px 8px;
+}
