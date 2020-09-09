@@ -18,13 +18,12 @@ function Login() {
   return (
     <AppContext.Consumer>
       {
-        ({ comidas12, isFetching }) => ((isFetching) ? 
+        ({ comidas12, isFetching }) => ((isFetching) ?
           (
             <div>Loading...</div>
           ) : (
             <div>
               <h1>Login Page</h1>
-              <h3>Teste - pesquisa por 'Fish'</h3>
               {
                 comidas12.map(({ strMeal, idMeal }) => (
                   <p key={idMeal}>
