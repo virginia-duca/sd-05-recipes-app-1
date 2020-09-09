@@ -1,6 +1,8 @@
+/** @format */
+
 const defaultStorage = {
-  mealsToken: 1,
-  cocktailsToken: 1,
+  mealsToken: null,
+  cocktailsToken: null,
   doneRecipes: [],
   favoriteRecipes: [],
   inProgressRecipes: {},
@@ -10,7 +12,7 @@ const defaultStorage = {
 };
 
 const isStorageExists = () => {
-  if (typeof (Storage) !== 'undefined') {
+  if (typeof Storage !== 'undefined') {
     alert('Seu browser não tem suporte para o LocalStorage');
     return false;
   }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
-import AppContext from '../../Context/AppContext';
-import api from '../../Services/FetchAPI';
-import Card from '../../Components/Card';
+import AppContext from '../Context/AppContext';
+import api from '../Services/FetchAPI';
+import Card from '../Components/Card';
 
 const SmallCards = ({ title, onClick }) => (
   <button
