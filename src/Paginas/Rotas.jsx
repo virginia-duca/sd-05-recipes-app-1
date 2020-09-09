@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginPage from './Login';
 import Profile from './Profile';
 import Search from './Search';
+import MainFood from './MainPage/MainFood';
+import MainDrinks from './MainPage/MainDrinks';
 
 function Rotas() {
   return (
@@ -12,10 +14,14 @@ function Rotas() {
         <Route exact path="/">
           <LoginPage />
         </Route>
-        <Route path="/comidas" />
+        <Route path="/comidas">
+          <MainFood />
+        </Route>
         <Route path="/comidas/{id-da-receita}" />
         <Route path="/comidas/{id-da-receita}/in-progress" />
-        <Route path="/bebidas" />
+        <Route path="/bebidas">
+          <MainDrinks />
+        </Route>
         <Route path="/bebidas/{id-da-receita}" />
         <Route path="/bebidas/{id-da-receita}/in-progress" />
         <Route path="/explorar">

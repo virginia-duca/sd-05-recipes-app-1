@@ -1,5 +1,8 @@
 import React from 'react';
+import Header from '../Header/Header';
 
 export default function Profile()  {
-    return  <div>Profile</div>
+    return  (
+    <Header titulo="Perfil"/>
+    )
 }
