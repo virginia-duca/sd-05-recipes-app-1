@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
@@ -16,12 +17,11 @@ const SmallCards = ({ title, onClick }) => (
 
 const RenderCategories = ({ categories, getValue }) => (
   categories.map(({ strCategory, idCategory }) => (
-      <SmallCards
-        key={idCategory}
-        title={strCategory}
-        onClick={(value) => getValue(value)}
-      />
-    ),
+    <SmallCards
+      key={idCategory}
+      title={strCategory}
+      onClick={(value) => getValue(value)}
+    />),
   )
 );
 
@@ -55,9 +55,9 @@ const MainFood = () => {
     : (
       <div>
         <div className="card-container">
-          <RenderCategories 
+          <RenderCategories
             categories={foodCategories}
-            getValue={ (r) => { setFoodListByCategory(r); }}
+            getValue={(r) => { setFoodListByCategory(r); }}
           />
         </div>
         <div className="card-container">
@@ -70,7 +70,25 @@ const MainFood = () => {
         </div>
       </div>
     )
-  )
+  );
+};
+
+SmallCards.PropTypes = {
+  title: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+};
+
+RenderCategories.propTypes = {
+  categories: PropTypes.array.isRequired,
+  getValue: PropTypes.func,
+};
+
+SmallCards.defaultProps = {
+  onClick: () => {},
+};
+
+RenderCategories.defaultProps = {
+  categories: [],
 };
 
 export default MainFood;
