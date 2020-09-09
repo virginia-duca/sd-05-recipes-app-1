@@ -26,7 +26,7 @@ const fetchAPI = (url) => (
         .json()
         .then(({ categories, meals, drinks }) => (
             response.ok ? categories || meals || drinks || [] : []
-          )
+          ),
         )
     ))
     .catch((err) => { console.error(err); })

@@ -8,7 +8,7 @@ const SmallCards = ({ title, onClick }) => (
     type="button"
     className="small-card"
     data-testid={`${title}-category-filter`}
-    onClick={() => { onClick(title) }}
+    onClick={() => { onClick(title); }}
   >
     { title }
   </button>
@@ -21,24 +21,21 @@ const RenderCategories = ({ categories, getValue }) => (
         title={strCategory}
         onClick={(value) => getValue(value)}
       />
-    )
+    ),
   )
 );
 
 const MainFood = () => {
   const { fetch, comidas12 } = useContext(AppContext);
-
   const [isLoading, SetIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [foodCategories, setFoodCategories] = useState([]);
-  
+
   useEffect(async () => {
     await fetch.setFood(api.food.searchByName(''));
-    await api.food.getCategories()
-      .then((list) => setFoodCategories(
-        [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)]
-      ))
-      .then(() => { SetIsLoading(false); });
+    await api.food.getCategories().then((list) => setFoodCategories(
+      [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
+    )).then(() => { SetIsLoading(false); });
   }, []);
 
   const setFoodListByCategory = async (category) => {
@@ -54,25 +51,19 @@ const MainFood = () => {
   };
 
   return (
-    (isLoading && !comidas12.length ) ? (
-      <div>Loading...</div>
-    ) : (
+    (isLoading && !comidas12.length) ? (<div>Loading...</div>)
+    : (
       <div>
         <div className="card-container">
-          <RenderCategories
+          <RenderCategories 
             categories={foodCategories}
-            getValue={ (r) => { setFoodListByCategory(r) }}
+            getValue={ (r) => { setFoodListByCategory(r); }}
           />
         </div>
         <div className="card-container">
           {
             comidas12.slice(0, 12).map(({ strMealThumb, strMeal, idMeal }, i) => (
-              <Card
-                key={idMeal}
-                imageSrc={strMealThumb}
-                title={strMeal}
-                index={i}
-              />
+              <Card key={idMeal} imageSrc={strMealThumb} title={strMeal} index={i} />
               )
             )
           }
