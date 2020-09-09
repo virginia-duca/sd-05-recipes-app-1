@@ -1,30 +1,30 @@
-
 import React, { useEffect, useState, useContext } from 'react';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
+import Header from '../Header/Header';
 
 const SmallCards = ({ title, onClick }) => (
   <button
     type="button"
     className="small-card"
     data-testid={`${title}-category-filter`}
-    onClick={() => { onClick(title); }}
+    onClick={() => {
+      onClick(title);
+    }}
   >
-    { title }
+    {title}
   </button>
 );
 
-const RenderCategories = ({ categories, getValue }) => (
+const RenderCategories = ({ categories, getValue }) =>
   categories.map(({ strCategory, idCategory }) => (
-      <SmallCards
-        key={idCategory}
-        title={strCategory}
-        onClick={(value) => getValue(value)}
-      />
-    ),
-  )
-);
+    <SmallCards
+      key={idCategory}
+      title={strCategory}
+      onClick={(value) => getValue(value)}
+    />
+  ));
 
 const MainFood = () => {
   const { fetch, comidas12 } = useContext(AppContext);
@@ -34,9 +34,17 @@ const MainFood = () => {
 
   useEffect(async () => {
     await fetch.setFood(api.food.searchByName(''));
-    await api.food.getCategories().then((list) => setFoodCategories(
-      [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
-    )).then(() => { SetIsLoading(false); });
+    await api.food
+      .getCategories()
+      .then((list) =>
+        setFoodCategories([
+          { strCategory: 'All', idCategory: 0 },
+          ...list.slice(0, 5),
+        ]),
+      )
+      .then(() => {
+        SetIsLoading(false);
+      });
   }, []);
 
   const setFoodListByCategory = async (category) => {
@@ -51,28 +59,31 @@ const MainFood = () => {
     SetIsLoading(false);
   };
 
-  return (
-    (isLoading && !comidas12.length) ? (<div>Loading...</div>)
-    : (
-      <div>
-        <div className="card-container">
-          <RenderCategories 
-            categories={foodCategories}
-            getValue={ (r) => { setFoodListByCategory(r); }}
-          />
-        </div>
-        <div className="card-container">
-          {
-            comidas12.slice(0, 12).map(({ strMealThumb, strMeal, idMeal }, i) => (
-              <Card key={idMeal} imageSrc={strMealThumb} title={strMeal} index={i} />
-              )
-            )
-          }
-        </div>
+  return isLoading && !comidas12.length ? (
+    <div>Loading...</div>
+  ) : (
+    <div>
+      <Header titulo={comidas} />
+      <div className="card-container">
+        <RenderCategories
+          categories={foodCategories}
+          getValue={(r) => {
+            setFoodListByCategory(r);
+          }}
+        />
       </div>
-    )
-  )
+      <div className="card-container">
+        {comidas12.slice(0, 12).map(({ strMealThumb, strMeal, idMeal }, i) => (
+          <Card
+            key={idMeal}
+            imageSrc={strMealThumb}
+            title={strMeal}
+            index={i}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default MainFood;
-
