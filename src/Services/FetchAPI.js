@@ -24,7 +24,10 @@ const fetchAPI = (url) => (
     .then((response) => (
         response
         .json()
-        .then((data) => (response.ok ? data.meals || data.drinks || [] : []))
+        .then(({ categories, meals, drinks }) => (
+            response.ok ? categories || meals || drinks || [] : []
+          )
+        )
     ))
     .catch((err) => { console.error(err); })
 );
@@ -32,6 +35,12 @@ const fetchAPI = (url) => (
 export default {
   food: {
     baseUrl: 'https://www.themealdb.com/api/json/v1/1/',
+    getCategories() {
+      return fetchAPI(`${this.baseUrl}list.php?c=list`);
+    },
+    searchByCategory(category) {
+      return fetchAPI(`${this.baseUrl}filter.php?c=${category}`);
+    },
     searchByName(name) {
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
     },
@@ -50,6 +59,9 @@ export default {
     baseUrl: 'https://www.thecocktaildb.com/api/json/v1/1/',
     searchByName(name) {
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
+    },
+    searchByCategory(category) {
+      return fetchAPI(`${this.baseUrl}filter.php?c=${category}`);
     },
     searchByIngredient(ingredient) {
       return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
