@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../Context/AppContext';
@@ -92,3 +93,4 @@ RenderCategories.defaultProps = {
 };
 
 export default MainFood;
+
