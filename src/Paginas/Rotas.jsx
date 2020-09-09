@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import LoginPage from './Login';
+import Profile from './Profile';
+import Search from './Search';
 
 function Rotas() {
   return (
@@ -16,13 +18,17 @@ function Rotas() {
         <Route path="/bebidas" />
         <Route path="/bebidas/{id-da-receita}" />
         <Route path="/bebidas/{id-da-receita}/in-progress" />
-        <Route path="/explorar" />
+        <Route path="/explorar">
+          <Search />
+        </Route>
         <Route path="/explorar/comidas" />
         <Route path="/explorar/bebidas" />
         <Route path="/explorar/comidas/ingredientes" />
         <Route path="/explorar/bebidas/ingredientes" />
         <Route path="/explorar/comidas/area" />
-        <Route path="/perfil" />
+        <Route path="/perfil">
+          <Profile />
+        </Route>
         <Route path="/receitas-feitas" />
         <Route path="/receitas-favoritas" />
       </Switch>
