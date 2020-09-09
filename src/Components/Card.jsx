@@ -18,7 +18,7 @@ Card.propTypes = {
   imageSrc: PropTypes.string,
   onClick: PropTypes.func,
   title: PropTypes.string.isRequired,
-}
+};
 
 Card.defaultProps = {
   imageSrc: 'https://i.ytimg.com/vi/K4oJmxmuXYY/maxresdefault.jpg',
