@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import MainFood from '../MainPage/MainFood'
-/* import LoginPage from './Login'; */
+
+import MainFood from '../MainPage/MainFood';
 import LogIn from '../Login/LogIn';
 
 function Rotas() {
@@ -11,7 +11,9 @@ function Rotas() {
         <Route exact path="/">
           <LogIn />
         </Route>
-        <Route path="/comidas" component={MainFood}/>
+        <Route path="/comidas">
+          <MainFood />
+        </Route>
         <Route path="/comidas/{id-da-receita}" />
         <Route path="/comidas/{id-da-receita}/in-progress" />
         <Route path="/bebidas" />

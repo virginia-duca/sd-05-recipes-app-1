@@ -37,6 +37,22 @@
   animation: shake 1.5s infinite ease;
 }
 
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.small-card {
+  display: flex;
+  align-items: center;
+  background-color: cadetblue;
+  height: 40px;
+  width: 120px;
+  padding: 0 16px;
+  margin: 8px;
+}
+
 @keyframes shake {
   0% {
     transform: rotate(5deg);
