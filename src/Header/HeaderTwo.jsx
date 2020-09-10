@@ -7,7 +7,7 @@ class HeaderTwo extends React.Component {
     const { titulo } = this.props;
     return (
       <div>
-        <Link to={'/perfil'}>
+        <Link to='/perfil'>
           <img src={profileIcon} alt="Profile" data-testid="profile-top-btn" />
         </Link>
         <h1 data-testid="page-title">{titulo}</h1>
