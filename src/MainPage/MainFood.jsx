@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState, useContext } from 'react';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
@@ -15,25 +13,10 @@ const MainFood = () => {
   const [foodCategories, setFoodCategories] = useState([]);
 
   useEffect(() => {
-<<<<<<< HEAD
     fetch.setFood(api.food.searchByName(''));
     api.food.getCategories().then((list) => setFoodCategories(
       [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
     )).then(() => { SetIsLoading(false); });
-=======
-    async function fetchAll() {
-      await fetch.setFood(api.food.searchByName(''));
-      await api.food
-        .getCategories()
-        .then((list) =>
-          setFoodCategories([{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)]),
-        )
-        .then(() => {
-          SetIsLoading(false);
-        });
-    }
-    fetchAll();
->>>>>>> f9dfbaf48beab118fe558194c15acfae9ee3972c
   }, []);
 
   const setFoodListByCategory = (category) => {
@@ -47,13 +30,7 @@ const MainFood = () => {
       .then(() => { setSelectedCategory(category); SetIsLoading(false); })
   };
 
-<<<<<<< HEAD
-=======
-  const comidas = 'Comidas';
->>>>>>> f9dfbaf48beab118fe558194c15acfae9ee3972c
-  return isLoading && !comidas12.length ? (
-    <div>Loading...</div>
-  ) : (
+  return isLoading && !comidas12.length ? ( <div>Loading...</div> ) : (
     <div>
       <Header titulo="Comidas" />
       <div className="card-container">
