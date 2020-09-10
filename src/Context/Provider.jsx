@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
@@ -13,15 +15,23 @@ const Provider = (props) => {
     async setFood(functionOfFetch) {
       setIsFetching(true);
       await functionOfFetch
-        .then((response) => { setComidas12([...response]); })
-        .catch((err) => { setError(err); });
+        .then((response) => {
+          setComidas12([...response]);
+        })
+        .catch((err) => {
+          setError(err);
+        });
       setIsFetching(false);
     },
     async setDrink(functionOfFetch) {
       setIsFetching(true);
       await functionOfFetch
-        .then((response) => { setBebidas12([...response]); })
-        .catch((err) => { setError(err); });
+        .then((response) => {
+          setBebidas12([...response]);
+        })
+        .catch((err) => {
+          setError(err);
+        });
       setIsFetching(false);
     },
   };
@@ -39,11 +49,7 @@ const Provider = (props) => {
 
   // Aqui declaro um component provider, que é a "mãe" de todos os componentes
   // e tranfere para eles o store
-  return (
-    <AppContext.Provider value={store}>
-      {props.children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={store}>{props.children}</AppContext.Provider>;
 };
 
 Provider.propTypes = {

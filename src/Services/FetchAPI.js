@@ -19,18 +19,18 @@
 // Output -> [{ idDrink: "17255", strDrink: "Gimlet", ... }, ...]
 // --------------------------------------------------------------------------------------
 
-const fetchAPI = (url) => (
+const fetchAPI = (url) =>
   fetch(url)
-    .then((response) => (
-        response
+    .then((response) =>
+      response
         .json()
-        .then(({ categories, meals, drinks }) => (
-            response.ok ? categories || meals || drinks || [] : []
-          ),
-        )
-    ))
-    .catch((err) => { console.error(err); })
-);
+        .then(({ categories, meals, drinks }) =>
+          (response.ok ? categories || meals || drinks || [] : []),
+        ),
+    )
+    .catch((err) => {
+      console.error(err);
+    });
 
 export default {
   food: {

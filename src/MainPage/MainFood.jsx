@@ -1,29 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
-
-const SmallCards = ({ title, onClick }) => (
-  <button
-    type="button"
-    className="small-card"
-    data-testid={`${title}-category-filter`}
-    onClick={() => { onClick(title); }}
-  >
-    { title }
-  </button>
-);
-
-const RenderCategories = ({ categories, getValue }) => (
-  categories.map(({ strCategory, idCategory }) => (
-    <SmallCards
-      key={idCategory}
-      title={strCategory}
-      onClick={(value) => getValue(value)}
-    />),
-  )
-);
+import RenderCategories from './Gadgets/RenderCategories';
+import Header from '../Header/Header';
+import MenuInferior from '../Header/MenuInferior';
 
 const MainFood = () => {
   const { fetch, comidas12 } = useContext(AppContext);
@@ -31,63 +12,43 @@ const MainFood = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [foodCategories, setFoodCategories] = useState([]);
 
-  useEffect(async () => {
-    await fetch.setFood(api.food.searchByName(''));
-    await api.food.getCategories().then((list) => setFoodCategories(
+  useEffect(() => {
+    fetch.setFood(api.food.searchByName(''));
+    api.food.getCategories().then((list) => setFoodCategories(
       [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
     )).then(() => { SetIsLoading(false); });
   }, []);
 
-  const setFoodListByCategory = async (category) => {
-    SetIsLoading(true);
+  const setFoodListByCategory = (category) => {
     if (category === selectedCategory || category === 'All') {
-      await fetch.setFood(api.food.searchByName(''));
-      setSelectedCategory('');
+      fetch.setFood(api.food.searchByName(''))
+        .then(() => { setSelectedCategory(''); });
       return;
     }
-    await fetch.setFood(api.food.searchByCategory(category));
-    setSelectedCategory(category);
-    SetIsLoading(false);
+    SetIsLoading(true);
+    fetch.setFood(api.food.searchByCategory(category))
+      .then(() => { setSelectedCategory(category); SetIsLoading(false); });
   };
 
-  return (
-    (isLoading && !comidas12.length) ? (<div>Loading...</div>)
-    : (
-      <div>
-        <div className="card-container">
-          <RenderCategories
-            categories={foodCategories}
-            getValue={(r) => { setFoodListByCategory(r); }}
-          />
-        </div>
-        <div className="card-container">
-          {
-            comidas12.slice(0, 12).map(({ strMealThumb, strMeal, idMeal }, i) => (
-              <Card key={idMeal} imageSrc={strMealThumb} title={strMeal} index={i} />
-            ))
-          }
-        </div>
+  return isLoading && !comidas12.length ? (<div>Loading...</div>) : (
+    <div>
+      <Header titulo="Comidas" />
+      <div className="card-container">
+        <RenderCategories
+          categories={foodCategories}
+          getValue={(r) => {
+            setFoodListByCategory(r);
+          }}
+        />
       </div>
-    )
+      <div className="card-container">
+        {comidas12.slice(0, 12).map(({ strMealThumb, strMeal, idMeal }, i) => (
+          <Card key={idMeal} imageSrc={strMealThumb} title={strMeal} index={i} />
+        ))}
+      </div>
+      <MenuInferior />
+    </div>
   );
-};
-
-SmallCards.propTypes = {
-  title: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
-};
-
-RenderCategories.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
-  getValue: PropTypes.func,
-};
-
-SmallCards.defaultProps = {
-  onClick: () => {},
-};
-
-RenderCategories.defaultProps = {
-  categories: [],
 };
 
 export default MainFood;
