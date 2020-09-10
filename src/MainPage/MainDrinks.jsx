@@ -11,22 +11,28 @@ const MainDrinks = () => {
   const [drinkCategories, setDrinkCategories] = useState([]);
 
   useEffect(async () => {
-    await fetch.setDrink(api.drink.searchByName(''));
-    await api.drink.getCategories().then((list) => setDrinkCategories(
-      [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
-    )).then(() => { SetIsLoading(false); });
+    async function fetchAll() {
+      await fetch.setDrink(api.drink.searchByName(''));
+      await api.drink.getCategories().then((list) => setDrinkCategories(
+        [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
+      )).then(() => { SetIsLoading(false); });
+    }
+    fetchAll();
   }, []);
 
-  const setDrinkListByCategory = async (category) => {
-    SetIsLoading(true);
-    if (category === selectedCategory || category === 'All') {
-      await fetch.setDrink(api.drink.searchByName(''));
-      setSelectedCategory('');
-      return;
+  const setDrinkListByCategory = (category) => {
+    async function fetchAll() {
+      SetIsLoading(true);
+      if (category === selectedCategory || category === 'All') {
+        await fetch.setDrink(api.drink.searchByName(''));
+        setSelectedCategory('');
+        return;
+      }
+      await fetch.setDrink(api.drink.searchByCategory(category));
+      setSelectedCategory(category);
+      SetIsLoading(false);
     }
-    await fetch.setDrink(api.drink.searchByCategory(category));
-    setSelectedCategory(category);
-    SetIsLoading(false);
+    fetchAll();
   };
 
   return (
