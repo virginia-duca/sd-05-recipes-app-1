@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -5,19 +7,20 @@ import './Card.css';
 
 const Card = ({ imageSrc, onClick, title, index }) => (
   <button
-    className="card"
-    onClick={(ev) => { onClick(ev); }}
-    data-testid={`${index}-recipe-card`}
-  >
-    <div className="card-header">
+    className='card'
+    onClick={(ev) => {
+      onClick(ev);
+    }}
+    data-testid={`${index}-recipe-card`}>
+    <div className='card-header'>
       <img
         src={imageSrc}
         data-testid={`${index}-card-img`}
-        className="card-img"
-        alt="Background Card"
+        className='card-img'
+        alt='Background Card'
       />
     </div>
-    <div className="card-title">
+    <div className='card-title'>
       <h3 data-testid={`${index}-card-name`}>{title}</h3>
     </div>
   </button>
