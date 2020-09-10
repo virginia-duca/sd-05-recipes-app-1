@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -17,5 +18,9 @@ class Header extends React.Component {
     );
   }
 }
+
+Header.propTypes = {
+  titulo: PropTypes.string.isRequired,
+};
 
 export default Header;
