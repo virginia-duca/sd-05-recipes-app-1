@@ -59,6 +59,7 @@ const MainFood = () => {
     SetIsLoading(false);
   };
 
+  const comidas = "Comidas"
   return isLoading && !comidas12.length ? (
     <div>Loading...</div>
   ) : (

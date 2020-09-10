@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from '../Header/Header';
+import HeaderTwo from '../Header/HeaderTwo';
 
 export default function Profile()  {
     return  (
-    <Header titulo="Perfil"/>
+    <HeaderTwo titulo={"Perfil"}/>
     )
 }
