@@ -12,34 +12,26 @@ const MainDrinks = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [drinkCategories, setDrinkCategories] = useState([]);
 
-  useEffect(async () => {
-    async function fetchAll() {
-      await fetch.setDrink(api.drink.searchByName(''));
-      await api.drink.getCategories().then((list) => setDrinkCategories(
-        [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
-      )).then(() => { SetIsLoading(false); });
-    }
-    fetchAll();
-  }, []);
-
   const setDrinkListByCategory = (category) => {
-    async function fetchAll() {
-      SetIsLoading(true);
-      if (category === selectedCategory || category === 'All') {
-        await fetch.setDrink(api.drink.searchByName(''));
-        setSelectedCategory('');
-        return;
-      }
-      await fetch.setDrink(api.drink.searchByCategory(category));
-      setSelectedCategory(category);
-      SetIsLoading(false);
+    if (category === selectedCategory || category === 'All') {
+      fetch.setDrink(api.drink.searchByName(''))
+        .then(() => { setSelectedCategory(''); });
+      return;
     }
-    fetchAll();
+    SetIsLoading(true);
+    fetch.setDrink(api.drink.searchByCategory(category))
+      .then(() => { setSelectedCategory(category); SetIsLoading(false); });
   };
 
+  useEffect(() => {
+    fetch.setDrink(api.drink.searchByName(''));
+    api.drink.getCategories().then((list) => setDrinkCategories(
+      [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
+    )).then(() => { SetIsLoading(false); });
+  }, []);
+
   return (
-    (isLoading && !bebidas12.length) ? (<div>Loading...</div>)
-    : (
+    (isLoading && !bebidas12.length) ? (<div>Loading...</div>) : (
       <div>
         <Header titulo="Bebidas" />
         <div className="card-container">
@@ -49,11 +41,9 @@ const MainDrinks = () => {
           />
         </div>
         <div className="card-container">
-          {
-            bebidas12.slice(0, 12).map(({ strDrinkThumb, strDrink, idDrink }, i) => (
-              <Card key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i} />
-            ))
-          }
+          {bebidas12.slice(0, 12).map(({ strDrinkThumb, strDrink, idDrink }, i) => (
+            <Card key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i} />
+          ))}
         </div>
         <MenuInferior />
       </div>

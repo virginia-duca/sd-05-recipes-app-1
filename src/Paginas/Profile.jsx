@@ -1,5 +1,3 @@
-/** @format */
-
 import React from 'react';
 import HeaderTwo from '../Header/HeaderTwo';
 import MenuInferior from '../Header/MenuInferior';
