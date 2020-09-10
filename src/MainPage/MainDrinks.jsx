@@ -3,6 +3,8 @@ import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
 import RenderCategories from './Gadgets/RenderCategories';
+import Header from '../Header/Header';
+import MenuInferior from '../Header/MenuInferior';
 
 const MainDrinks = () => {
   const { fetch, bebidas12 } = useContext(AppContext);
@@ -39,6 +41,7 @@ const MainDrinks = () => {
     (isLoading && !bebidas12.length) ? (<div>Loading...</div>)
     : (
       <div>
+        <Header titulo="Bebidas" />
         <div className="card-container">
           <RenderCategories
             categories={drinkCategories}
@@ -52,6 +55,7 @@ const MainDrinks = () => {
             ))
           }
         </div>
+        <MenuInferior />
       </div>
     )
   );
