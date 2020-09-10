@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useEffect, useState, useContext } from 'react';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
@@ -15,41 +13,26 @@ const MainFood = () => {
   const [foodCategories, setFoodCategories] = useState([]);
 
   useEffect(() => {
-    async function fetchAll() {
-      await fetch.setFood(api.food.searchByName(''));
-      await api.food
-        .getCategories()
-        .then((list) =>
-          setFoodCategories([{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)]),
-        )
-        .then(() => {
-          SetIsLoading(false);
-        });
-    }
-    fetchAll();
+    fetch.setFood(api.food.searchByName(''));
+    api.food.getCategories().then((list) => setFoodCategories(
+      [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
+    )).then(() => { SetIsLoading(false); });
   }, []);
 
   const setFoodListByCategory = (category) => {
-    async function fetchAll() {
-      SetIsLoading(true);
-      if (category === selectedCategory || category === 'All') {
-        await fetch.setFood(api.food.searchByName(''));
-        setSelectedCategory('');
-        return;
-      }
-      await fetch.setFood(api.food.searchByCategory(category));
-      setSelectedCategory(category);
-      SetIsLoading(false);
+    if (category === selectedCategory || category === 'All') {
+      fetch.setFood(api.food.searchByName(''))
+        .then(() => { setSelectedCategory(''); });
+      return;
     }
-    fetchAll();
+    SetIsLoading(true);
+    fetch.setFood(api.food.searchByCategory(category))
+      .then(() => { setSelectedCategory(category); SetIsLoading(false); });
   };
 
-  const comidas = 'Comidas';
-  return isLoading && !comidas12.length ? (
-    <div>Loading...</div>
-  ) : (
+  return isLoading && !comidas12.length ? (<div>Loading...</div>) : (
     <div>
-      <Header titulo={comidas} />
+      <Header titulo="Comidas" />
       <div className="card-container">
         <RenderCategories
           categories={foodCategories}

@@ -1,5 +1,3 @@
-/** @format */
-
 // Time, refatorei a API mantendo apenas uma função interna fetchAPI
 // e um objeto APIS contendo tanto a URL de cada API quanto os métodos
 // e funções para interagir com ela. Sendo assim, fica mais fácil
@@ -27,7 +25,7 @@ const fetchAPI = (url) =>
       response
         .json()
         .then(({ categories, meals, drinks }) =>
-          response.ok ? categories || meals || drinks || [] : [],
+          (response.ok ? categories || meals || drinks || [] : []),
         ),
     )
     .catch((err) => {
