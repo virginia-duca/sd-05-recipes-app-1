@@ -78,7 +78,7 @@ SmallCards.propTypes = {
 };
 
 RenderCategories.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   getValue: PropTypes.func,
 };
 

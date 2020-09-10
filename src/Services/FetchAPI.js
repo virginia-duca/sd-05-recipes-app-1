@@ -57,6 +57,9 @@ export default {
   },
   drink: {
     baseUrl: 'https://www.thecocktaildb.com/api/json/v1/1/',
+    getCategories() {
+      return fetchAPI(`${this.baseUrl}list.php?c=list`);
+    },
     searchByName(name) {
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
     },
