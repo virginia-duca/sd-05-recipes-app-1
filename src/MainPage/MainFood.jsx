@@ -1,9 +1,12 @@
+/** @format */
+
 import React, { useEffect, useState, useContext } from 'react';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
 import RenderCategories from './Gadgets/RenderCategories';
 import Header from '../Header/Header';
+import MenuInferior from '../Header/MenuInferior';
 
 const MainFood = () => {
   const { fetch, comidas12 } = useContext(AppContext);
@@ -12,10 +15,25 @@ const MainFood = () => {
   const [foodCategories, setFoodCategories] = useState([]);
 
   useEffect(() => {
+<<<<<<< HEAD
     fetch.setFood(api.food.searchByName(''));
     api.food.getCategories().then((list) => setFoodCategories(
       [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)],
     )).then(() => { SetIsLoading(false); });
+=======
+    async function fetchAll() {
+      await fetch.setFood(api.food.searchByName(''));
+      await api.food
+        .getCategories()
+        .then((list) =>
+          setFoodCategories([{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)]),
+        )
+        .then(() => {
+          SetIsLoading(false);
+        });
+    }
+    fetchAll();
+>>>>>>> f9dfbaf48beab118fe558194c15acfae9ee3972c
   }, []);
 
   const setFoodListByCategory = (category) => {
@@ -29,6 +47,10 @@ const MainFood = () => {
       .then(() => { setSelectedCategory(category); SetIsLoading(false); })
   };
 
+<<<<<<< HEAD
+=======
+  const comidas = 'Comidas';
+>>>>>>> f9dfbaf48beab118fe558194c15acfae9ee3972c
   return isLoading && !comidas12.length ? (
     <div>Loading...</div>
   ) : (
@@ -44,16 +66,12 @@ const MainFood = () => {
       </div>
       <div className="card-container">
         {comidas12.slice(0, 12).map(({ strMealThumb, strMeal, idMeal }, i) => (
-          <Card
-            key={idMeal}
-            imageSrc={strMealThumb}
-            title={strMeal}
-            index={i}
-          />
+          <Card key={idMeal} imageSrc={strMealThumb} title={strMeal} index={i} />
         ))}
       </div>
+      <MenuInferior />
     </div>
-    )
+  );
 };
 
 export default MainFood;

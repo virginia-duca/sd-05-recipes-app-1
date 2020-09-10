@@ -4,6 +4,7 @@ import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
 import RenderCategories from './Gadgets/RenderCategories';
 import Header from '../Header/Header';
+import MenuInferior from '../Header/MenuInferior';
 
 const MainDrinks = () => {
   const { fetch, bebidas12 } = useContext(AppContext);
@@ -44,6 +45,7 @@ const MainDrinks = () => {
             <Card key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i} />
           ))}
         </div>
+        <MenuInferior />
       </div>
     )
   );

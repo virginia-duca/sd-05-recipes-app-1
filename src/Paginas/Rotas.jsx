@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MainFood from '../MainPage/MainFood';
@@ -42,7 +44,7 @@ function Rotas() {
         <Route path="/perfil">
           <Profile />
         </Route>
-        <Route path="/receitas-feitas" >
+        <Route path="/receitas-feitas">
           <ReceitasFeitas />
         </Route>
         <Route path="/receitas-favoritas">

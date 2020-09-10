@@ -1,3 +1,5 @@
+/** @format */
+
 // Time, refatorei a API mantendo apenas uma função interna fetchAPI
 // e um objeto APIS contendo tanto a URL de cada API quanto os métodos
 // e funções para interagir com ela. Sendo assim, fica mais fácil
@@ -19,18 +21,18 @@
 // Output -> [{ idDrink: "17255", strDrink: "Gimlet", ... }, ...]
 // --------------------------------------------------------------------------------------
 
-const fetchAPI = (url) => (
+const fetchAPI = (url) =>
   fetch(url)
-    .then((response) => (
-        response
+    .then((response) =>
+      response
         .json()
-        .then(({ categories, meals, drinks }) => (
-            response.ok ? categories || meals || drinks || [] : []
-          ),
-        )
-    ))
-    .catch((err) => { console.error(err); })
-);
+        .then(({ categories, meals, drinks }) =>
+          response.ok ? categories || meals || drinks || [] : [],
+        ),
+    )
+    .catch((err) => {
+      console.error(err);
+    });
 
 export default {
   food: {
