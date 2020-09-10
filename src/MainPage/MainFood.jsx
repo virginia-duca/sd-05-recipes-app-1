@@ -22,15 +22,15 @@ const MainFood = () => {
   const setFoodListByCategory = (category) => {
     if (category === selectedCategory || category === 'All') {
       fetch.setFood(api.food.searchByName(''))
-        .then(() => { setSelectedCategory(''); })
+        .then(() => { setSelectedCategory(''); });
       return;
     }
     SetIsLoading(true);
     fetch.setFood(api.food.searchByCategory(category))
-      .then(() => { setSelectedCategory(category); SetIsLoading(false); })
+      .then(() => { setSelectedCategory(category); SetIsLoading(false); });
   };
 
-  return isLoading && !comidas12.length ? ( <div>Loading...</div> ) : (
+  return isLoading && !comidas12.length ? (<div>Loading...</div>) : (
     <div>
       <Header titulo="Comidas" />
       <div className="card-container">

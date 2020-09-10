@@ -13,14 +13,14 @@ const MainDrinks = () => {
   const [drinkCategories, setDrinkCategories] = useState([]);
 
   const setDrinkListByCategory = (category) => {
-      if (category === selectedCategory || category === 'All') {
-        fetch.setDrink(api.drink.searchByName(''))
-          .then(() => { setSelectedCategory('') });
-        return;
-      }
-      SetIsLoading(true);
-      fetch.setDrink(api.drink.searchByCategory(category))
-        .then(() => { setSelectedCategory(category); SetIsLoading(false); });
+    if (category === selectedCategory || category === 'All') {
+      fetch.setDrink(api.drink.searchByName(''))
+        .then(() => { setSelectedCategory(''); });
+      return;
+    }
+    SetIsLoading(true);
+    fetch.setDrink(api.drink.searchByCategory(category))
+      .then(() => { setSelectedCategory(category); SetIsLoading(false); });
   };
 
   useEffect(() => {
