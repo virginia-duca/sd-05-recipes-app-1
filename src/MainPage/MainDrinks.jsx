@@ -6,8 +6,19 @@ import RenderCategories from './Gadgets/RenderCategories';
 import Header from '../Header/Header';
 import MenuInferior from '../Header/MenuInferior';
 
+/* function mapArray(array) {
+  return (
+    <div className="card-container">
+      {Array.isArray(array) && array.slice(0, 12)
+      .map(({ strDrinkThumb, strDrink, idDrink }, i) => (
+        <Card key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i} />
+      ))}
+    </div>
+  );
+} */
+
 const MainDrinks = () => {
-  const { fetch, bebidas12 } = useContext(AppContext);
+  const { fetch, bebidas12, bebidasFiltradas } = useContext(AppContext);
   const [isLoading, SetIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [drinkCategories, setDrinkCategories] = useState([]);
@@ -40,11 +51,19 @@ const MainDrinks = () => {
             getValue={(r) => { setDrinkListByCategory(r); }}
           />
         </div>
-        <div className="card-container">
-          {bebidas12.slice(0, 12).map(({ strDrinkThumb, strDrink, idDrink }, i) => (
-            <Card key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i} />
-          ))}
-        </div>
+        {Array.isArray(bebidasFiltradas) && bebidasFiltradas.length > 0
+        ? <div className="card-container">
+            {Array.isArray(bebidasFiltradas) && bebidasFiltradas.slice(0, 12)
+            .map(({ strDrinkThumb, strDrink, idDrink }, i) => (
+              <Card key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i} />
+            ))}
+          </div>
+        : <div className="card-container">
+            {Array.isArray(bebidas12) && bebidas12.slice(0, 12)
+            .map(({ strDrinkThumb, strDrink, idDrink }, i) => (
+              <Card key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i} />
+            ))}
+          </div>}
         <MenuInferior />
       </div>
     )

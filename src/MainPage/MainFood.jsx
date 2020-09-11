@@ -7,7 +7,7 @@ import Header from '../Header/Header';
 import MenuInferior from '../Header/MenuInferior';
 
 const MainFood = () => {
-  const { fetch, comidas12 } = useContext(AppContext);
+  const { fetch, comidas12, comidasFiltradas } = useContext(AppContext);
   const [isLoading, SetIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [foodCategories, setFoodCategories] = useState([]);
@@ -30,6 +30,24 @@ const MainFood = () => {
       .then(() => { setSelectedCategory(category); SetIsLoading(false); });
   };
 
+  function mapArray(array) {
+    return (
+      <div className="card-container">
+        {Array.isArray(array) && array.slice(0, 12).map(({ strMealThumb, strMeal, idMeal }, i) => (
+          <Card key={idMeal} imageSrc={strMealThumb} title={strMeal} index={i} />
+        ))}
+      </div>
+    );
+  }
+
+  function setRender() {
+    console.log('entrou no setrender')
+    if (Array.isArray(comidasFiltradas) && comidasFiltradas.length > 0) {
+      return mapArray(comidasFiltradas)
+    }
+    return mapArray(comidas12);
+  }
+
   return isLoading && !comidas12.length ? (<div>Loading...</div>) : (
     <div>
       <Header titulo="Comidas" />
@@ -40,11 +58,9 @@ const MainFood = () => {
             setFoodListByCategory(r);
           }}
         />
-      </div>
-      <div className="card-container">
-        {comidas12.slice(0, 12).map(({ strMealThumb, strMeal, idMeal }, i) => (
-          <Card key={idMeal} imageSrc={strMealThumb} title={strMeal} index={i} />
-        ))}
+        <div>
+          {setRender()}
+        </div>
       </div>
       <MenuInferior />
     </div>
