@@ -5,12 +5,10 @@ import PropTypes from 'prop-types';
 
 import './Card.css';
 
-const Card = ({ imageSrc, onClick, title, index, testIdArray, className }) => (
+const Card = ({ imageSrc, title, index, testIdArray, className }) => (
   <div
     className={`card ${className}`}
-    onClick={(ev) => { onClick(ev); }}
     data-testid={`${index}${testIdArray[0]}`}
-    
   >
     <div className="card-header">
       <img
@@ -28,7 +26,6 @@ const Card = ({ imageSrc, onClick, title, index, testIdArray, className }) => (
 
 Card.propTypes = {
   imageSrc: PropTypes.string,
-  onClick: PropTypes.func,
   title: PropTypes.string.isRequired,
   testIdArray: PropTypes.arrayOf(PropTypes.string).isRequired,
   index: PropTypes.number,
@@ -38,7 +35,6 @@ Card.propTypes = {
 Card.defaultProps = {
   className: '',
   imageSrc: 'https://i.ytimg.com/vi/K4oJmxmuXYY/maxresdefault.jpg',
-  onClick: () => {},
   index: 0,
 };
 

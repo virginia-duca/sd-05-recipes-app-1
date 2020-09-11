@@ -1,14 +1,13 @@
-/** @format */
-
 import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
+import { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 
-function SearchBar({ location: { pathname } }) {
-  const { fetch } = useContext(AppContext);
 
+function SearchBar({ location: { pathname }, history }) {
+  const { fetch, comidasFiltradas, bebidasFiltradas } = useContext(AppContext);
   const [filtroSelecionado, setFiltro] = useState('');
   const [inputText, setInputText] = useState('');
 
@@ -24,6 +23,25 @@ function SearchBar({ location: { pathname } }) {
       setFilterFunction(apiss.searchByFirstLetter(inputText));
     }
   }
+
+  function Redirect() {
+    const arrayFiltered =
+      (bebidasFiltradas === 'inicial' ? false : bebidasFiltradas)
+      || (comidasFiltradas === 'inicial' ? false : comidasFiltradas);
+
+    if (arrayFiltered.length === 1) {
+      const id = Object.entries(...arrayFiltered)
+      .filter(({0: key}) => key.includes('id'))
+      .map(({ 1: id }) => id || "nada");
+      if (pathname === '/comidas') history.push(`/comidas/${[...id]}`);
+      else history.push(`/bebidas/${[...id]}`);
+    }
+  }
+
+  useEffect(() => {
+    Redirect();
+  }, [comidasFiltradas, bebidasFiltradas]);
+
   // prettier-ignore
   return (
     <div>

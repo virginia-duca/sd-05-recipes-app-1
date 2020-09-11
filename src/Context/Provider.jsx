@@ -14,9 +14,7 @@ const Provider = (props) => {
   const [bebidasFiltradas, setBebidasFiltradas] = useState('inicial');
 
   useEffect(() => {
-    comidasFiltradas.length === 0 &&
-      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    bebidasFiltradas.length === 0 &&
+    if(comidasFiltradas.length === 0 || bebidasFiltradas.length === 0)
       window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }, [comidasFiltradas, bebidasFiltradas]);
 

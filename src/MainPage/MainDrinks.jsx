@@ -31,6 +31,11 @@ const MainDrinks = () => {
     )).then(() => { SetIsLoading(false); });
   }, []);
 
+  const getDrinks = () => (
+    (Array.isArray(bebidasFiltradas) && bebidasFiltradas.slice(0, 12))
+    || (bebidas12 || []) || []
+  );
+
   return (
     (isLoading && !bebidas12.length) ? (<div>Loading...</div>) : (
       <div>
@@ -41,25 +46,16 @@ const MainDrinks = () => {
             getValue={(r) => { setDrinkListByCategory(r); }}
           />
         </div>
-        {Array.isArray(bebidasFiltradas) && bebidasFiltradas.length > 0
-        ? <div className="card-container">
-            {Array.isArray(bebidasFiltradas) && bebidasFiltradas.slice(0, 12)
-            .map(({ strDrinkThumb, strDrink, idDrink }, i) => (
+        <div className="card-container">
+          {getDrinks().map(({ strDrinkThumb, strDrink, idDrink }, i) => (
+            <Link to={`bebidas/${idDrink}`}>
               <Card 
                 key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i}
                 testIdArray={['-recipe-card', '-card-img', '-card-name']}
               />
-            ))}
-          </div>
-        : <div className="card-container">
-            {Array.isArray(bebidas12) && bebidas12.slice(0, 12)
-            .map(({ strDrinkThumb, strDrink, idDrink }, i) => (
-              <Card
-                key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i}
-                testIdArray={['-recipe-card', '-card-img', '-card-name']}
-              />
-            ))}
-          </div>}
+            </Link>
+          ))}
+        </div>
         <MenuInferior />
       </div>
     )
