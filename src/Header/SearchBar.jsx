@@ -32,7 +32,7 @@ function SearchBar({ location: { pathname }, history }) {
     if (arrayFiltered.length === 1) {
       const id = Object.entries(...arrayFiltered)
       .filter(({0: key}) => key.includes('id'))
-      .map(({ 1: id }) => id || "nada");
+      .map(({ 1: id }) => id);
       if (pathname === '/comidas') history.push(`/comidas/${[...id]}`);
       else history.push(`/bebidas/${[...id]}`);
     }

@@ -7,6 +7,10 @@ import RenderCategories from './Gadgets/RenderCategories';
 import Header from '../Header/Header';
 import MenuInferior from '../Header/MenuInferior';
 
+const getFiltered = (bebidasFiltradas, bebidas12) =>
+  (Array.isArray(bebidasFiltradas) && bebidasFiltradas.slice(0, 12))
+  || (bebidas12 || []) || [];
+
 const MainDrinks = () => {
   const { fetch, bebidas12, bebidasFiltradas } = useContext(AppContext);
   const [isLoading, SetIsLoading] = useState(true);
@@ -31,11 +35,6 @@ const MainDrinks = () => {
     )).then(() => { SetIsLoading(false); });
   }, []);
 
-  const getDrinks = () => (
-    (Array.isArray(bebidasFiltradas) && bebidasFiltradas.slice(0, 12))
-    || (bebidas12 || []) || []
-  );
-
   return (
     (isLoading && !bebidas12.length) ? (<div>Loading...</div>) : (
       <div>
@@ -47,14 +46,15 @@ const MainDrinks = () => {
           />
         </div>
         <div className="card-container">
-          {getDrinks().map(({ strDrinkThumb, strDrink, idDrink }, i) => (
-            <Link to={`bebidas/${idDrink}`}>
-              <Card 
-                key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i}
-                testIdArray={['-recipe-card', '-card-img', '-card-name']}
-              />
-            </Link>
-          ))}
+          {getFiltered(bebidasFiltradas ,bebidas12)
+            .map(({ strDrinkThumb, strDrink, idDrink }, i) =>
+              <Link to={`bebidas/${idDrink}`}>
+                <Card 
+                  key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i}
+                  testIdArray={['-recipe-card', '-card-img', '-card-name']}
+                />
+              </Link>
+          )}
         </div>
         <MenuInferior />
       </div>
