@@ -38,6 +38,9 @@ export default {
     getCategories() {
       return fetchAPI(`${this.baseUrl}list.php?c=list`);
     },
+    getRecipeById(id) {
+      return fetchAPI(`${this.baseUrl}lookup.php?i=${id}`);
+    },
     searchByCategory(category) {
       return fetchAPI(`${this.baseUrl}filter.php?c=${category}`);
     },
@@ -59,6 +62,9 @@ export default {
     baseUrl: 'https://www.thecocktaildb.com/api/json/v1/1/',
     getCategories() {
       return fetchAPI(`${this.baseUrl}list.php?c=list`);
+    },
+    getRecipeById(id) {
+      return fetchAPI(`${this.baseUrl}lookup.php?i=${id}`);
     },
     searchByName(name) {
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);

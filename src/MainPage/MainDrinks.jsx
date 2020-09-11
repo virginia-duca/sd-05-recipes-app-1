@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
@@ -42,7 +43,15 @@ const MainDrinks = () => {
         </div>
         <div className="card-container">
           {bebidas12.slice(0, 12).map(({ strDrinkThumb, strDrink, idDrink }, i) => (
-            <Card key={idDrink} imageSrc={strDrinkThumb} title={strDrink} index={i} />
+            <Link to={`bebidas/${idDrink}`} >
+              <Card
+                key={idDrink}
+                imageSrc={strDrinkThumb}
+                title={strDrink}
+                index={i}
+                testIdArray={['-recipe-card', '-card-img', '-card-name']}
+              />
+            </Link>
           ))}
         </div>
         <MenuInferior />

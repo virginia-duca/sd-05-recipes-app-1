@@ -1,14 +1,21 @@
-/** @format */
-
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import MainFood from '../MainPage/MainFood';
+
 import LogIn from '../Login/LogIn';
-import Profile from './Profile';
-import MainDrinks from '../MainPage/MainDrinks';
-import MainExplore from '../Explore/MainExplore';
+
+// Food
+import MainFood from '../MainPage/MainFood';
 import ExploreFood from '../Explore/ExploreFood';
+
+// Drink
+import MainDrinks from '../MainPage/MainDrinks';
 import ExploreDrink from '../Explore/ExploreDrink';
+
+// Details
+import Detail from '../DetailPage/Detail';
+
+import Profile from './Profile';
+import MainExplore from '../Explore/MainExplore';
 import ReceitasFeitas from '../Receitas/ReceitasFeitas';
 import ReceitasFavoritas from '../Receitas/ReceitasFavoritas';
 
@@ -19,15 +26,19 @@ function Rotas() {
         <Route exact path="/">
           <LogIn />
         </Route>
-        <Route path="/comidas">
+        <Route exact path="/comidas">
           <MainFood />
         </Route>
-        <Route path="/comidas/{id-da-receita}" />
+        <Route path="/comidas/:id">
+          <Detail />
+        </Route>
         <Route path="/comidas/{id-da-receita}/in-progress" />
-        <Route path="/bebidas">
+        <Route exact path="/bebidas">
           <MainDrinks />
         </Route>
-        <Route path="/bebidas/{id-da-receita}" />
+        <Route path="/bebidas/:id">
+          <Detail />
+        </Route>
         <Route path="/bebidas/{id-da-receita}/in-progress" />
         <Route exact path="/explorar">
           <MainExplore />
