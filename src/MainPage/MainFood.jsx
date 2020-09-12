@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+/* import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
@@ -84,3 +84,4 @@ const MainFood = () => {
 };
 
 export default MainFood;
+ */

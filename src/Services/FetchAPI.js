@@ -42,6 +42,7 @@ export default {
       return fetchAPI(`${this.baseUrl}lookup.php?i=${id}`);
     },
     searchByCategory(category) {
+      console.log('para tudo')
       return fetchAPI(`${this.baseUrl}filter.php?c=${category}`);
     },
     searchByName(name) {
@@ -70,7 +71,7 @@ export default {
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
     },
     searchByCategory(category) {
-      return fetchAPI(`${this.baseUrl}filter.php?c=${category}`);
+      return fetchAPI(`${this.baseUrl}filter.php?c=${category.replace(' ', '_')}`);
     },
     searchByFirstLetter(letter) {
       if (letter.length > 1) {

@@ -4,11 +4,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LogIn from '../Login/LogIn';
 
 // Food
-import MainFood from '../MainPage/MainFood';
+import MainFoodCopy from '../MainPage/MainFood copy';
 import ExploreFood from '../Explore/ExploreFood';
 
 // Drink
-import MainDrinks from '../MainPage/MainDrinks';
 import ExploreDrink from '../Explore/ExploreDrink';
 
 // Details
@@ -27,14 +26,14 @@ function Rotas() {
           <LogIn />
         </Route>
         <Route exact path="/comidas">
-          <MainFood />
+          <MainFoodCopy />
         </Route>
         <Route path="/comidas/:id">
           <Detail />
         </Route>
         <Route path="/comidas/{id-da-receita}/in-progress" />
         <Route exact path="/bebidas">
-          <MainDrinks />
+          <MainFoodCopy />
         </Route>
         <Route path="/bebidas/:id">
           <Detail />
