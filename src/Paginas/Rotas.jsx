@@ -17,6 +17,7 @@ import Profile from './Profile';
 import MainExplore from '../Explore/MainExplore';
 import ReceitasFeitas from '../Receitas/ReceitasFeitas';
 import ReceitasFavoritas from '../Receitas/ReceitasFavoritas';
+import ReceitasEmProgresso from '../Receitas/ReceitasEmPrgresso';
 
 function Rotas() {
   return (
@@ -28,17 +29,21 @@ function Rotas() {
         <Route exact path="/comidas">
           <MainFoodCopy />
         </Route>
-        <Route path="/comidas/:id">
+        <Route exact path="/comidas/:id">
           <Detail />
         </Route>
-        <Route path="/comidas/{id-da-receita}/in-progress" />
+        <Route path="/comidas/:id/in-progress">
+          <ReceitasEmProgresso />
+        </Route>
         <Route exact path="/bebidas">
-          <MainFoodCopy />
+          <MainFoodCopy/>
         </Route>
-        <Route path="/bebidas/:id">
+        <Route exact path="/bebidas/:id">
           <Detail />
         </Route>
-        <Route path="/bebidas/{id-da-receita}/in-progress" />
+        <Route path="/bebidas/:id/in-progress">
+          <ReceitasEmProgresso />
+        </Route>
         <Route exact path="/explorar">
           <MainExplore />
         </Route>

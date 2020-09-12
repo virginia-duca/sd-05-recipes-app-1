@@ -5,8 +5,7 @@ import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-
-import './Detail.css';
+import './ReceitasEmProgresso.css'
 
 const getIngredientsAndMesures = (recipe) => {
   const ingredients = Object.entries(recipe)
@@ -23,9 +22,9 @@ const getIngredientsAndMesures = (recipe) => {
 const Header = ({
   recipe: { strMealThumb, strMeal, strAlcoholic, strCategory, strDrinkThumb, strDrink },
 }) => (
-  <header>
+  <header className='basic'>
     <div>
-      <img data-testid="recipe-photo" src={strMealThumb || strDrinkThumb} alt="" />
+      <img className='foto' data-testid="recipe-photo" src={strMealThumb || strDrinkThumb} alt="" />
       <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
       <h4 data-testid="recipe-category">{strAlcoholic || strCategory}</h4>
     </div>
@@ -40,18 +39,9 @@ const Header = ({
   </header>
 );
 
-const YouTube = ({ recipe: { strYoutube, strVideo } }) => (
-  <iframe
-    data-testid="video"
-    width="560"
-    height="315"
-    src={strYoutube || strVideo}
-    frameBorder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-  />
-);
 
-function Detail({ match: { params: { id } }, location: { pathname } }) {
+const ReceitasEmProgresso = ({ match: { params: { id } }, location: { pathname } }) => {
+
   const [recipe, setRecipe] = useState({});
   const [sideDish, setSideDish] = useState([]);
 
@@ -69,20 +59,20 @@ function Detail({ match: { params: { id } }, location: { pathname } }) {
   }, []);
 
   return (
-    <div>
+    <div className='basic'>
       <Header recipe={recipe} />
-      <div>
+      <div className='basic'>
         <strong>Ingredients</strong>
         {getIngredientsAndMesures(recipe).map(({ ingredient, measure }, i) =>
           <div key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
-            {`- ${ingredient} - ${measure}`}
+            <input type="checkbox" name={`${ingredient}`} />
+            <label htmlFor={`${ingredient}`}>{`${ingredient} - ${measure}`}</label>
           </div>,
         )}
-        <strong>Instructions</strong>
-        <div data-testid="instructions">
+        <strong className="instructions">Instructions</strong>
+        <div data-testid="instructions" className="instructions">
           { recipe.strInstructions }
         </div>
-        <YouTube recipe={recipe} />
         <strong>Recomendadas</strong>
         {sideDish.map(({ idDrink, idMeal, strDrinkThumb, strMealThumb, strDrink, strMeal },
         i) =>
@@ -104,13 +94,10 @@ Header.propTypes = {
   recipe: PropTypes.instanceOf(Object).isRequired,
 };
 
-YouTube.propTypes = {
-  recipe: PropTypes.instanceOf(Object).isRequired,
-};
-
-Detail.propTypes = {
+ReceitasEmProgresso.propTypes = {
   location: PropTypes.instanceOf(Object),
   match: PropTypes.instanceOf(Object),
 }.isRequired;
 
-export default withRouter(Detail);
+
+export default withRouter(ReceitasEmProgresso);
