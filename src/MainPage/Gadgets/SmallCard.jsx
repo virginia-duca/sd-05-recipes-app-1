@@ -1,3 +1,5 @@
+/** @format */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,9 +8,11 @@ const SmallCards = ({ title, onClick }) => (
     type="button"
     className="small-card"
     data-testid={`${title}-category-filter`}
-    onClick={() => { onClick(title); }}
+    onClick={() => {
+      onClick(title);
+    }}
   >
-    { title }
+    {title}
   </button>
 );
 

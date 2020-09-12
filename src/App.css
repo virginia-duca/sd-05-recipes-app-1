@@ -53,6 +53,10 @@
   margin: 8px;
 }
 
+a {
+  text-decoration: none;
+}
+
 @keyframes shake {
   0% {
     transform: rotate(5deg);
