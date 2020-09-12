@@ -15,6 +15,8 @@ const item = {
 };
 
 let categories = [];
+let apis = {};
+let fetchs = {};
 
 const MainFoodCopy = ({ location: { pathname } }) => {
   const { fetch, comidas12, bebidas12, comidasFiltradas, bebidasFiltradas } = useContext(AppContext);
@@ -26,12 +28,9 @@ const MainFoodCopy = ({ location: { pathname } }) => {
 //  const [bebidas, setBebidas] = useState([]);
   // const [categories, setCategories] = useState([]);
 
-  let apis = {};
-  let fetchs = fetch.setFood;
-
   useEffect(() => {
     // Seta os states locais
-    apis = pathname === '/comidas' ? Object.assign(api.food) : Object.assign(api.drink);
+    apis = pathname === '/comidas' ? api.food : api.drink;
     fetchs = pathname === '/comidas' ? fetch.setFood : fetch.setDrink;
 
     fetchs(apis.searchByName(''));
@@ -63,13 +62,9 @@ const MainFoodCopy = ({ location: { pathname } }) => {
         .then(() => { item.category = ''; });
       return;
     }
-    SetIsLoading(true);
-    apis.searchByCategory(category).then((r) => {
-      console.log(r);
-    })
-    
+    SetIsLoading(true);    
     fetchs(apis.searchByCategory(category))
-      .then(() => { item.category = category; SetIsLoading(false);  })
+      .then(() => { item.category = category; SetIsLoading(false); })
   };
 
   const mapArrayFood = () => {
