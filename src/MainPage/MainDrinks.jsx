@@ -7,9 +7,9 @@ import RenderCategories from './Gadgets/RenderCategories';
 import Header from '../Header/Header';
 import MenuInferior from '../Header/MenuInferior';
 
-const getFiltered = (bebidasFiltradas, bebidas12) =>
-  (Array.isArray(bebidasFiltradas) && bebidasFiltradas.slice(0, 12))
-  || (bebidas12 || []) || [];
+const getFiltered = (filtered, original) =>
+  (Array.isArray(filtered) && filtered.slice(0, 12))
+  || (original || []) || [];
 
 const MainDrinks = () => {
   const { fetch, bebidas12, bebidasFiltradas } = useContext(AppContext);

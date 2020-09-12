@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LogIn from '../Login/LogIn';
 
 // Food
+import Main from '../MainPage/Main';
 import MainFood from '../MainPage/MainFood';
 import ExploreFood from '../Explore/ExploreFood';
 
@@ -27,14 +28,14 @@ function Rotas() {
           <LogIn />
         </Route>
         <Route exact path="/comidas">
-          <MainFood />
+          <Main />
         </Route>
         <Route path="/comidas/:id">
           <Detail />
         </Route>
         <Route path="/comidas/{id-da-receita}/in-progress" />
         <Route exact path="/bebidas">
-          <MainDrinks />
+          <Main />
         </Route>
         <Route path="/bebidas/:id">
           <Detail />
