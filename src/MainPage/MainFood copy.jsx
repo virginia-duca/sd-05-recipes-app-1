@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
 import RenderCategories from './Gadgets/RenderCategories';
 import Header from '../Header/Header';
 import MenuInferior from '../Header/MenuInferior';
-import { withRouter } from 'react-router-dom';
 
 const MEAL = '/comidas';
 
@@ -26,7 +26,6 @@ const toUpper = (text) => (
 );
 
 const RenderItems = () => {
-
   const { path, comidas, bebidas } = item;
   const itemArray = path === MEAL ? comidas : bebidas;
 
@@ -36,11 +35,11 @@ const RenderItems = () => {
         Array.isArray(itemArray) && itemArray.slice(0, 12)
           .map((data, i) => (
             <Link to={`${path}/${data.idMeal || data.idDrink}`}>
-              <Card 
+              <Card
                 key={data.idMeal || data.idDrink}
                 imageSrc={data.strMealThumb || data.strDrinkThumb}
                 title={data.strMeal || data.strDrink}
-                index={i} 
+                index={i}
                 testIdArray={['-recipe-card', '-card-img', '-card-name']}
               />
             </Link>
@@ -52,7 +51,7 @@ const RenderItems = () => {
 
 const MainFoodCopy = ({ location: { pathname } }) => {
   const {
-    fetch, comidas12, bebidas12, comidasFiltradas, bebidasFiltradas
+    fetch, comidas12, bebidas12, comidasFiltradas, bebidasFiltradas,
   } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -72,7 +71,7 @@ const MainFoodCopy = ({ location: { pathname } }) => {
     item.comidas = Object.assign(comidas12);
     item.bebidas = Object.assign(bebidas12);
   }, [comidas12, bebidas12]);
-    
+
   useEffect(() => {
     if (Array.isArray(comidasFiltradas) && comidasFiltradas.length > 0) {
       item.comidas = comidasFiltradas;
@@ -106,6 +105,10 @@ const MainFoodCopy = ({ location: { pathname } }) => {
       <MenuInferior />
     </div>
   );
+};
+
+MainFoodCopy.propTypes = {
+  location: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default withRouter(MainFoodCopy);

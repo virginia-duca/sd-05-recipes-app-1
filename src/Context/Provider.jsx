@@ -48,8 +48,14 @@ const Provider = (props) => {
   // Isso aqui corresponde ao store, ou seja, é um state
   // que todos os componentes filhos têm acesso
   const store = {
-    isFetching, setIsFetching, comidas12, bebidas12, error, fetch,
-    comidasFiltradas, bebidasFiltradas,
+    isFetching,
+    setIsFetching,
+    comidas12,
+    bebidas12,
+    error,
+    fetch,
+    comidasFiltradas,
+    bebidasFiltradas,
   };
 
   // Aqui declaro um component provider, que é a "mãe" de todos os componentes
