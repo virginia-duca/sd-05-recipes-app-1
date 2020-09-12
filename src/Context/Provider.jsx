@@ -37,18 +37,24 @@ const Provider = (props) => {
       setIsFetching(false);
     },
     async setFilteredSearchBarDrink(functionOfFetch) {
-      setIsFetching(true);
-      await functionOfFetch
+      setIsFetching(true); await functionOfFetch
         .then((response) => { setBebidasFiltradas([...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
+        .catch((err) => { setError(err); }); setIsFetching(false);
     },
   };
 
   // Isso aqui corresponde ao store, ou seja, é um state
   // que todos os componentes filhos têm acesso
-  const store = { isFetching, setIsFetching, comidas12,
-  bebidas12, error, fetch, comidasFiltradas, bebidasFiltradas };
+  const store = {
+    isFetching,
+    setIsFetching,
+    comidas12,
+    bebidas12,
+    error,
+    fetch,
+    comidasFiltradas,
+    bebidasFiltradas
+  };
 
   // Aqui declaro um component provider, que é a "mãe" de todos os componentes
   // e tranfere para eles o store
