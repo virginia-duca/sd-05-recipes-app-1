@@ -9,7 +9,6 @@ import MenuInferior from '../Header/MenuInferior';
 import { withRouter } from 'react-router-dom';
 
 const MEAL = '/comidas';
-const DRINK = '/bebidas';
 
 const item = {
   comidas: [],
@@ -21,6 +20,10 @@ const item = {
 let categories = [];
 let apis = {};
 let fetchs = {};
+
+const toUpper = (text) => (
+  text.replace('/', '').replace(text[1], text[1].toUpperCase())
+);
 
 const RenderItems = () => {
 
@@ -48,17 +51,17 @@ const RenderItems = () => {
 };
 
 const MainFoodCopy = ({ location: { pathname } }) => {
-  const { fetch, comidas12, bebidas12, comidasFiltradas, bebidasFiltradas } = useContext(AppContext);
+  const {
+    fetch, comidas12, bebidas12, comidasFiltradas, bebidasFiltradas
+  } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Seta os states locais
     item.path = pathname;
-    apis = pathname === '/comidas' ? api.food : api.drink;
-    fetchs = pathname === '/comidas' ? fetch.setFood : fetch.setDrink;
-
+    apis = pathname === MEAL ? api.food : api.drink;
+    fetchs = pathname === MEAL ? fetch.setFood : fetch.setDrink;
     fetchs(apis.searchByName(''));
-
     // Seta as categorias
     apis.getCategories().then((list) => {
       categories = [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)];
@@ -87,12 +90,12 @@ const MainFoodCopy = ({ location: { pathname } }) => {
     }
     setIsLoading(true);    
     fetchs(apis.searchByCategory(category))
-      .then(() => { item.category = category; setIsLoading(false); })
+      .then(() => { item.category = category; setIsLoading(false); });
   };
   
-  return isLoading ? (<div>Loading...</div>) : (
+  return isLoading ? <div>Loading...</div> : (
     <div>
-      <Header titulo="Comidas" />
+      <Header titulo={toUpper(item.path)} />
       <div className="card-container">
         <RenderCategories
           categories={categories}
