@@ -21,20 +21,17 @@ const Provider = (props) => {
     async setFood(functionOfFetch) {
       setIsFetching(true);
       await functionOfFetch.then((response) => { setComidas12([...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
+        .catch((err) => { setError(err); }); setIsFetching(false);
     },
     async setDrink(functionOfFetch) {
       setIsFetching(true);
       await functionOfFetch.then((response) => { setBebidas12([...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
+        .catch((err) => { setError(err); }); setIsFetching(false);
     },
     async setFilteredSearchBarFood(functionOfFetch) {
-      setIsFetching(true);
-      await functionOfFetch.then((response) => { setComidasFiltradas([...response]); })
-        .catch((err) => { setError(err); });
-      setIsFetching(false);
+      setIsFetching(true); await functionOfFetch
+        .then((response) => { setComidasFiltradas([...response]); })
+        .catch((err) => { setError(err); }); setIsFetching(false);
     },
     async setFilteredSearchBarDrink(functionOfFetch) {
       setIsFetching(true); await functionOfFetch
@@ -53,7 +50,7 @@ const Provider = (props) => {
     error,
     fetch,
     comidasFiltradas,
-    bebidasFiltradas
+    bebidasFiltradas,
   };
 
   // Aqui declaro um component provider, que é a "mãe" de todos os componentes
