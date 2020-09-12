@@ -42,7 +42,6 @@ export default {
       return fetchAPI(`${this.baseUrl}lookup.php?i=${id}`);
     },
     searchByCategory(category) {
-      console.log('para tudo')
       return fetchAPI(`${this.baseUrl}filter.php?c=${category}`);
     },
     searchByName(name) {

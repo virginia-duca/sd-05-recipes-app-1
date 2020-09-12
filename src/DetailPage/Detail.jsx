@@ -99,25 +99,11 @@ function Detail({ match: { params: { id } }, location: { pathname } }) {
 }
 
 Header.propTypes = {
-  strMealThumb: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  strMeal: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  strAlcoholic: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  strCategory: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  strDrinkThumb: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  strDrink: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-};
-
-Header.defaultProps = {
-  strMealThumb: false,
-  strMeal: false,
-  strAlcoholic: false,
-  strCategory: false,
-  strDrinkThumb: false,
-  strDrink: false,
+  recipe: PropTypes.instanceOf(Object).isRequired,
 };
 
 YouTube.propTypes = {
-  recipe: PropTypes.instanceOf(Object),
+  recipe: PropTypes.instanceOf(Object).isRequired,
 };
 
 Detail.propTypes = {

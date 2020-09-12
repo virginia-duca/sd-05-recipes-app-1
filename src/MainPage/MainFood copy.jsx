@@ -66,12 +66,12 @@ const MainFoodCopy = ({ location: { pathname } }) => {
     apis.getCategories().then((list) => {
       categories = [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)];
     }).then(() => { setIsLoading(false); });
-  }, [])
+  }, []);
 
   useEffect(() => {
     item.comidas = Object.assign(comidas12);
     item.bebidas = Object.assign(bebidas12);
-  }, [comidas12, bebidas12])
+  }, [comidas12, bebidas12]);
     
   useEffect(() => {
     if (Array.isArray(comidasFiltradas) && comidasFiltradas.length > 0) {
@@ -80,7 +80,7 @@ const MainFoodCopy = ({ location: { pathname } }) => {
     if (Array.isArray(bebidasFiltradas) && bebidasFiltradas.length > 0) {
       item.bebidas = bebidasFiltradas;
     }
-  }, [comidasFiltradas, bebidasFiltradas])
+  }, [comidasFiltradas, bebidasFiltradas]);
 
   const setItemListByCategory = (category) => {
     if (category === item.category || category === 'All') {
@@ -88,11 +88,11 @@ const MainFoodCopy = ({ location: { pathname } }) => {
         .then(() => { item.category = ''; });
       return;
     }
-    setIsLoading(true);    
+    setIsLoading(true);
     fetchs(apis.searchByCategory(category))
       .then(() => { item.category = category; setIsLoading(false); });
   };
-  
+
   return isLoading ? <div>Loading...</div> : (
     <div>
       <Header titulo={toUpper(item.path)} />
