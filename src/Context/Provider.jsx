@@ -12,7 +12,7 @@ const Provider = (props) => {
   const [bebidasFiltradas, setBebidasFiltradas] = useState('inicial');
 
   useEffect(() => {
-    if(comidasFiltradas.length === 0 || bebidasFiltradas.length === 0) {
+    if (comidasFiltradas.length === 0 || bebidasFiltradas.length === 0) {
       window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }, [comidasFiltradas, bebidasFiltradas]);
@@ -47,16 +47,8 @@ const Provider = (props) => {
 
   // Isso aqui corresponde ao store, ou seja, é um state
   // que todos os componentes filhos têm acesso
-  const store = {
-    isFetching,
-    setIsFetching,
-    comidas12,
-    bebidas12,
-    error,
-    fetch,
-    comidasFiltradas,
-    bebidasFiltradas,
-  };
+  const store = { isFetching, setIsFetching, comidas12,
+  bebidas12, error, fetch, comidasFiltradas, bebidasFiltradas };
 
   // Aqui declaro um component provider, que é a "mãe" de todos os componentes
   // e tranfere para eles o store
