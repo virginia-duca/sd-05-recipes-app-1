@@ -1,4 +1,6 @@
-const setFavoriteStorage = ({ 
+import storage from './LocalStorage'
+
+export const setFavoriteStorage = ({ 
   strMealThumb, strMeal, strAlcoholic, strCategory, strDrinkThumb, strDrink, strArea, idMeal, idDrink
 }) => {
   const favoriteRecipe = {

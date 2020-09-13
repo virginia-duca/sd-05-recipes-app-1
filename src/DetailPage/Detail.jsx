@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
+import storage from '../Services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
@@ -51,11 +52,12 @@ const YouTube = ({ recipe: { strYoutube, strVideo } }) => (
   />
 );
 
-function Detail({ match: { params: { id } }, location: { pathname } }) {
+function Detail({ match: { params: { id } }, location: { pathname }, history }) {
   const [recipe, setRecipe] = useState({});
   const [sideDish, setSideDish] = useState([]);
 
   useEffect(() => {
+    storage.initStorage();
     // Verifica qual página está sendo montada
     const recipeFunc = pathname.split('/')[1] === 'comidas' ?
       api.food : api.drink;
@@ -67,6 +69,23 @@ function Detail({ match: { params: { id } }, location: { pathname } }) {
     sideDishFunc.searchByName('')
       .then((array) => { setSideDish(array.slice(0, 6)); });
   }, []);
+
+  const startRecipe = () => {
+    const product = pathname.split('/')[1] === 'comidas' ? 'meals' : 'cocktails';
+    const id = pathname.split('/')[2];
+    const curRecipes = storage.getValueByKey('inProgressRecipes')[product] || [];
+    storage.setValueByKey('inProgressRecipes', {
+      [product]: { ...curRecipes, [id]: curRecipes[id] || [] }
+    })
+    history.push(`${pathname}/in-progress`);
+  };
+
+  const isStarted = () => {
+    storage.initStorage();
+    const product = pathname.split('/')[1] === 'comidas' ? 'meals' : 'cocktails';
+    const id = pathname.split('/')[2];
+    return (storage.getValueByKey('inProgressRecipes')[product] || {})[id]
+  };
 
   return (
     <div>
@@ -92,9 +111,12 @@ function Detail({ match: { params: { id } }, location: { pathname } }) {
             testIdArray={['-recomendation-card', '', '-recomendation-title']}
           />,
         )}
-        <Link to={`${pathname}/in-progress`}>
-          <button className="btn-start" data-testid="start-recipe-btn">Iniciar Receita</button>
-        </Link>
+        <button
+          className="btn-start" data-testid="start-recipe-btn"
+          onClick={() => { startRecipe(); }}
+        >
+          { isStarted() ? 'Continuar Receita' : 'Iniciar Receita' }
+        </button>
       </div>
     </div>
   );
