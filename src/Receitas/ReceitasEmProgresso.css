@@ -20,3 +20,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.nomeRiscado {
+  text-decoration: line-through;
+}

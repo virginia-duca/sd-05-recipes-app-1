@@ -1,28 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
+import storage from '../Services/LocalStorage';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './ReceitasEmProgresso.css'
+import AppContext from '../Context/AppContext';
+
 
 const getIngredientsAndMesures = (recipe) => {
   const ingredients = Object.entries(recipe)
-    .filter(({ 0: key }) => key.includes('strIngredient'))
-    .map(({ 1: ingredient }) => ingredient || '')
-    .filter(({ length }) => length > 0);
+  .filter(({ 0: key }) => key.includes('strIngredient'))
+  .map(({ 1: ingredient }) => ingredient || '')
+  .filter(({ length }) => length > 0)
   const measure = Object.entries(recipe)
     .filter(({ 0: key }) => key.includes('strMeasure'))
     .map(({ 1: ingredient }) => ingredient || '')
     .filter(({ length }) => length > 0);
-  return ingredients.map((ingredient, i) => ({ ingredient, measure: measure[i] }));
-};
+    return ingredients.map((ingredient, i) => ({ ingredient, measure: measure[i], done: false }));
+  };
+  
+  const Header = ({
+    recipe: { strMealThumb, strMeal, strAlcoholic, strCategory, strDrinkThumb, strDrink },
+  }) => {
+    const favoriteIsInStorage = 
+    storage.getValueByKey('favoriteRecipes')
+    .map(item => item.id === idMeal || idDrink ? true : false)
 
-const Header = ({
-  recipe: { strMealThumb, strMeal, strAlcoholic, strCategory, strDrinkThumb, strDrink },
-}) => (
-  <header className='basic'>
+    const [isFavorite, setIsFavorite] = useState(favoriteIsInStorage)
+    const { recipeSelected } = useContext(AppContext)
+
+    return (
+      <header className='basic'>
     <div>
       <img className='foto' data-testid="recipe-photo" src={strMealThumb || strDrinkThumb} alt="" />
       <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
@@ -32,41 +44,115 @@ const Header = ({
       <button data-testid="share-btn">
         <img src={shareIcon} alt="Share" />
       </button>
-      <button data-testid="favorite-btn">
-        <img src={whiteHeartIcon} alt="Favorite" />
+      <button data-testid="favorite-btn" 
+        onClick={() => {
+          setIsFavorite(isFavorite ? false : true); 
+          setFavoriteStorage(recipeSelected)
+        }} >
+        <img src={isFavorite ? blackHeartIcon : whiteHeartIcon} alt="Favorite" />
       </button>
     </div>
   </header>
-);
+    )
+  };
 
+  /* const setFavoriteStorage = ({ 
+    strMealThumb, strMeal, strAlcoholic, strCategory, strDrinkThumb, strDrink, strArea, idMeal, idDrink
+  }) => {
+    const favoriteRecipe = {
+      id: idMeal || idDrink,
+      type: idMeal ? 'comidas' : 'bebidas',
+      area: strArea === null || strArea === undefined ? '': strArea,
+      category: strCategory == null || strCategory === undefined ? '' : strCategory,
+      alcoholicOrNot: strAlcoholic === undefined || strAlcoholic === null ? '' : strAlcoholic,
+      name: strMeal || strDrink,
+      image: strMealThumb || strDrinkThumb,
+    }
+    storage.initStorage()
+    const favoritesInStorage = storage.getValueByKey('favoriteRecipes')
+    storage.setValueByKey('favoriteRecipes', [...favoritesInStorage, favoriteRecipe])
+    console.log(favoriteRecipe)
+  } */
+// https://discord.gg/uVavAg
+/* const listOfItems = [...document.getElementsByTagName('input')];
+return listOfItems.reduce((isAllChecked, el) => {
+  if (el.getAttribute('checked') === 'true' && !isAllChecked) isAllChecked = true;
+}, false);
+}; */
 
-const ReceitasEmProgresso = ({ match: { params: { id } }, location: { pathname } }) => {
+const recipeStorage = storage.getValueByKey('inProgressRecipes');
 
+const ReceitasEmProgresso = ({ match: { params: { id } }, location: { pathname }, history }) => {
+  const { setIngredientesToContext, setStIngredientesToStorage, ingredientes, setRecipeContext } = useContext(AppContext)
   const [recipe, setRecipe] = useState({});
   const [sideDish, setSideDish] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [checked, setChecked] = useState(undefined);
+  const [utilizados, setUtilizados] = useState([])
+
+  const { meals } = utilizados
+  
+  const riscarNome = (id) => {
+    const item = document.getElementById(id);
+    item.classList.toggle("nomeRiscado");
+    const check = document.getElementsByName(id)[0];
+    check.classList.toggle("selected");
+  };
+  
+  // vai checar se todos os checkbox estao selecionados para habilitar o botao finalizar receita
+  const checkAllDone = () => {
+    const listOfItems = [...document.getElementsByTagName('input')];
+    console.log(listOfItems);
+    const list = listOfItems
+    .filter(item => item.classList.contains("selected"))
+    .map(item => item.name)
+    setChecked(list.length)
+    setUtilizados(list)
+  }
+
+  // o state utilizados esta sendo salvo no storage, porem quando atualiza ele é apagado
+    useEffect(() => {
+      const product = pathname.split('/')[1] === 'comidas' ? 'meals' : 'cocktails'  
+      storage.setValueByKey('inProgressRecipes', {[product]: {[id]: utilizados}})
+      /* setStIngredientesToStorage(product, id)
+      setIngredientesToContext(meals.id) */
+  })
 
   useEffect(() => {
     // Verifica qual página está sendo montada
+    storage.initStorage()
     const recipeFunc = pathname.split('/')[1] === 'comidas' ?
       api.food : api.drink;
     const sideDishFunc = pathname.split('/')[1] === 'comidas' ?
       api.drink : api.food;
-
     recipeFunc.getRecipeById(id)
-    .then(({ 0: rec }) => { setRecipe(rec); });
+    .then(({ 0: rec }) => { setRecipe(rec);setRecipeContext(rec); setIngredients(getIngredientsAndMesures(rec)) });
     sideDishFunc.searchByName('')
       .then((array) => { setSideDish(array.slice(0, 6)); });
   }, []);
 
+  const redirectTo = (to) => { history.push(`${to}`); }; 
+  
   return (
     <div className='basic'>
       <Header recipe={recipe} />
       <div className='basic'>
         <strong>Ingredients</strong>
-        {getIngredientsAndMesures(recipe).map(({ ingredient, measure }, i) =>
+        {ingredients.map(({ ingredient, measure, done }, i) =>
           <div key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
-            <input type="checkbox" name={`${ingredient}`} />
-            <label htmlFor={`${ingredient}`}>{`${ingredient} - ${measure}`}</label>
+            <label id={`${ingredient}`} name={`${i}`} htmlFor={`${ingredient}`} data-testid={`${i}-ingredient-step`}>
+              <input
+                type="checkbox"
+                className="check-input"
+                name={`${ingredient}`}
+                onChange={({ target: { name }}) => {
+                  riscarNome(name);
+                  checkAllDone();
+                  /* setStorage(); */
+                }}
+              />
+                {`${ingredient} - ${measure}`}
+            </label>
           </div>,
         )}
         <strong className="instructions">Instructions</strong>
@@ -82,9 +168,14 @@ const ReceitasEmProgresso = ({ match: { params: { id } }, location: { pathname }
             testIdArray={['-recomendation-card', '', '-recomendation-title']}
           />,
         )}
-        <Link to={`${pathname}/in-progress`}>
-          <button className="btn-start" data-testid="start-recipe-btn">Iniciar Receita</button>
-        </Link>
+        <button
+          data-testid="finish-recipe-btn"
+          disabled={ingredients.length === checked ? false : true}
+          id="finalizar-receita"
+          onClick={() => {redirectTo('/receitas-feitas')}}
+        >
+          Finalizar Receita
+        </button>
       </div>
     </div>
   );
@@ -98,6 +189,5 @@ ReceitasEmProgresso.propTypes = {
   location: PropTypes.instanceOf(Object),
   match: PropTypes.instanceOf(Object),
 }.isRequired;
-
 
 export default withRouter(ReceitasEmProgresso);

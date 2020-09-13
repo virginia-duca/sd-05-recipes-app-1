@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
+import storage from '../Services/LocalStorage';
 
 const Provider = (props) => {
   // Aqui declaro os states globais
@@ -10,6 +11,25 @@ const Provider = (props) => {
   const [error, setError] = useState('');
   const [comidasFiltradas, setComidasFiltradas] = useState('inicial');
   const [bebidasFiltradas, setBebidasFiltradas] = useState('inicial');
+  const [recipeSelected, setRecipe] = useState({})
+  
+
+  const setRecipeContext = (rec)  => {
+    setRecipe(rec)
+  }
+ /*  const [ingredientes, setIngredientes] = useState([]);
+
+  const setIngredientesToContext = (array) => {
+    return setIngredientes(array);
+  }
+
+  const setStIngredientesToStorage = (product, id) => {
+    storage.setValueByKey('inProgressRecipes', {[product]: {[id]: ingredientes}})
+  } */
+  /* useEffect(() => {
+    const product = pathname.split('/')[1] === 'comidas' ? 'meals' : 'cocktails'
+    storage.setValueByKey('inProgressRecipes', {[product]: {[id]: ingredientes}})
+  }, [ingredientes]) */
 
   useEffect(() => {
     if (comidasFiltradas.length === 0 || bebidasFiltradas.length === 0) {
@@ -51,6 +71,11 @@ const Provider = (props) => {
     fetch,
     comidasFiltradas,
     bebidasFiltradas,
+    /* setIngredientesToContext,
+    setStIngredientesToStorage,
+    ingredientes, */
+    setRecipeContext,
+    recipeSelected,
   };
 
   // Aqui declaro um component provider, que é a "mãe" de todos os componentes

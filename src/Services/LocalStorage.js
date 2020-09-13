@@ -1,5 +1,3 @@
-/** @format */
-
 const defaultStorage = {
   mealsToken: null,
   cocktailsToken: null,
