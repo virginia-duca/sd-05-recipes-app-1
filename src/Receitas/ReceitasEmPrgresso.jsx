@@ -1,139 +1,108 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
-import storage from '../Services/LocalStorage';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import './ReceitasEmProgresso.css'
 import AppContext from '../Context/AppContext';
-
+import storage from '../Services/LocalStorage';
+import Header from '../Components/Header';
 import {
-  appPage
-} from '../Services/Utils'
+  appPage,
+  prettifyRecipe,
+} from '../Services/Utils';
 
-const getIngredientsAndMesures = (recipe) => {
-  const ingredients = Object.entries(recipe)
-  .filter(({ 0: key }) => key.includes('strIngredient'))
-  .map(({ 1: ingredient }) => ingredient || '')
-  .filter(({ length }) => length > 0)
-  const measure = Object.entries(recipe)
-    .filter(({ 0: key }) => key.includes('strMeasure'))
-    .map(({ 1: ingredient }) => ingredient || '')
-    .filter(({ length }) => length > 0);
-    return ingredients.map((ingredient, i) => ({ ingredient, measure: measure[i], done: false }));
-  };
+// Recursos
+import './ReceitasEmProgresso.css'
+
+const getIngredientsAndMesures = (r) => {
+  const checkedArray = ((storage
+    .getValueByKey('inProgressRecipes')[`${r.typeBizarre}s`] || [])[r.id]) || [];
   
-  const Header = ({
-    recipe: { strMealThumb, strMeal, strAlcoholic, strCategory, strDrinkThumb, strDrink },
-  }) => {
-    const favoriteIsInStorage = 
-    storage.getValueByKey('favoriteRecipes')
-    .map(item => item.id === recipeSelected.idMeal || recipeSelected.idDrink ? true : false)
+  const t = r.ingredientsAndMesures.map((rec) => (
+    { ...rec, isChecked: checkedArray.includes(rec.ingredient) }
+  ));
 
-    const [isFavorite, setIsFavorite] = useState(favoriteIsInStorage)
-    const { recipeSelected } = useContext(AppContext)
+  console.log(t, r.typeBizarre);
+  return t;
+};
 
-    return (
-      <header className='basic'>
-    <div>
-      <img className='foto' data-testid="recipe-photo" src={strMealThumb || strDrinkThumb} alt="" />
-      <h3 data-testid="recipe-title">{strMeal || strDrink}</h3>
-      <h4 data-testid="recipe-category">{strAlcoholic || strCategory}</h4>
-    </div>
-    <div>
-      <button data-testid="share-btn">
-        <img src={shareIcon} alt="Share" />
-      </button>
-      <button data-testid="favorite-btn" 
-        onClick={() => {
-          setIsFavorite(isFavorite ? false : true); 
-          setFavoriteStorage(recipeSelected)
-        }} >
-        <img src={isFavorite ? blackHeartIcon : whiteHeartIcon} alt="Favorite" />
-      </button>
-    </div>
-  </header>
-    )
-  };
+const finishRecipe = (recipe, redirect) => {
+  const { id, type, area, category, alcoholicOrNot, name, image, tags } = recipe;
+  const now = new Date();
+  const doneObject = {
+    id,
+    type,
+    area,
+    category,
+    alcoholicOrNot,
+    name,
+    image,
+    tags,
+    doneDate: `${(now.getDate())}/${now.getMonth() < 10 ? 0 : ''}${now.getMonth()}/${now.getFullYear()}`,
+  }
+  const currentDone = storage.getValueByKey('doneRecipes');
+  storage.setValueByKey('doneRecipes', [...currentDone, doneObject]);
+  redirect('../../receitas-feitas');
+};
 
-
-
-const recipeStorage = storage.getValueByKey('inProgressRecipes');
-
-const ReceitasEmProgresso = ({ match: { params: { id } }, location: { pathname }, history }) => {
-  const { setIngredientesToContext, setStIngredientesToStorage, ingredientes, setRecipeContext } = useContext(AppContext)
+const ReceitasEmProgresso = ({ id, path, pathname, redirect, type }) => {
+  const { setRecipeContext } = useContext(AppContext);
   const [recipe, setRecipe] = useState({});
   const [sideDish, setSideDish] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [checked, setChecked] = useState(undefined);
-  const [utilizados, setUtilizados] = useState([])
-
-  const { meals } = utilizados
   
-  const riscarNome = (id) => {
-    const item = document.getElementById(id);
-    item.classList.toggle("nomeRiscado");
+  const riscarNome = (id, index) => {
     const check = document.getElementsByName(id)[0];
     check.classList.toggle("selected");
+    setIngredients(ingredients.map((obj, i) => {
+      if(i === index) return {...obj, isChecked: !obj.isChecked};
+      return obj;
+    }))
   };
   
   // vai checar se todos os checkbox estao selecionados para habilitar o botao finalizar receita
   const checkAllDone = () => {
+    const product = path[1] === 'comidas' ? 'meals' : 'cocktails'  
     const listOfItems = [...document.getElementsByTagName('input')];
-    console.log(listOfItems);
     const list = listOfItems
-    .filter(item => item.classList.contains("selected"))
-    .map(item => item.name)
+      .filter(item => item.classList.contains("selected")).map(item => item.name);
     setChecked(list.length)
-    setUtilizados(list)
+    const curRecipes = storage.getValueByKey('inProgressRecipes')[product];
+    storage.setValueByKey('inProgressRecipes', {[product]: {...curRecipes, [id]: list}})
   }
-
-  // o state utilizados esta sendo salvo no storage, porem quando atualiza ele é apagado
-    useEffect(() => {
-      const product = pathname.split('/')[1] === 'comidas' ? 'meals' : 'cocktails'  
-      storage.setValueByKey('inProgressRecipes', {[product]: {[id]: utilizados}})
-      /* setStIngredientesToStorage(product, id)
-      setIngredientesToContext(meals.id) */
-  })
 
   useEffect(() => {
     // Verifica qual página está sendo montada
-    storage.initStorage()
-    const recipeFunc = pathname.split('/')[1] === 'comidas' ?
-      api.food : api.drink;
-    const sideDishFunc = pathname.split('/')[1] === 'comidas' ?
-      api.drink : api.food;
-    recipeFunc.getRecipeById(id)
-    .then(({ 0: rec }) => { 
-      setRecipe(rec);
-      setRecipeContext(rec); 
-      setIngredients(getIngredientsAndMesures(rec)) });
-    sideDishFunc.searchByName('')
+    storage.initStorage();
+    const theFetch = type === 'meal' ? api.food : api.drink
+    console.log(type)
+    theFetch.getRecipeById(id)
+    .then(({ 0: rec }) => {
+      setRecipe( prettifyRecipe(rec) ); 
+      setRecipeContext(rec);
+      setIngredients(getIngredientsAndMesures(prettifyRecipe(rec)));
+    });
+    theFetch.searchByName('')
       .then((array) => { setSideDish(array.slice(0, 6)); });
-  }, []);
-
-  const redirectTo = (to) => { history.push(`${to}`); }; 
+  }, []); 
   
   return (
     <div className='basic'>
-      <Header recipe={recipe} />
+      <Header recipe={recipe} path={pathname} />
       <div className='basic'>
         <strong>Ingredients</strong>
-        {ingredients.map(({ ingredient, measure, done }, i) =>
+        {ingredients.map(({ ingredient, measure, isChecked }, i) =>
           <div key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
-            <label id={`${ingredient}`} name={`${i}`} htmlFor={`${ingredient}`} data-testid={`${i}-ingredient-step`}>
+            <label
+              id={`${ingredient}`} name={`${i}`} htmlFor={`${ingredient}`}
+              className={isChecked ? 'nomeRiscado' : ''}
+              data-testid={`${i}-ingredient-step`}
+            >
               <input
-                type="checkbox"
-                className="check-input"
-                name={`${ingredient}`}
-                onChange={({ target: { name }}) => {
-                  riscarNome(name);
-                  checkAllDone();
-                  /* setStorage(); */
-                }}
+                type="checkbox" name={`${ingredient}`}
+                className={`check-input ${isChecked ? 'selected' : ''}`}
+                onChange={({ target: { name }}) => { riscarNome(name, i); checkAllDone(); }}
+                checked={isChecked}
               />
                 {`${ingredient} - ${measure}`}
             </label>
@@ -141,25 +110,28 @@ const ReceitasEmProgresso = ({ match: { params: { id } }, location: { pathname }
         )}
         <strong className="instructions">Instructions</strong>
         <div data-testid="instructions" className="instructions">
-          { recipe.strInstructions }
+          { recipe.instructions }
         </div>
         <strong>Recomendadas</strong>
-        {sideDish.map(({ idDrink, idMeal, strDrinkThumb, strMealThumb, strDrink, strMeal },
-        i) =>
-          <Card
-            key={idDrink || idMeal} imageSrc={strDrinkThumb || strMealThumb}
-            title={strDrink || strMeal} index={i} className={i < 2 ? '' : 'hidden'}
-            testIdArray={['-recomendation-card', '', '-recomendation-title']}
-          />,
-        )}
+        {
+          sideDish.map((sideDataObject, i) => {
+            const { id, image, name } = prettifyRecipe(sideDataObject);
+            return <Card
+              key={id} imageSrc={image}
+              title={name} index={i} className={i < 2 ? '' : 'hidden'}
+              testIdArray={['-recomendation-card', '', '-recomendation-title']}
+            />
+          })
+        }
         <button
           data-testid="finish-recipe-btn"
-          disabled={ingredients.length === checked ? false : true}
+          disabled={!(ingredients.length === checked)}
           id="finalizar-receita"
-          onClick={() => {redirectTo('/receitas-feitas')}}
+          onClick={() => { finishRecipe(recipe, redirect); }}
         >
           Finalizar Receita
         </button>
+
       </div>
     </div>
   );
