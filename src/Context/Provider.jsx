@@ -1,35 +1,19 @@
+/** @format */
+
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
-import storage from '../Services/LocalStorage';
 
 const Provider = (props) => {
   // Aqui declaro os states globais
-  const [isFetching, setIsFetching] = useState(true);
-  const [comidas12, setComidas12] = useState([]);
-  const [bebidas12, setBebidas12] = useState([]);
-  const [error, setError] = useState('');
-  const [comidasFiltradas, setComidasFiltradas] = useState('inicial');
-  const [bebidasFiltradas, setBebidasFiltradas] = useState('inicial');
-  const [recipeSelected, setRecipe] = useState({})
-  
+  const [isFetching, setFe] = useState(true);
+  const [comidas12, setCmd] = useState([]);
+  const [bebidas12, setBb] = useState([]); const [error, setError] = useState('');
+  const [comidasFiltradas, setCmdFilt] = useState('inicial');
+  const [bebidasFiltradas, setBbsFilt] = useState('inicial');
+  const [recipeSelected, setRecipe] = useState({});
 
-  const setRecipeContext = (rec)  => {
-    setRecipe(rec)
-  }
- /*  const [ingredientes, setIngredientes] = useState([]);
-
-  const setIngredientesToContext = (array) => {
-    return setIngredientes(array);
-  }
-
-  const setStIngredientesToStorage = (product, id) => {
-    storage.setValueByKey('inProgressRecipes', {[product]: {[id]: ingredientes}})
-  } */
-  /* useEffect(() => {
-    const product = pathname.split('/')[1] === 'comidas' ? 'meals' : 'cocktails'
-    storage.setValueByKey('inProgressRecipes', {[product]: {[id]: ingredientes}})
-  }, [ingredientes]) */
+  const setRecipeContext = (rec) => { setRecipe(rec); };
 
   useEffect(() => {
     if (comidasFiltradas.length === 0 || bebidasFiltradas.length === 0) {
@@ -37,26 +21,24 @@ const Provider = (props) => {
     }
   }, [comidasFiltradas, bebidasFiltradas]);
 
+  const ca = () => (err) => setError(err);
+
   const fetch = {
-    async setFood(functionOfFetch) {
-      setIsFetching(true);
-      await functionOfFetch.then((response) => { setComidas12([...response]); })
-        .catch((err) => { setError(err); }); setIsFetching(false);
+    async setFood(funcfetc) {
+      setFe(true);
+      await funcfetc.then((response) => { setCmd([...response]); }).catch(ca()); setFe(false);
     },
-    async setDrink(functionOfFetch) {
-      setIsFetching(true);
-      await functionOfFetch.then((response) => { setBebidas12([...response]); })
-        .catch((err) => { setError(err); }); setIsFetching(false);
+    async setDrink(funcfetc) {
+      setFe(true);
+      await funcfetc.then((response) => { setBb([...response]); }).catch(ca()); setFe(false);
     },
-    async setFilteredSearchBarFood(functionOfFetch) {
-      setIsFetching(true); await functionOfFetch
-        .then((response) => { setComidasFiltradas([...response]); })
-        .catch((err) => { setError(err); }); setIsFetching(false);
+    async setFilteredSearchBarFood(funcfetc) {
+      setFe(true);
+      await funcfetc.then((response) => { setCmdFilt([...response]); }).catch(ca()); setFe(false);
     },
-    async setFilteredSearchBarDrink(functionOfFetch) {
-      setIsFetching(true); await functionOfFetch
-        .then((response) => { setBebidasFiltradas([...response]); })
-        .catch((err) => { setError(err); }); setIsFetching(false);
+    async setFilteredSearchBarDrink(funcfetc) {
+      setFe(true);
+      await funcfetc.then((response) => { setBbsFilt([...response]); }).catch(ca()); setFe(false);
     },
   };
 
@@ -64,16 +46,12 @@ const Provider = (props) => {
   // que todos os componentes filhos têm acesso
   const store = {
     isFetching,
-    setIsFetching,
     comidas12,
     bebidas12,
     error,
     fetch,
     comidasFiltradas,
     bebidasFiltradas,
-    /* setIngredientesToContext,
-    setStIngredientesToStorage,
-    ingredientes, */
     setRecipeContext,
     recipeSelected,
   };

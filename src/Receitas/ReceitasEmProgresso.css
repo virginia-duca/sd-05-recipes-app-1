@@ -2,9 +2,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-/* //  flex-wrap: wrap; */
-  /* justify-content: center; */
-} 
+}
 
 .foto {
   height: 200px;
@@ -12,13 +10,12 @@
 }
 
 .instructions {
-  width: 70%;
-  padding: 50px;
   align-items: center;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   justify-content: center;
+  padding: 50px;
+  width: 70%;
 }
 
 .nomeRiscado {
