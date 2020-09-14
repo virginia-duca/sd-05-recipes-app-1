@@ -1,0 +1,23 @@
+.basic {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.foto {
+  height: 200px;
+  width: 50%;
+}
+
+.instructions {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  width: 70%;
+}
+
+.nomeRiscado {
+  text-decoration: line-through;
+}

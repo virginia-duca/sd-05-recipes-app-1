@@ -1,5 +1,3 @@
-/** @format */
-
 const defaultStorage = {
   mealsToken: null,
   cocktailsToken: null,
@@ -34,16 +32,16 @@ const clearStorage = () => {
   });
 };
 
+// Retorna um valor de uma chave
+const getValueByKey = (key) => {
+  if (!isStorageExists) return [];
+  return JSON.parse(localStorage.getItem(key));
+};
+
 // Salva um valor em uma chave
 const setValueByKey = (key, value) => {
   if (!isStorageExists) return;
   localStorage.setItem(key, JSON.stringify(value));
-};
-
-// Retorna um valor de uma chave
-const getValueByKey = (key) => {
-  if (!isStorageExists) return 'undefined';
-  return JSON.parse(localStorage.getItem(key));
 };
 
 // Retorna o Storage como um objeto
