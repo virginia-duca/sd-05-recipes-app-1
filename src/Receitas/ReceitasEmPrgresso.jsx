@@ -44,7 +44,7 @@ const finishRecipe = (recipe, redirect) => {
   redirect('../../receitas-feitas');
 };
 
-const ReceitasEmProgresso = ({ id, path, redirect }) => {
+const ReceitasEmProgresso = ({ id, path, pathname, redirect }) => {
   const { setRecipeContext } = useContext(AppContext);
   const [recipe, setRecipe] = useState({});
   const [sideDish, setSideDish] = useState([]);
@@ -89,7 +89,7 @@ const ReceitasEmProgresso = ({ id, path, redirect }) => {
   
   return (
     <div className='basic'>
-      <Header recipe={recipe} />
+      <Header recipe={recipe} path={pathname} />
       <div className='basic'>
         <strong>Ingredients</strong>
         {ingredients.map(({ ingredient, measure, isChecked }, i) =>

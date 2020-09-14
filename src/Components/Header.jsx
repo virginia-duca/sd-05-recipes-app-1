@@ -32,7 +32,7 @@ const Header = ({
     </div>
     <div>
       <button data-testid="share-btn">
-        <img src={shareIcon} alt="Share" onClick={() => { toClipboard(path); }} />
+        <img src={shareIcon} alt="Share" onClick={() => { toClipboard(`http://localhost:3000${path}`); }} />
       </button>
       <button
         data-testid="favorite-btn"
