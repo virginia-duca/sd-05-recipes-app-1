@@ -28,6 +28,7 @@ function LogIn({ history }) {
   }
 
   useEffect(() => {
+    storage.clearStorage();
     const button = document.getElementById('submit-btn');
     if (validEmail && password.length > 6) {
       button.disabled = false;
