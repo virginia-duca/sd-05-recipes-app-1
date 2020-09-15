@@ -40,9 +40,11 @@ export const isRecipeFavorited = (id, type) => {
   );
 };
 
-export const toggleFavorite = ({ idr, type, area, category, alcoholicOrNot, name, image }) => {
+export const toggleFavorite = (
+  { id: recivedId, type, area, category, alcoholicOrNot, name, image },
+) => {
   const favoritedObj = {
-    id: idr,
+    id: recivedId,
     type,
     area,
     category,
@@ -51,10 +53,10 @@ export const toggleFavorite = ({ idr, type, area, category, alcoholicOrNot, name
     image,
   };
   const f = storage.getValueByKey('favoriteRecipes') || [{ id: -1 }];
-  const fid = f.reduce((i, { id: fids }) => (fids !== idr ? i : idr), -1);
+  const fid = f.reduce((i, { id: favId }) => (favId !== recivedId ? i : recivedId), -1);
   storage.setValueByKey(
     'favoriteRecipes',
-    [...f, favoritedObj].filter(({ id: idx }) => idx !== fid),
+    [...f, favoritedObj].filter(({ id: favId }) => (favId !== fid)),
   );
   return fid === -1;
 };

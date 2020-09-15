@@ -16,6 +16,7 @@ const Header = ({ recipe, path }) => {
 
   useEffect(() => {
     setIsFavorite(isRecipeFavorited(id, type));
+    console.log(isRecipeFavorited(id, type));
   }, [isFavorite]);
 
   const toClipboard = (link) => {
