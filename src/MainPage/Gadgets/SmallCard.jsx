@@ -1,12 +1,10 @@
-/** @format */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 
 const SmallCards = ({ title, onClick }) => (
   <button
     type="button"
-    className="small-card"
+    className="btn btn-small btn-flat white-text btn-category"
     data-testid={`${title}-category-filter`}
     onClick={() => {
       onClick(title);

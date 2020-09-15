@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LogIn from '../Login/LogIn';
 
 // Food
-import MainFoodCopy from '../MainPage/MainFood copy';
+import MainPage from '../MainPage/MainPage';
 import ExploreFood from '../Explore/ExploreFood';
 
 // Drink
@@ -27,7 +27,7 @@ function Rotas() {
           <LogIn />
         </Route>
         <Route exact path="/comidas">
-          <MainFoodCopy />
+          <MainPage />
         </Route>
         <Route exact path="/comidas/:id">
           <Detail />
@@ -36,7 +36,7 @@ function Rotas() {
           <ReceitasEmProgresso />
         </Route>
         <Route exact path="/bebidas">
-          <MainFoodCopy/>
+          <MainPage/>
         </Route>
         <Route exact path="/bebidas/:id">
           <Detail />

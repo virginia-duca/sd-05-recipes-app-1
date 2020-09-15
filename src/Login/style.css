@@ -1,0 +1,35 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vmax;
+}
+
+.brand-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vmax;
+  background-color: brown;
+}
+
+.brand-logo {
+  width: 60%;
+}
+
+.container {
+  text-align: center;
+  min-height: 50vmax;
+  padding-bottom: 32px;
+}
+
+.btn, .btn:focus {
+  background-color: brown;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 1px solid brown;
+  box-shadow: 0 1px 0 0 brown;
+}

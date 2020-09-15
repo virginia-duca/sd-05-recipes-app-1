@@ -1,11 +1,11 @@
-/** @format */
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+
+import './style.css';
 
 class Header extends React.Component {
   constructor(props) {
@@ -28,17 +28,18 @@ class Header extends React.Component {
   renderHeader() {
     const { titulo } = this.props;
     return (
-      <div>
+      <div className="header-container">
         <Link to={'/perfil'}>
           <img src={profileIcon} alt="Profile" data-testid="profile-top-btn" />
         </Link>
-        <h1 data-testid="page-title">{titulo}</h1>
-        <button onClick={this.handleClick} data-testid="search-top-btn" src={searchIcon}>
-          <img
-            src={searchIcon}
-            alt="Explorar"
-            /* data-testid="search-top-btn" */
-          />
+        <h4 data-testid="page-title">{titulo}</h4>
+        <button
+          className="btn-floating red"
+          onClick={this.handleClick}
+          data-testid="search-top-btn"
+          src={searchIcon}
+        >
+          <i class="material-icons">search</i>
         </button>
       </div>
     );

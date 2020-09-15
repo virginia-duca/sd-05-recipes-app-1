@@ -1,9 +1,11 @@
-/** @format */
-
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import storage from '../Services/LocalStorage';
+
+import cookhat from '../images/cookhat.svg';
+
+import './style.css';
 
 function LogIn({ history }) {
   const [validEmail, setValidEmail] = useState('');
@@ -38,29 +40,36 @@ function LogIn({ history }) {
   });
 
   return (
-    <div>
-      <h1>Login</h1>
-      <input
-        type="email"
-        placeholder="email"
-        onChange={(event) => validateEmail(event.target.value)}
-        data-testid="email-input"
-        required
-      />
-      <input
-        type="password"
-        placeholder="senha"
-        data-testid="password-input"
-        onChange={(event) => setPassord(event.target.value)}
-        required
-      />
-      <button
-        id="submit-btn"
-        data-testid="login-submit-btn"
-        disabled
-      >
-        Entrar
-      </button>
+    <div className="login-container">
+      <div className="brand-container">
+        <img src={cookhat} className="brand-logo" alt="" />
+      </div>
+      <div className="container">
+        <h4>Login</h4>
+        <input
+          type="email"
+          placeholder="email"
+          onChange={(event) => validateEmail(event.target.value)}
+          data-testid="email-input"
+          required
+        />
+        <input
+          type="password"
+          placeholder="senha"
+          data-testid="password-input"
+          onChange={(event) => setPassord(event.target.value)}
+          required
+        />
+        <button
+          className="btn btn-large"
+          id="submit-btn"
+          data-testid="login-submit-btn"
+          disabled
+        >
+          <i class="material-icons left">restaurant_menu</i>
+          Entrar
+        </button>
+      </div>
     </div>
   );
 }

@@ -6,13 +6,13 @@
 .card {
   border: none;
   border-radius: 16px;
-  box-shadow: 0 5px 5px #888;
-  height: 300px;
+  box-shadow: 0 5px 5px rgb(66, 0, 0);
+  height: 180px;
   justify-content: space-between;
   margin: 12px;
   overflow: hidden;
   padding: 0;
-  width: 250px;
+  width: 150px;
 }
 
 .card .card-header {
@@ -27,6 +27,6 @@
 
 .card .card-title {
   color: black;
-  font-size: 22px;
+  font-size: 12px;
   padding: 3px 8px;
 }

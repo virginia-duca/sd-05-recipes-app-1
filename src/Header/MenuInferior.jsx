@@ -10,17 +10,15 @@ import './MenuInferior.css';
 export default function MenuInferior() {
   return (
     <footer data-testid="footer">
-      <div>
-        <Link to={'./bebidas'}>
-          <img src={drinkIcon} alt="Drink" data-testid="drinks-bottom-btn" />
-        </Link>
-        <Link to={'./explorar'}>
-          <img src={exploreIcon} alt="Explore" data-testid="explore-bottom-btn" />
-        </Link>
-        <Link to={'./comidas'}>
-          <img src={mealIcon} alt="Meal" data-testid="food-bottom-btn" />
-        </Link>
-      </div>
+      <Link to={'./bebidas'}>
+        <img src={drinkIcon} alt="Drink" data-testid="drinks-bottom-btn" />
+      </Link>
+      <Link to={'./explorar'}>
+        <img src={exploreIcon} alt="Explore" data-testid="explore-bottom-btn" />
+      </Link>
+      <Link to={'./comidas'}>
+        <img src={mealIcon} alt="Meal" data-testid="food-bottom-btn" />
+      </Link>
     </footer>
   );
 }

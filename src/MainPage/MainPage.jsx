@@ -8,6 +8,8 @@ import RenderCategories from './Gadgets/RenderCategories';
 import Header from '../Header/Header';
 import MenuInferior from '../Header/MenuInferior';
 
+import './style.css';
+
 const MEAL = '/comidas';
 
 const item = {
@@ -30,7 +32,7 @@ const RenderItems = () => {
   const itemArray = path === MEAL ? comidas : bebidas;
 
   return (
-    <div className="card-container">
+    <div className="card-container menu-container">
       {
         Array.isArray(itemArray) && itemArray.slice(0, 12)
           .map((data, i) => (
@@ -49,7 +51,7 @@ const RenderItems = () => {
   );
 };
 
-const MainFoodCopy = ({ location: { pathname } }) => {
+const MainPage = ({ location: { pathname } }) => {
   const {
     fetch, comidas12, bebidas12, comidasFiltradas, bebidasFiltradas,
   } = useContext(AppContext);
@@ -107,8 +109,8 @@ const MainFoodCopy = ({ location: { pathname } }) => {
   );
 };
 
-MainFoodCopy.propTypes = {
+MainPage.propTypes = {
   location: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default withRouter(MainFoodCopy);
+export default withRouter(MainPage);

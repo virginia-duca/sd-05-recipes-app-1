@@ -19,7 +19,7 @@ const Card = ({ imageSrc, title, index, testIdArray, className }) => (
       />
     </div>
     <div className="card-title">
-      <h3 data-testid={`${index}${testIdArray[2]}`}>{title}</h3>
+      <p data-testid={`${index}${testIdArray[2]}`}>{title}</p>
     </div>
   </div>
 );
