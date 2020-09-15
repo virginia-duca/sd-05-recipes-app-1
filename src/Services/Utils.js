@@ -28,7 +28,7 @@ export const isRecipeStarted = (id, typeBizarre) => {
 export const isRecipeFinished = (id, type) => {
   const f = storage.getValueByKey('doneRecipes') || [{ id: -1 }];
   return (
-    f.reduce((i, { id: rid, type: rtype }) => (rid !== id && type === rtype ? i : id), -1) !== -1
+    f.reduce((i, { id: rid, type: rtype }) => (rid !== id || type === rtype ? i : id), -1) !== -1
   );
 };
 

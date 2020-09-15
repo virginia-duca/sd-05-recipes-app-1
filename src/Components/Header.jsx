@@ -39,7 +39,7 @@ const Header = ({ recipe, path }) => {
         <button
           id="share-btn"
           data-testid="share-btn"
-          onClick={() => toClipboard(`http://localhost:3000${path}`)}
+          onClick={() => toClipboard(`http://localhost:3000/${id}`)}
         >
           <img
             src={shareIcon}

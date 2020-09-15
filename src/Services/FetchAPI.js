@@ -70,8 +70,9 @@ export default {
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
     },
     searchByCategory(category) {
-      console.log(`${this.baseUrl}filter.php?c=${category.replace(' ', '_')}`);
-      return fetchAPI(`${this.baseUrl}filter.php?c=${category.replace(' ', '_')}`);
+      return fetchAPI(
+        `${this.baseUrl}filter.php?c=${category.replace(/ \/ /g, '%20/%20').replace(' ', '_')}`
+      );
     },
     searchByFirstLetter(letter) {
       if (letter.length > 1) {
