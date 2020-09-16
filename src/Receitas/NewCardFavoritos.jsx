@@ -61,7 +61,7 @@ const NewCardFavoritos = ({ recipe, index, redirect }) => {
 };
 
 NewCardFavoritos.propTypes = {
-  recipes: PropTypes.instanceOf(PropTypes.any).isRequired,
+  recipe: PropTypes.instanceOf(PropTypes.array).isRequired,
   index: PropTypes.number.isRequired,
   redirect: PropTypes.func.isRequired,
 };

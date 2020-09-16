@@ -29,7 +29,6 @@ export const toClipboard = (link) => {
   navigator.clipboard
     .writeText(link)
     .then(() => {
-      setCopy(true);
       const span = document.createElement('span');
       span.innerText = 'Link copiado!';
       document.querySelector('.clipboard').appendChild(span);

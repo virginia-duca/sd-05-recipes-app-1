@@ -57,7 +57,7 @@ const NewCard = ({ recipe, index }) => {
 };
 
 NewCard.propTypes = {
-  recipes: PropTypes.instanceOf(PropTypes.any).isRequired,
+  recipe: PropTypes.instanceOf(PropTypes.array).isRequired,
   index: PropTypes.number.isRequired,
 };
 
