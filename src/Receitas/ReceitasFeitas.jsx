@@ -6,12 +6,12 @@ import storage from '../Services/LocalStorage';
 import NewCard from './NewCard';
 
 export default function ReceitasFeitas() {
-  const [doneRecipes, setDoneRecipes] = useState([])
+  const [doneRecipes, setDoneRecipes] = useState([]);
 
   useEffect(() => {
-    const recipes = storage.getValueByKey('doneRecipes')
+    const recipes = storage.getValueByKey('doneRecipes');
     setDoneRecipes(recipes);
-  }, [])
+  }, []);
   return (
     <div>
       <h1>Receitas Feitas</h1>
@@ -19,7 +19,9 @@ export default function ReceitasFeitas() {
       <button data-testid="filter-by-food-btn">Food</button>
       <button data-testid="filter-by-drink-btn">Drinks</button>
       <HeaderTwo titulo={'Receitas Feitas'} />
-      {doneRecipes.map((recipe, i) => <NewCard recipe={recipe} index={i} />)}
+      {doneRecipes.map((recipe, i) => (
+        <NewCard recipe={recipe} index={i} />
+      ))}
     </div>
   );
 }

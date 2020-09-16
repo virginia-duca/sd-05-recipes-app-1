@@ -1,35 +1,22 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { toggleFavorite, isRecipeFavorited } from '../Services/Utils';
+import {
+  toggleFavorite,
+  isRecipeFavorited,
+  toClipboard,
+} from '../Services/Utils';
 import './style.css';
 
-
-const NewCardFavoritos = (
-  { recipe, index, redirect },
-) => {
-  console.log(recipe)
+const NewCardFavoritos = ({ recipe, index, redirect }) => {
   const { alcoholicOrNot, area, category, id, image, name, type } = recipe;
-  const [copy, setCopy] = useState(false);
   const [isFavorite, setIsFavorite] = useState(isRecipeFavorited(id, type));
 
-  const toClipboard = (link) => {
-    navigator.clipboard
-      .writeText(link)
-      .then(() => {
-        setCopy(true);
-        const span = document.createElement('span');
-        span.innerText = 'Link copiado!';
-        document.querySelector('#new-card').appendChild(span);
-      })
-      .catch(() => null);
-  };
-
   return (
-    <div id="new-card">
+    <div id="new-card" className="clipboard">
       <p data-testid={`${index}-horizontal-top-text`}>
         {type === 'comida' ? `${area} - ${category}` : alcoholicOrNot}
       </p>
@@ -45,7 +32,7 @@ const NewCardFavoritos = (
         src={shareIcon}
         onClick={() => toClipboard(`http://localhost:3000/${type}s/${id}`)}
       >
-        <img src={shareIcon} />
+        <img src={shareIcon} alt="share" />
       </button>
       <button
         data-testid={`${index}-horizontal-favorite-btn`}
@@ -55,20 +42,28 @@ const NewCardFavoritos = (
           document.location.reload();
         }}
       >
-        <img src={isFavorite ? blackHeartIcon : whiteHeartIcon} />
+        <img
+          src={isFavorite ? blackHeartIcon : whiteHeartIcon}
+          alt="favorite"
+        />
       </button>
-      {/* <Link to={`/${type}s/${id}`}>
-      <img src={image} data-testid={`${index}-horizontal-image`} />
-      </Link> */}
       <button
         data-testid={`${index}-horizontal-image`}
-        onClick={() => { redirect(`/${type}s/${id}`); } }
+        onClick={() => {
+          redirect(`/${type}s/${id}`);
+        }}
         src={image}
-        >
-        <img className='image' src={image} />
+      >
+        <img className="image" src={image} alt="imagem" />
       </button>
     </div>
   );
+};
+
+NewCardFavoritos.propTypes = {
+  recipes: PropTypes.instanceOf(PropTypes.any).isRequired,
+  index: PropTypes.number.isRequired,
+  redirect: PropTypes.func.isRequired,
 };
 
 export default NewCardFavoritos;

@@ -71,7 +71,7 @@ export default {
     },
     searchByCategory(category) {
       return fetchAPI(
-        `${this.baseUrl}filter.php?c=${category.replace(/ \/ /g, '%20/%20').replace(' ', '_')}`
+        `${this.baseUrl}filter.php?c=${category.replace(/ \/ /g, '%20/%20').replace(' ', '_')}`,
       );
     },
     searchByFirstLetter(letter) {
