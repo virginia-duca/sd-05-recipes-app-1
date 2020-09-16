@@ -4,7 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 import { Link } from 'react-router-dom';
 import './carddss.css'
 
-const NewCard = ({recipe, index, redirect, pathname}) => {
+const NewCard = ({recipe, index, redirect}) => {
   const { type, id, area, category, alcoholicOrNot, name, image, tags, doneDate } = recipe
   const [copy, setCopy] = useState(false);
 
@@ -52,5 +52,8 @@ const NewCard = ({recipe, index, redirect, pathname}) => {
     </div>
   )
 }
-
+NewCard.propTypes = {
+  recipe: PropTypes.instanceOf(PropTypes.array).isRequired,
+  index: PropTypes.number.isRequired,
+};
 export default NewCard;
