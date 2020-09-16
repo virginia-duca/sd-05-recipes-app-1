@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react';
 import HeaderTwo from '../Header/HeaderTwo';
 import storage from '../Services/LocalStorage';
 import NewCardFavoritos from './NewCardFavoritos';
+import { appPage } from '../Services/Utils';
 
-export default function ReceitasFavoritas() {
+function ReceitasFavoritas({ redirect }) {
   const rcps = storage.getValueByKey('favoriteRecipes');
   const [receitasFavoritas, setReceitasFavoritas] = useState([]);
 
@@ -13,32 +14,27 @@ export default function ReceitasFavoritas() {
     setReceitasFavoritas(rcps);
   }, []);
 
-  function filtroComida() {
-    const comidaFilt = rcps.filter(
-      (filtro) => filtro.type === 'comida',
+  function filtro(tipo) {
+    const filt = rcps.filter(
+      (filtro) => filtro.type === tipo,
     );
-    setReceitasFavoritas(comidaFilt);
-  }
-
-  function filtroBebida() {
-    const bebidaFilt = rcps.filter(
-      (filtro) => filtro.type === 'bebida',
-    );
-    setReceitasFavoritas(bebidaFilt);
+    setReceitasFavoritas(filt);
   }
 
   return (
     <div>
       <h1>Receitas Favoritas</h1>
       <HeaderTwo titulo={'Receitas Favoritas'} />
-      <button onClick={() => setReceitasFavoritas(rcps)}>All</button>
-      <button onClick={() => filtroComida()}>Food</button>
-      <button onClick={() => filtroBebida()}>Drinks</button>
+      <button onClick={() => setReceitasFavoritas(rcps) } data-testid="filter-by-all-btn">All</button>
+      <button onClick={() => filtro('comida')} data-testid="filter-by-food-btn">Food</button>
+      <button onClick={() => filtro('bebida')} data-testid="filter-by-drink-btn">Drinks</button>
       {receitasFavoritas.map((recipe, i) => (
         <div>
-          <NewCardFavoritos recipe={recipe} index={i} />
+          <NewCardFavoritos recipe={recipe} index={i} redirect={redirect} />
         </div>
       ))}
     </div>
   );
 }
+
+export default appPage(ReceitasFavoritas);
