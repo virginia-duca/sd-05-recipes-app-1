@@ -9,7 +9,6 @@ function Login() {
 
   useEffect(() => {
     fetch.setFood(APIS.food.searchByName('Fish'));
-    storage.initStorage();
     storage.setValueByKey('user', { email: 'a@a.com' });
     console.log(storage.getStorageAsObject());
     // eslint-disable-next-line

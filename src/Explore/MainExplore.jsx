@@ -1,24 +1,27 @@
 /** @format */
 
-import React from 'react';
-import ExploreDrink from './ExploreDrink';
-import ExploreFood from './ExploreFood';
+import React, {useEffect} from 'react';
 import HeaderTwo from '../Header/HeaderTwo';
 import MenuInferior from '../Header/MenuInferior';
+import {appPage} from '../Services/Utils';
 
-class MainExplore extends React.Component {
-  render() {
+const MainExplore = ({pathname, redirect}) => {
     const explore = 'Explorar';
+    const path = pathname === '/explorar/comidas'
+
+    const handleClick = (string) => {
+      path ? redirect(`/explorar/comidas/${string}`) : redirect(`/explorar/bebidas/${string}`) 
+    }
+    
     return (
       <div>
-        <h1>Explorar</h1>
         <HeaderTwo titulo={explore} />
-        <ExploreDrink />
-        <ExploreFood />
+        <button onClick={() => handleClick('ingredientes')} data-testid="explore-by-ingredient">Por Ingredientes</button>
+        {path ? <button onClick={() => handleClick('area')} data-testid="explore-by-area">Por Local de Origem</button> : null}
+        <button data-testid="explore-surprise">Me Surpreenda!</button>
         <MenuInferior />
       </div>
     );
-  }
 }
 
-export default MainExplore;
+export default appPage(MainExplore);

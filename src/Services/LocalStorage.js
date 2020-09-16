@@ -7,6 +7,10 @@ const defaultStorage = {
   /* user: null */
 };
 
+const clear = {
+  
+}
+
 const isStorageExists = () => {
   if (typeof Storage !== 'undefined') {
     alert('Seu browser não tem suporte para o LocalStorage');

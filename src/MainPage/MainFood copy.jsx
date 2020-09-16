@@ -65,7 +65,7 @@ const MainFoodCopy = ({ location: { pathname } }) => {
     apis.getCategories().then((list) => {
       categories = [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)];
     }).then(() => { setIsLoading(false); });
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     item.comidas = Object.assign(comidas12);
