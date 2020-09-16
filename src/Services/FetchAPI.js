@@ -87,5 +87,8 @@ export default {
     searchByIngredient(ingredient) {
       return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
     },
+    searchRandomRecipe() {
+      return fetchAPI(`${this.baseUrl}random.php`)
+    },
   },
 };
