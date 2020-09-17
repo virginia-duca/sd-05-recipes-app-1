@@ -57,6 +57,9 @@ export default {
       }
       return fetchAPI(`${this.baseUrl}search.php?f=${letter}`);
     },
+    searchRandomRecipe() {
+      return fetchAPI(`${this.baseUrl}random.php`);
+    },
   },
   drink: {
     baseUrl: 'https://www.thecocktaildb.com/api/json/v1/1/',
@@ -83,6 +86,9 @@ export default {
     },
     searchByIngredient(ingredient) {
       return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
+    },
+    searchRandomRecipe() {
+      return fetchAPI(`${this.baseUrl}random.php`);
     },
   },
 };

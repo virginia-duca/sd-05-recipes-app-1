@@ -1,10 +1,12 @@
+/** @format */
+
 const defaultStorage = {
-  /* mealsToken: null,
+/*   mealsToken: null,
   cocktailsToken: null, */
   doneRecipes: [],
   favoriteRecipes: [],
   inProgressRecipes: {},
-  /* user: null */
+  /* user: null, */
 };
 
 const isStorageExists = () => {

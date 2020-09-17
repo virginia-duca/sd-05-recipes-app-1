@@ -2,41 +2,46 @@
 
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { appPage } from '../Services/Utils';
 import storage from '../Services/LocalStorage';
 
-function LogIn({ history }) {
+const handleClick = (e1mail, la) => {
+  console.log('entrou no handleclick');
+  //  storage.initStorage();
+  /* localStorage.setItem('user', JSON.stringify({ email: e1mail }))
+  localStorage.setItem('mealsToken', JSON.stringify(1))
+  localStorage.setItem('cocktailsToken', JSON.stringify(1)) */
+  storage.setValueByKey('user', { email: e1mail });
+  storage.setValueByKey('mealsToken', 1);
+  storage.setValueByKey('cocktailsToken', 1);
+  la('/comidas');
+};
+
+const LogIn = ({ redirect }) => {
   const [validEmail, setValidEmail] = useState('');
   const [password, setPassord] = useState('');
   const [email1, setEmail] = useState('');
 
-  // referencia: a string de RegEx eu copiei do stackOverflow (https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript)
+  // referencia: a string de RegEx eu copiei do stackOverflow
+  // (https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript)
   function validateEmail(email) {
     const re = /\S+@\S+\.\S+/;
     setValidEmail(re.test(email));
     setEmail(email);
   }
 
-  function handleClick() {
-    console.log('entrou no handleclick');
-    storage.clearStorage();
-    storage.initStorage();
-    storage.setValueByKey('user', { email: email1 });
-    storage.setValueByKey('mealsToken', 1);
-    storage.setValueByKey('cocktailsToken', 1);
-    history.push('/comidas');
-  }
-
-  useEffect(() => {
-    storage.clearStorage();
-    const button = document.getElementById('submit-btn');
-    if (validEmail && password.length > 6) {
-      button.disabled = false;
-      button.addEventListener('click', () => handleClick());
-    } else {
-      button.disabled = true;
-    }
-  });
+  useEffect(
+    () => {
+      //    localStorage.clear();
+      const button = document.getElementById('submit-btn');
+      if (validEmail && password.length > 6) {
+        button.disabled = false;
+        button.addEventListener('click', () => handleClick(email1, redirect));
+      } else {
+        button.disabled = true;
+      }
+    } /* [email1, password] */,
+  );
 
   return (
     <div>
@@ -58,16 +63,20 @@ function LogIn({ history }) {
       <button
         id="submit-btn"
         data-testid="login-submit-btn"
+        /* onClick={() => {
+          handleClick(email1);
+          redirect('/comidas');
+        }} */
         disabled
       >
         Entrar
       </button>
     </div>
   );
-}
+};
 
 LogIn.propTypes = {
   fetchToken: PropTypes.func,
 }.isRequired;
 
-export default withRouter(LogIn);
+export default appPage(LogIn);
