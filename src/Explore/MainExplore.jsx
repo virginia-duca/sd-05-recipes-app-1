@@ -1,25 +1,25 @@
 /** @format */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import HeaderTwo from '../Header/HeaderTwo';
 import MenuInferior from '../Header/MenuInferior';
-import { appPage } from '../Services/Utils';
-/* import api from '../Services/FetchAPI';
-import AppContext from '../Context/AppContext'; */
+import { appPage, prettifyRecipe } from '../Services/Utils';
+import api from '../Services/FetchAPI';
 
 const MainExplore = ({ pathname, redirect }) => {
-  /* const { fetch } = useContext(AppContext); */
+  const [surprise, setSurprise] = useState([]);
 
   function handleClick(string) {
     return pathname === '/explorar/comidas'
       ? redirect(`/explorar/comidas/${string}`)
       : redirect(`/explorar/bebidas/${string}`);
   }
-  /*  const surpriseMe = () => {
-    const apis = pathname === path ? api.food : api.drink;
-    const fetchs = pathname === path ? fetch.setFood : fetch.setDrink;
-  }; */
+
+  useEffect(() => {
+    const apis = pathname === '/explorar/comidas' ? api.food : api.drink;
+    apis.searchRandomRecipe().then(({ 0: rec }) => setSurprise(prettifyRecipe(rec)));
+  }, []);
 
   return (
     <div>
@@ -34,7 +34,10 @@ const MainExplore = ({ pathname, redirect }) => {
           Por Local de Origem
         </button>
       ) : null}
-      <button /* onClick={() => surpriseMe()} */ data-testid="explore-surprise">
+      <button
+        onClick={() => redirect(`/${surprise.type}s/${surprise.id}`)}
+        data-testid="explore-surprise"
+      >
         Me Surpreenda!
       </button>
       <MenuInferior />
