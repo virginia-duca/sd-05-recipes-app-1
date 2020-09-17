@@ -9,7 +9,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-const Header = ({ recipe }) => {
+const Header = ({ recipe, path }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { id, type, image, name, category, alcoholicOrNot } = recipe;
 
@@ -29,7 +29,7 @@ const Header = ({ recipe }) => {
         <button
           id="share-btn"
           data-testid="share-btn"
-          onClick={() => toClipboard(`http://localhost:3000/${id}`)}
+          onClick={() => toClipboard(`http://localhost:3000${path}`)}
         >
           <img
             src={shareIcon}

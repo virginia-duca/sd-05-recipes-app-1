@@ -58,7 +58,7 @@ export default {
       return fetchAPI(`${this.baseUrl}search.php?f=${letter}`);
     },
     searchRandomRecipe() {
-      return fetchAPI(`${this.baseUrl}random.php`)
+      return fetchAPI(`${this.baseUrl}random.php`);
     },
   },
   drink: {
@@ -88,7 +88,7 @@ export default {
       return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
     },
     searchRandomRecipe() {
-      return fetchAPI(`${this.baseUrl}random.php`)
+      return fetchAPI(`${this.baseUrl}random.php`);
     },
   },
 };

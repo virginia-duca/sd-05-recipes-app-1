@@ -1,15 +1,13 @@
+/** @format */
+
 const defaultStorage = {
-  /* mealsToken: null,
+/*   mealsToken: null,
   cocktailsToken: null, */
   doneRecipes: [],
   favoriteRecipes: [],
   inProgressRecipes: {},
-  /* user: null */
+  /* user: null, */
 };
-
-const clear = {
-  
-}
 
 const isStorageExists = () => {
   if (typeof Storage !== 'undefined') {

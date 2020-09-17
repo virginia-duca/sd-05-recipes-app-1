@@ -20,8 +20,8 @@ const getMeasures = (recipe) =>
 export const isRecipeStarted = (id, typeBizarre) => {
   storage.initStorage();
   const l =
-    typeof (storage.getValueByKey('inProgressRecipes')[`${typeBizarre}s`] ||
-      {})[id] !== 'undefined';
+    typeof (storage.getValueByKey('inProgressRecipes')[`${typeBizarre}s`] || {})[id] !==
+    'undefined';
   return l;
 };
 
@@ -39,10 +39,7 @@ export const toClipboard = (link) => {
 export const isRecipeFinished = (id, type) => {
   const f = storage.getValueByKey('doneRecipes') || [{ id: -1 }];
   return (
-    f.reduce(
-      (i, { id: rid, type: rtype }) => (rid !== id || type === rtype ? i : id),
-      -1,
-    ) !== -1
+    f.reduce((i, { id: rid, type: rtype }) => (rid !== id || type === rtype ? i : id), -1) !== -1
   );
 };
 
@@ -50,10 +47,7 @@ export const isRecipeFavorited = (id, type) => {
   const cType = type === 'cocktails' ? 'bebidas' : 'comidas';
   const f = storage.getValueByKey('favoriteRecipes') || [{ id: -1 }];
   return (
-    f.reduce(
-      (i, { id: rid, type: rtype }) => (rid !== id && cType === rtype ? i : id),
-      -1,
-    ) !== -1
+    f.reduce((i, { id: rid, type: rtype }) => (rid !== id && cType === rtype ? i : id), -1) !== -1
   );
 };
 
@@ -76,10 +70,7 @@ export const toggleFavorite = ({
     image,
   };
   const f = storage.getValueByKey('favoriteRecipes') || [{ id: -1 }];
-  const fid = f.reduce(
-    (i, { id: favId }) => (favId !== recivedId ? i : recivedId),
-    -1,
-  );
+  const fid = f.reduce((i, { id: favId }) => (favId !== recivedId ? i : recivedId), -1);
   storage.setValueByKey(
     'favoriteRecipes',
     [...f, favoritedObj].filter(({ id: favId }) => favId !== fid),

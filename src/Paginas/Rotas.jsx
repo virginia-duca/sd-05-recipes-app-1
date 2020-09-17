@@ -8,9 +8,7 @@ import LogIn from '../Login/LogIn';
 // Food
 import MainFoodCopy from '../MainPage/MainFood copy';
 
-
 // Drink
-
 
 // Details
 import Detail from '../DetailPage/Detail';
@@ -36,7 +34,7 @@ function Rotas() {
         <Route path="/explorar/comidas" component={MainExplore} />
         <Route path="/explorar/bebidas" component={MainExplore} />
         <Route path="/explorar/comidas/ingredientes" />
-        <Route path="/explorar/bebidas/ingredientes"  />
+        <Route path="/explorar/bebidas/ingredientes" />
         <Route exact path="/explorar/comidas/area" />
         <Route path="/perfil" component={Profile} />
         <Route path="/receitas-feitas" component={ReceitasFeitas} />
