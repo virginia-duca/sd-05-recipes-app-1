@@ -1,0 +1,29 @@
+.instructions {
+  width: 100;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.basic {
+  text-align: center;
+}
+
+.list {
+  text-align: left;
+}
+
+.checks {
+  padding-left: 32px;
+}
+
+.cards {
+  width: 100%;
+  display: flex;
+}
+
+.nomeRiscado {
+  text-decoration: line-through;
+}

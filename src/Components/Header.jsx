@@ -6,10 +6,7 @@ import {
   toClipboard,
 } from '../Services/Utils';
 
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-
+import './style.css';
 
 const Header = ({
   recipe,
@@ -24,24 +21,33 @@ const Header = ({
   },[isFavorite])
 
   return (
-  <header className='basic'>
-    <div>
-      <img className='foto' data-testid="recipe-photo" src={image} alt="" />
-      <h3 data-testid="recipe-title">{name}</h3>
-      <h4 data-testid="recipe-category">{alcoholicOrNot || category}</h4>
-    </div>
-    <div>
-      <button data-testid="share-btn">
-        <img src={shareIcon} alt="Share" onClick={() => { toClipboard(`http://localhost:3000${path}`); }} />
-      </button>
-      <button
-        data-testid="favorite-btn"
-        src={isFavorite ? blackHeartIcon : whiteHeartIcon}
-        onClick={() => {
-          setIsFavorite(toggleFavorite(recipe))
-        }} >
-        <img src={isFavorite ? blackHeartIcon : whiteHeartIcon} alt="Favorite" />
-      </button>
+  <header className="header-container basic">
+
+    <div className="card horizontal">
+      <div className="card-image">
+        <img className="image" src={image} data-testid="recipe-photo" alt="" />
+      </div>
+      <div className="card-stacked">
+        <div className="card-content">
+          <p className="header-title" data-testid="recipe-title">{name}</p>
+          <hr />
+          <p data-testid="recipe-category">{alcoholicOrNot || category}</p>
+          <div className="card-links">
+            <button
+              className="btn-floating btn white" data-testid="share-btn"
+              onClick={() => { toClipboard(`http://localhost:3000${path}`); }}
+            >
+              <i className="material-icons black-text">share</i>
+            </button>
+            <button
+              className="btn-floating btn white" data-testid="favorite-btn"
+              onClick={() => { setIsFavorite(toggleFavorite(recipe)) }}
+            >
+              <i className="material-icons black-text">{isFavorite ? 'favorite' : 'favorite_border'}</i>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
   )

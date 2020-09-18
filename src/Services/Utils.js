@@ -83,7 +83,7 @@ export const prettifyRecipe = (recipe) => {
     alcoholicOrNot: strAlcoholic || '',
     name: strDrink || strMeal,
     image: strDrinkThumb || strMealThumb,
-    video: strVideo || strYoutube,
+    video: (strVideo || strYoutube || '').replace('watch=?v', 'embed/') ,
     tags: (strTags || '').split(','),
     ingredientsAndMesures: getIngredients(recipe).map((ingredient, i) => (
       { ingredient, measure: getMeasures(recipe)[i] }

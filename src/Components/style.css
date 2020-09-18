@@ -1,0 +1,28 @@
+.basic.header-container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  background-color: brown;
+  padding-bottom: 22px;
+}
+
+.basic.card-content .header-title {
+  font-size: 28px;
+}
+
+.card-links {
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.horizontal {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.image {
+  height: 180px;
+}

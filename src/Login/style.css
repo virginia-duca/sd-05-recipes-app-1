@@ -23,9 +23,9 @@
   padding-bottom: 32px;
 }
 
-.btn, .btn:focus {
+/* .btn, .btn:focus {
   background-color: brown;
-}
+} */
 
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),

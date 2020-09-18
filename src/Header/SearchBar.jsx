@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 
-import './style.css';
+import './header.css';
 
 const handleClick = ({ setFilterFunction, selectedApi, inputText, filtroSelecionado }) => {
   switch (filtroSelecionado) {

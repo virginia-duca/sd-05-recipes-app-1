@@ -11,7 +11,7 @@ import {
 } from '../Services/Utils';
 
 // Recursos
-import './ReceitasEmProgresso.css'
+import './style.css'
 
 const getIngredientsAndMesures = (r) => {
   const checkedArray = ((storage
@@ -21,7 +21,6 @@ const getIngredientsAndMesures = (r) => {
     { ...rec, isChecked: checkedArray.includes(rec.ingredient) }
   ));
 
-  console.log(t, r.typeBizarre);
   return t;
 };
 
@@ -52,7 +51,8 @@ const ReceitasEmProgresso = ({ id, path, pathname, redirect }) => {
   const [checked, setChecked] = useState(undefined);
   
   const riscarNome = (id, index) => {
-    const check = document.getElementsByName(id)[0];
+    console.log(id)
+    const check = document.querySelector(`#${id}`);
     check.classList.toggle("selected");
     setIngredients(ingredients.map((obj, i) => {
       if(i === index) return {...obj, isChecked: !obj.isChecked};
@@ -90,50 +90,53 @@ const ReceitasEmProgresso = ({ id, path, pathname, redirect }) => {
   return (
     <div className='basic'>
       <Header recipe={recipe} path={pathname} />
-      <div className='basic'>
+      <div className='list container'>
         <strong>Ingredients</strong>
         {ingredients.map(({ ingredient, measure, isChecked }, i) =>
-          <div key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
+          <div className="checks" key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
             <label
-              id={`${ingredient}`} name={`${i}`} htmlFor={`${ingredient}`}
+              name={`${i}`} htmlFor={`${ingredient.replace(/ /gi, '-')}`}
               className={isChecked ? 'nomeRiscado' : ''}
               data-testid={`${i}-ingredient-step`}
             >
               <input
-                type="checkbox" name={`${ingredient}`}
+                id={`${ingredient.replace(/ /gi, '-')}`}
+                type="checkbox" name="selections"
                 className={`check-input ${isChecked ? 'selected' : ''}`}
-                onChange={({ target: { name }}) => { riscarNome(name, i); checkAllDone(); }}
+                onChange={({ target: { id }}) => { riscarNome(id, i); checkAllDone(); }}
                 checked={isChecked}
               />
-                {`${ingredient} - ${measure}`}
+              <span>{`${ingredient} - ${measure}`}</span>
             </label>
           </div>,
         )}
         <strong className="instructions">Instructions</strong>
         <div data-testid="instructions" className="instructions">
-          { recipe.strInstructions }
+          <span className="black-text">{ recipe.instructions }</span>
         </div>
         <strong>Recomendadas</strong>
-        {
-          sideDish.map((sideDataObject, i) => {
-            const { id, image, name } = prettifyRecipe(sideDataObject);
-            return <Card
-              key={id} imageSrc={image}
-              title={name} index={i} className={i < 2 ? '' : 'hidden'}
-              testIdArray={['-recomendation-card', '', '-recomendation-title']}
-            />
-          })
-        }
-        <button
-          data-testid="finish-recipe-btn"
-          disabled={!(ingredients.length === checked)}
-          id="finalizar-receita"
-          onClick={() => { finishRecipe(recipe, redirect); }}
-        >
-          Finalizar Receita
-        </button>
-
+        <div className="cards">
+          {
+            sideDish.map((sideDataObject, i) => {
+              const { id, image, name } = prettifyRecipe(sideDataObject);
+              return <Card
+                key={id} imageSrc={image}
+                title={name} index={i} className={i < 2 ? '' : 'hidden'}
+                testIdArray={['-recomendation-card', '', '-recomendation-title']}
+              />
+            })
+          }
+        </div>
       </div>
+      <button
+        data-testid="finish-recipe-btn"
+        disabled={!(ingredients.length === checked)}
+        id="finalizar-receita"
+        className="btn"
+        onClick={() => { finishRecipe(recipe, redirect); }}
+      >
+        Finalizar Receita
+      </button>
     </div>
   );
 }

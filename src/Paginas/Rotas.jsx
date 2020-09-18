@@ -36,7 +36,7 @@ function Rotas() {
           <ReceitasEmProgresso />
         </Route>
         <Route exact path="/bebidas">
-          <MainPage/>
+          <MainPage />
         </Route>
         <Route exact path="/bebidas/:id">
           <Detail />

@@ -5,9 +5,9 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-import './style.css';
+import './header.css';
 
-class Header extends React.Component {
+class MainHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +39,7 @@ class Header extends React.Component {
           data-testid="search-top-btn"
           src={searchIcon}
         >
-          <i class="material-icons">search</i>
+          <i className="material-icons">search</i>
         </button>
       </div>
     );
@@ -58,8 +58,8 @@ class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
+MainHeader.propTypes = {
   titulo: PropTypes.string.isRequired,
 };
 
-export default Header;
+export default MainHeader;

@@ -5,7 +5,7 @@ import AppContext from '../Context/AppContext';
 import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
 import RenderCategories from './Gadgets/RenderCategories';
-import Header from '../Header/Header';
+import MainHeader from '../Header/MainHeader';
 import MenuInferior from '../Header/MenuInferior';
 
 import './style.css';
@@ -67,7 +67,7 @@ const MainPage = ({ location: { pathname } }) => {
     apis.getCategories().then((list) => {
       categories = [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)];
     }).then(() => { setIsLoading(false); });
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     item.comidas = Object.assign(comidas12);
@@ -96,7 +96,7 @@ const MainPage = ({ location: { pathname } }) => {
 
   return isLoading ? <div>Loading...</div> : (
     <div>
-      <Header titulo={toUpper(item.path)} />
+      <MainHeader titulo={toUpper(item.path)} />
       <div className="card-container">
         <RenderCategories
           categories={categories}

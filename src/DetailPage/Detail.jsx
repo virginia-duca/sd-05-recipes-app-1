@@ -13,18 +13,20 @@ import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
 import storage from '../Services/LocalStorage';
 
-import './Detail.css';
-
-const YouTube = ({ recipe: { video } }) => (
-  <iframe
-    data-testid="video"
-    width="560"
-    height="315"
-    src={ video }
-    frameBorder="0"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-  />
-);
+import './style.css';
+const YouTube = ({ recipe: { video } }) => {
+  return <div class="video-container">
+    <iframe
+      data-testid="video"
+      id="yt-video"
+      width="300"
+      height="480"
+      src={ video }
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    />
+  </div>
+};
 
 function Detail({id, type, path, pathname, redirect}) {
   const [recipe, setRecipe] = useState({});
@@ -52,31 +54,33 @@ function Detail({id, type, path, pathname, redirect}) {
   };
 
   return (
-    <div>
+    <div className="detail">
       <Header recipe={recipe} path={pathname} />
-      <div>
-        <strong>Ingredients</strong>
+      <div className="container">
+        <strong className="title">Ingredients</strong>
         {(recipe.ingredientsAndMesures || []).map(({ ingredient, measure }, i) =>
           <div key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
             {`- ${ingredient} - ${measure}`}
           </div>,
         )}
-        <strong>Instructions</strong>
+        <strong className="title">Instructions</strong>
         <div data-testid="instructions">
           { recipe.instructions }
         </div>
         <YouTube recipe={recipe} />
-        <strong>Recomendadas</strong>
-        {sideDish.map((sideDataObject, i) => {
-          const { id, image: src, name } = prettifyRecipe(sideDataObject);
-          return <Card
-            key={ id } imageSrc={ src }
-            title={ name } index={i} className={i < 2 ? '' : 'hidden'}
-            testIdArray={['-recomendation-card', '', '-recomendation-title']}
-          />;
-        })}
+        <strong className="title">Recomendadas</strong>
+        <div className="cards">
+          {sideDish.map((sideDataObject, i) => {
+            const { id, image: src, name } = prettifyRecipe(sideDataObject);
+            return <Card
+              key={ id } imageSrc={ src }
+              title={ name } index={i} className={i < 2 ? '' : 'hidden'}
+              testIdArray={['-recomendation-card', '', '-recomendation-title']}
+            />;
+          })}
+        </div>
         <button
-          className={`btn-start ${isRecipeFinished(id, type) ? 'hidden' : '' }`}
+          className={`btn btn-start ${isRecipeFinished(id, type) ? 'hidden' : '' }`}
           data-testid="start-recipe-btn"
           onClick={() => { startRecipe(); }}
         >
