@@ -1,12 +1,14 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import AppContext from '../Context/AppContext';
 import HeaderTwo from '../Header/HeaderTwo';
 import MenuInferior from '../Header/MenuInferior';
 import api from '../Services/FetchAPI'
 import{ appPage }from '../Services/Utils'
 
 const ExploreIngredients = ({pathname, redirect}) => {
+  const { fetch } = useContext(AppContext)
   const [ingredients, setIngredients ] = useState([]) 
     const explore = 'Explorar ingredientes';
     const path = pathname.includes('comidas')
@@ -15,12 +17,25 @@ const ExploreIngredients = ({pathname, redirect}) => {
    const apis = path ? api.food : api.drink
    apis.getIngredients().then((igr) => setIngredients(igr.slice(0, 12)))
   }, [])
+
+  const handleClick = (igr) => {
+    if (path) {
+      fetch.setFilteredSearchBarFood(api.food.searchByIngredient(igr.strIngredient))
+      return redirect('/comidas');
+    }
+    fetch.setFilteredSearchBarDrink(api.drink.searchByIngredient(igr.strIngredient1))
+    redirect('/bebidas');
+     /* path 
+     ? fetch.setFilteredSearchBarFood(api.food.searchByIngredient(igr.strIngredient))
+     : fetch.setFilteredSearchBarDrink(api.drink.searchByIngredient(igr.strIngredient1)) */
+  }
+
     return (
       <div>
         <HeaderTwo titulo={explore} />
         <div>
           {ingredients.map((igr) => 
-          <button>
+          <button onClick={() => handleClick(igr)}>
             <div>
               <img src={path 
               ? `https://www.themealdb.com/images/ingredients/${igr.strIngredient}-Small.png`
