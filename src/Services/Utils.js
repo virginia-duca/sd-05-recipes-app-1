@@ -114,6 +114,16 @@ export const prettifyRecipe = (recipe) => {
   };
 };
 
+export const prettifyIngredients = (igr) => {
+  const { idIngredient, strDescription, strIngredient, strType, strIngredient1 } = igr;
+  return {
+    id: idIngredient || '',
+    descricao: strDescription || '',
+    name: strIngredient || strIngredient1,
+    type: strType,
+  };
+};
+
 export const appPage = (component) => {
   storage.initStorage();
   return withRouter(

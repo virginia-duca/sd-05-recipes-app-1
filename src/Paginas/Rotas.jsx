@@ -18,6 +18,8 @@ import Explore from '../Explore/Explore';
 import ReceitasFeitas from '../Receitas/ReceitasFeitas';
 import ReceitasFavoritas from '../Receitas/ReceitasFavoritas';
 import ReceitasEmProgresso from '../Receitas/ReceitasEmPrgresso';
+import ExploreIngredients from '../Explore/ExploreIngredients';
+import ExploreAreaOrigem from '../Explore/ExploreAreaOrigem';
 
 function Rotas() {
   return (
@@ -31,11 +33,11 @@ function Rotas() {
         <Route exact path="/bebidas/:id" component={Detail} />
         <Route path="/bebidas/:id/in-progress" component={ReceitasEmProgresso} />
         <Route exact path="/explorar" component={Explore} />
-        <Route path="/explorar/comidas" component={MainExplore} />
-        <Route path="/explorar/bebidas" component={MainExplore} />
-        <Route path="/explorar/comidas/ingredientes" />
-        <Route path="/explorar/bebidas/ingredientes" />
-        <Route exact path="/explorar/comidas/area" />
+        <Route exact path="/explorar/comidas" component={MainExplore} />
+        <Route exact path="/explorar/bebidas" component={MainExplore} />
+        <Route path="/explorar/comidas/ingredientes" component={ExploreIngredients} />
+        <Route path="/explorar/bebidas/ingredientes" component={ExploreIngredients} />
+        <Route exact path="/explorar/comidas/area" component={ExploreAreaOrigem} />
         <Route path="/perfil" component={Profile} />
         <Route path="/receitas-feitas" component={ReceitasFeitas} />
         <Route path="/receitas-favoritas" component={ReceitasFavoritas} />

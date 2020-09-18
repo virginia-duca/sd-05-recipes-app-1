@@ -1,26 +1,33 @@
 /** @format */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import './MenuInferior.css';
+import { appPage } from '../Services/Utils';
 
-export default function MenuInferior() {
+const MenuInferior = ({ redirect }) => {
   return (
     <footer data-testid="footer">
       <div>
-        <Link to={'./bebidas'}>
+        <button onClick={() => redirect('/bebidas')}>
           <img src={drinkIcon} alt="Drink" data-testid="drinks-bottom-btn" />
-        </Link>
-        <Link to={'./explorar'}>
+        </button>
+        <button onClick={() => redirect('/explorar')}>
           <img src={exploreIcon} alt="Explore" data-testid="explore-bottom-btn" />
-        </Link>
-        <Link to={'./comidas'}>
+        </button>
+        <button onClick={() => redirect('/comidas')}>
           <img src={mealIcon} alt="Meal" data-testid="food-bottom-btn" />
-        </Link>
+        </button>
       </div>
     </footer>
   );
-}
+};
+
+MenuInferior.propTypes = {
+  redirect: PropTypes.func.isRequired,
+};
+
+export default appPage(MenuInferior);
