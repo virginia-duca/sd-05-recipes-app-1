@@ -27,7 +27,7 @@ function SearchBar({ location: { pathname }, history }) {
   const [inputText, setInputText] = useState('');
 
   useEffect(() => {
-    const path = pathname === '/comidas' ? 'comidas' : 'bebidas';
+    const path = pathname.includes('comidas') ? 'comidas' : 'bebidas';
     const filtered = path === 'comidas' ? comidasFiltradas : bebidasFiltradas;
     if (filtered.length === 1 && filtered !== 'inicial') {
       const id = Object.entries(filtered[0])[0][1];
@@ -70,7 +70,7 @@ function SearchBar({ location: { pathname }, history }) {
         type="button"
         data-testid="exec-search-btn"
         onClick={() => {
-          if (pathname === '/comidas') {
+          if (pathname.includes('comidas')) {
             handleClick({
               setFilterFunction: fetch.setFilteredSearchBarFood,
               selectedApi: api.food,
@@ -78,7 +78,7 @@ function SearchBar({ location: { pathname }, history }) {
               filtroSelecionado,
             });
           }
-          if (pathname === '/bebidas' || '/bebidas/') {
+          if (pathname.includes('bebidas')) {
             handleClick({
               setFilterFunction: fetch.setFilteredSearchBarDrink,
               selectedApi: api.drink,
