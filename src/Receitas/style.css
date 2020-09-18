@@ -24,6 +24,19 @@
   display: flex;
 }
 
+.instructions {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 50px;
+  width: 70%;
+}
+
 .nomeRiscado {
   text-decoration: line-through;
+}
+
+.image {
+  width: 30%;
 }

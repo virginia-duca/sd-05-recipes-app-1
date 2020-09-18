@@ -57,6 +57,18 @@ export default {
       }
       return fetchAPI(`${this.baseUrl}search.php?f=${letter}`);
     },
+    searchRandomRecipe() {
+      return fetchAPI(`${this.baseUrl}random.php`);
+    },
+    getIngredients() {
+      return fetchAPI(`${this.baseUrl}list.php?i=list`);
+    },
+    getAreas() {
+      return fetchAPI(`${this.baseUrl}list.php?a=list`);
+    },
+    searchByArea(area) {
+      return fetchAPI(`${this.baseUrl}filter.php?a=${area}`);
+    },
   },
   drink: {
     baseUrl: 'https://www.thecocktaildb.com/api/json/v1/1/',
@@ -70,7 +82,9 @@ export default {
       return fetchAPI(`${this.baseUrl}search.php?s=${name}`);
     },
     searchByCategory(category) {
-      return fetchAPI(`${this.baseUrl}filter.php?c=${category.replace(' ', '_')}`);
+      return fetchAPI(
+        `${this.baseUrl}filter.php?c=${category.replace(/ \/ /g, '%20/%20').replace(' ', '_')}`,
+      );
     },
     searchByFirstLetter(letter) {
       if (letter.length > 1) {
@@ -81,6 +95,12 @@ export default {
     },
     searchByIngredient(ingredient) {
       return fetchAPI(`${this.baseUrl}filter.php?i=${ingredient}`);
+    },
+    searchRandomRecipe() {
+      return fetchAPI(`${this.baseUrl}random.php`);
+    },
+    getIngredients() {
+      return fetchAPI(`${this.baseUrl}list.php?i=list`);
     },
   },
 };

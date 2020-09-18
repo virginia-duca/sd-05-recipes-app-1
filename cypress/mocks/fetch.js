@@ -95,13 +95,13 @@ const fetch = (url) => Promise.resolve({
     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=gin')
       return Promise.resolve(ginDrinks);
 
-    if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary Drink')
+    if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink')
       return Promise.resolve(ordinaryDrinks);
 
     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail')
       return Promise.resolve(cocktailDrinks);
 
-    if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Milk / Float / Shake')
+    if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Milk%20/%20Float%20/%20Shake')
       return Promise.resolve(milkDrinks);
 
     if (url === 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Other/Unknown')

@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import {
-  isRecipeFavorited,
-  toggleFavorite,
-  toClipboard,
-} from '../Services/Utils';
-
+import { isRecipeFavorited, toggleFavorite, toClipboard } from '../Services/Utils';
 import './style.css';
 
-const Header = ({
-  recipe,
-  path
-}) => {
-
+const Header = ({ recipe, path }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { id, type, image, name, category, alcoholicOrNot } = recipe;
 
   useEffect(() => {
     setIsFavorite(isRecipeFavorited(id, type));
-  },[isFavorite])
+    console.log(isRecipeFavorited(id, type));
+  }, [isFavorite]);
 
   return (
   <header className="header-container basic">
@@ -52,5 +45,11 @@ const Header = ({
   </header>
   )
 };
+
+Header.propTypes = {
+  recipe: PropTypes.instanceOf(Object),
+  path: PropTypes.string,
+}.isRequired;
+
 
 export default Header;

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import api from '../Services/FetchAPI';
@@ -5,25 +7,29 @@ import Card from '../Components/Card';
 import AppContext from '../Context/AppContext';
 import storage from '../Services/LocalStorage';
 import Header from '../Components/Header';
-import {
-  appPage,
-  prettifyRecipe,
-} from '../Services/Utils';
+import { appPage, prettifyRecipe } from '../Services/Utils';
 
 // Recursos
 import './style.css'
 
+// Desconstroi o objeto "meals" e salva informacoes de ingredientes,
+// mesures e isChecked(checa se o ingrediente ja foi riscado)
+// como um array no state(Ingredients)
 const getIngredientsAndMesures = (r) => {
-  const checkedArray = ((storage
-    .getValueByKey('inProgressRecipes')[`${r.typeBizarre}s`] || [])[r.id]) || [];
-  
-  const t = r.ingredientsAndMesures.map((rec) => (
-    { ...rec, isChecked: checkedArray.includes(rec.ingredient) }
-  ));
+  const checkedArray =
+    (storage.getValueByKey('inProgressRecipes')[`${r.typeBizarre}s`] || [])[r.id] || [];
+
+  const t = r.ingredientsAndMesures.map((rec) => ({
+    ...rec,
+    isChecked: checkedArray.includes(rec.ingredient),
+  }));
 
   return t;
 };
 
+
+// se a receita for finalizada, esta funcao salva sua informacoes
+// na chave 'doneRecepies' do localStorage
 const finishRecipe = (recipe, redirect) => {
   const { id, type, area, category, alcoholicOrNot, name, image, tags } = recipe;
   const now = new Date();
@@ -36,14 +42,16 @@ const finishRecipe = (recipe, redirect) => {
     name,
     image,
     tags,
-    doneDate: `${(now.getDate())}/${now.getMonth() < 10 ? 0 : ''}${now.getMonth()}/${now.getFullYear()}`,
-  }
+    doneDate: `${now.getDate()}/${
+      now.getMonth() < 10 ? 0 : ''
+    }${now.getMonth()}/${now.getFullYear()}`,
+  };
   const currentDone = storage.getValueByKey('doneRecipes');
   storage.setValueByKey('doneRecipes', [...currentDone, doneObject]);
   redirect('../../receitas-feitas');
 };
 
-const ReceitasEmProgresso = ({ id, path, pathname, redirect }) => {
+const ReceitasEmProgresso = ({ id, path, pathname, redirect, type }) => {
   const { setRecipeContext } = useContext(AppContext);
   const [recipe, setRecipe] = useState({});
   const [sideDish, setSideDish] = useState([]);
@@ -59,57 +67,62 @@ const ReceitasEmProgresso = ({ id, path, pathname, redirect }) => {
       return obj;
     }))
   };
-  
+
   // vai checar se todos os checkbox estao selecionados para habilitar o botao finalizar receita
+  // também salva ingredientes riscados na chave 'inProgressRecipes'do localSTorage
   const checkAllDone = () => {
-    const product = path[1] === 'comidas' ? 'meals' : 'cocktails'  
+    const product = path[1] === 'comidas' ? 'meals' : 'cocktails';
     const listOfItems = [...document.getElementsByTagName('input')];
     const list = listOfItems
-      .filter(item => item.classList.contains("selected")).map(item => item.name);
-    setChecked(list.length)
+      .filter((item) => item.classList.contains('selected'))
+      .map((item) => item.name);
+    setChecked(list.length);
     const curRecipes = storage.getValueByKey('inProgressRecipes')[product];
-    storage.setValueByKey('inProgressRecipes', {[product]: {...curRecipes, [id]: list}})
-  }
+    storage.setValueByKey('inProgressRecipes', { [product]: { ...curRecipes, [id]: list } });
+  };
 
   useEffect(() => {
     // Verifica qual página está sendo montada
     storage.initStorage();
-    const recipeFunc = path[1] === 'comidas' ?
-      api.food : api.drink;
-    const sideDishFunc = path[1] === 'comidas' ?
-      api.drink : api.food;
-    recipeFunc.getRecipeById(id)
-    .then(({ 0: rec }) => {
-      setRecipe( prettifyRecipe(rec) ); setRecipeContext(rec);
+    const theFetch = type === 'meal' ? api.food : api.drink;
+    const theFech2 = type === 'meal' ? api.drink : api.food;
+    console.log(type);
+    theFetch.getRecipeById(id).then(({ 0: rec }) => {
+      setRecipe(prettifyRecipe(rec));
+      setRecipeContext(rec);
       setIngredients(getIngredientsAndMesures(prettifyRecipe(rec)));
     });
-    sideDishFunc.searchByName('')
-      .then((array) => { setSideDish(array.slice(0, 6)); });
-  }, []); 
-  
+    theFech2.searchByName('').then((array) => {
+      setSideDish(array.slice(0, 6));
+    });
+  }, []);
+
+// prettier ignore
   return (
-    <div className='basic'>
+    <div className="basic">
       <Header recipe={recipe} path={pathname} />
       <div className='list container'>
         <strong>Ingredients</strong>
-        {ingredients.map(({ ingredient, measure, isChecked }, i) =>
-          <div className="checks" key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
-            <label
-              name={`${i}`} htmlFor={`${ingredient.replace(/ /gi, '-')}`}
-              className={isChecked ? 'nomeRiscado' : ''}
-              data-testid={`${i}-ingredient-step`}
-            >
-              <input
-                id={`${ingredient.replace(/ /gi, '-')}`}
-                type="checkbox" name="selections"
-                className={`check-input ${isChecked ? 'selected' : ''}`}
-                onChange={({ target: { id }}) => { riscarNome(id, i); checkAllDone(); }}
-                checked={isChecked}
-              />
+        {
+          ingredients.map(({ ingredient, measure, isChecked }, i) => (
+            <div className="checks" key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
+              <label
+                name={i} htmlFor={`${ingredient.replace(/ /gi, '-')}`}
+                className={isChecked ? 'nomeRiscado' : ''}
+                data-testid={`${i}-ingredient-step`}
+              >
+                <input
+                  id={`${ingredient.replace(/ /gi, '-')}`}
+                  type="checkbox" name="selections"
+                  className={`check-input ${isChecked ? 'selected' : ''}`}
+                  onChange={({ target: { id }}) => { riscarNome(id, i); checkAllDone(); }}
+                  checked={isChecked}
+                />
               <span>{`${ingredient} - ${measure}`}</span>
-            </label>
-          </div>,
-        )}
+              </label>
+            </div>
+          ))
+        }
         <strong className="instructions">Instructions</strong>
         <div data-testid="instructions" className="instructions">
           <span className="black-text">{ recipe.instructions }</span>
@@ -139,7 +152,7 @@ const ReceitasEmProgresso = ({ id, path, pathname, redirect }) => {
       </button>
     </div>
   );
-}
+};
 
 Header.propTypes = {
   recipe: PropTypes.instanceOf(Object).isRequired,
