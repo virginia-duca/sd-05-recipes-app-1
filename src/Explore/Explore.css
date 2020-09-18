@@ -1,0 +1,28 @@
+.teste {
+  /* border: 1px solid blue; */
+}
+/* vivi, ta ai? tou */
+.container-explore {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+}
+.btn1 {
+  border: 10px solid red;
+}
+
+.explore-btns {
+  border: 10px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30%;
+  min-height: fill-available;
+}
+
+.footer {
+  /* border: 1px solid springgreen; */
+}

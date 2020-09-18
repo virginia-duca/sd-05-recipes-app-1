@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './style.css';
+
 const SmallCards = ({ title, onClick }) => (
   <button
     type="button"

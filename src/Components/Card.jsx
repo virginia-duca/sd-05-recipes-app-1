@@ -19,8 +19,11 @@ const Card = ({ imageSrc, title, index, testIdArray, className }) => (
       />
     </div>
     <div className="card-title">
-      <p data-testid={`${index}${testIdArray[2]}`}>{title}</p>
+      <p data-testid={`${index}${testIdArray[2]}`}>
+        {`${title.slice(0, 20)}${(title.length > 30) ? '...' : ''}`}
+      </p>
     </div>
+    <div />
   </div>
 );
 

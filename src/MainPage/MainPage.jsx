@@ -8,6 +8,8 @@ import RenderCategories from './Gadgets/RenderCategories';
 import MainHeader from '../Header/MainHeader';
 import MenuInferior from '../Header/MenuInferior';
 
+import Loader from '../utils/loader';
+
 import './style.css';
 
 const MEAL = '/comidas';
@@ -36,9 +38,11 @@ const RenderItems = () => {
       {
         Array.isArray(itemArray) && itemArray.slice(0, 12)
           .map((data, i) => (
-            <Link to={`${path}/${data.idMeal || data.idDrink}`}>
+            <Link
+              to={`${path}/${data.idMeal || data.idDrink}`}
+              key={`${data.idMeal || data.idDrink}-${Math.random() * 1E5}`}
+            >
               <Card
-                key={data.idMeal || data.idDrink}
                 imageSrc={data.strMealThumb || data.strDrinkThumb}
                 title={data.strMeal || data.strDrink}
                 index={i}
@@ -58,6 +62,9 @@ const MainPage = ({ location: { pathname } }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    Loader.init();
+    Loader.setColor({ bg: 'white' });
+    
     // Seta os states locais
     item.path = pathname;
     apis = pathname === MEAL ? api.food : api.drink;
@@ -82,6 +89,11 @@ const MainPage = ({ location: { pathname } }) => {
       item.bebidas = bebidasFiltradas;
     }
   }, [comidasFiltradas, bebidasFiltradas]);
+
+  useEffect(() => {
+    if(isLoading) Loader.start();
+    else Loader.stop();
+  }, [isLoading]);
 
   const setItemListByCategory = (category) => {
     if (category === item.category || category === 'All') {

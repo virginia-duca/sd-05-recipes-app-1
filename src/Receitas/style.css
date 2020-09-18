@@ -1,14 +1,22 @@
-.instructions {
-  width: 100;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
 .basic {
   text-align: center;
+}
+
+.title {
+  display: block;
+  color: var(--cinza);
+  padding-top: 22px;
+}
+
+.footer {
+  background-color: brown;
+  padding-bottom: 16px;
+  width: 100vmin;
+  margin: 0;
+}
+
+.footer .title {
+  color: whitesmoke;
 }
 
 .list {
@@ -25,12 +33,8 @@
 }
 
 .instructions {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 50px;
-  width: 70%;
+  text-align: justify;
+  width: 90%;
 }
 
 .nomeRiscado {

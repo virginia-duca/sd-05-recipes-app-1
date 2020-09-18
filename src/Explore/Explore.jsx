@@ -5,19 +5,41 @@ import PropTypes from 'prop-types';
 import HeaderTwo from '../Header/HeaderTwo';
 import MenuInferior from '../Header/MenuInferior';
 import { appPage } from '../Services/Utils';
+import './Explore.css'
 
 const Explore = ({ redirect }) => {
   const explore = 'Explorar';
   return (
     <div>
-      <HeaderTwo titulo={explore} />
-      <button data-testid="explore-food" onClick={() => redirect('/explorar/comidas')}>
-        Explorar Comidas
-      </button>
-      <button data-testid="explore-drinks" onClick={() => redirect('/explorar/bebidas')}>
-        Explorar Bebidas
-      </button>
-      <MenuInferior />
+      <div className="container-explore">
+        <div className="teste">
+        	<HeaderTwo titulo={explore} />
+        </div>
+        <div className="explore-btns">
+          <div className="btn1">
+          <button 
+            data-testid="explore-food" 
+            onClick={() => redirect('/explorar/comidas')}
+            className="btn waves-light btn-large white black-text"
+          >
+            Explorar Comidas
+          </button>
+          </div>
+          <div className="btn1">
+          <button 
+          data-testid="explore-drinks" 
+          onClick={() => redirect('/explorar/bebidas')}
+          className="btn waves-light btn-large white black-text"
+          >
+            Explorar Bebidas
+          </button>
+          </div>
+        </div>
+        <div />
+      </div>
+      <div>
+        <MenuInferior />
+      </div>
     </div>
   );
 };

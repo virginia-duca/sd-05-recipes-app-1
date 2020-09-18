@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../Components/Header';
@@ -11,6 +9,8 @@ import Card from '../Components/Card';
 import storage from '../Services/LocalStorage';
 
 import './style.css';
+import Loader from '../utils/loader';
+
 const YouTube = ({ recipe: { video } }) => {
   return <div class="video-container">
     <iframe
@@ -30,25 +30,20 @@ function Detail({ id, type, path, pathname, redirect }) {
   const [sideDish, setSideDish] = useState([]);
 
   useEffect(() => {
+    Loader.init();
+    Loader.start();
     // Verifica qual página está sendo montada
     const theFetch = type === 'meal' ? api.food : api.drink;
     const theFech2 = type === 'meal' ? api.drink : api.food;
     theFetch.getRecipeById(id).then(({ 0: rec }) => {
       setRecipe(prettifyRecipe(rec));
+      Loader.stop();
     });
     theFech2.searchByName('').then((array) => {
       setSideDish(array.slice(0, 6));
+      Loader.stop();
     });
   }, []);
-
-  /* const startRecipe = () => {
-    const product = path[1] === 'comidas' ? 'meals' : 'cocktails';
-    const curRecipes = storage.getValueByKey('inProgressRecipes')[product] || [];
-    storage.setValueByKey('inProgressRecipes', {
-      [product]: { ...curRecipes, [id]: curRecipes[id] || [] },
-    });
-    redirect(`${pathname}/in-progress`);
-  }; */
 
   return (
     <div className="detail">

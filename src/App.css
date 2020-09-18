@@ -1,7 +1,6 @@
 #meals {
   height: 100vh;
   width: 100%;
-  background: #0fa36b;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,7 +45,6 @@
 .small-card {
   display: flex;
   align-items: center;
-  background-color: cadetblue;
   height: 40px;
   width: 120px;
   padding: 0 16px;
@@ -55,7 +53,13 @@
 
 a {
   text-decoration: none;
-}  
+}
+
+:root {
+  --main: brown;
+  --main-dark: rgb(66, 0, 0);
+  --cinza: rgb(113, 112, 112);
+}rgb(128, 128, 128)
 
 @keyframes shake {
   0% {

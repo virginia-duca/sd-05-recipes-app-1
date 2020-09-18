@@ -30,16 +30,16 @@ class MainHeader extends React.Component {
     return (
       <div className="header-container">
         <Link to={'/perfil'}>
-          <img src={profileIcon} alt="Profile" data-testid="profile-top-btn" />
+        <i className="medium material-icons">account_box</i>
         </Link>
-        <h4 data-testid="page-title">{titulo}</h4>
+        <h4 data-testid="page-title" className="titles text">{titulo}</h4>
         <button
-          className="btn-floating red"
+          className="btn-floating search-btn"
           onClick={this.handleClick}
           data-testid="search-top-btn"
           src={searchIcon}
         >
-          <i className="material-icons">search</i>
+          <i className="material-icons search-btn">search</i>
         </button>
       </div>
     );

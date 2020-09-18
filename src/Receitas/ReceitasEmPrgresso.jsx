@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import api from '../Services/FetchAPI';
@@ -8,6 +6,8 @@ import AppContext from '../Context/AppContext';
 import storage from '../Services/LocalStorage';
 import Header from '../Components/Header';
 import { appPage, prettifyRecipe } from '../Services/Utils';
+
+import Loader from '../utils/loader';
 
 // Recursos
 import './style.css'
@@ -82,11 +82,12 @@ const ReceitasEmProgresso = ({ id, path, pathname, redirect, type }) => {
   };
 
   useEffect(() => {
+    Loader.init();
+    Loader.start();
     // Verifica qual página está sendo montada
     storage.initStorage();
     const theFetch = type === 'meal' ? api.food : api.drink;
     const theFech2 = type === 'meal' ? api.drink : api.food;
-    console.log(type);
     theFetch.getRecipeById(id).then(({ 0: rec }) => {
       setRecipe(prettifyRecipe(rec));
       setRecipeContext(rec);
@@ -94,6 +95,7 @@ const ReceitasEmProgresso = ({ id, path, pathname, redirect, type }) => {
     });
     theFech2.searchByName('').then((array) => {
       setSideDish(array.slice(0, 6));
+      Loader.stop();
     });
   }, []);
 
@@ -102,7 +104,7 @@ const ReceitasEmProgresso = ({ id, path, pathname, redirect, type }) => {
     <div className="basic">
       <Header recipe={recipe} path={pathname} />
       <div className='list container'>
-        <strong>Ingredients</strong>
+        <strong className="title">Ingredients</strong>
         {
           ingredients.map(({ ingredient, measure, isChecked }, i) => (
             <div className="checks" key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
@@ -123,33 +125,36 @@ const ReceitasEmProgresso = ({ id, path, pathname, redirect, type }) => {
             </div>
           ))
         }
-        <strong className="instructions">Instructions</strong>
+        <strong className="title">Instructions</strong>
         <div data-testid="instructions" className="instructions">
           <span className="black-text">{ recipe.instructions }</span>
         </div>
-        <strong>Recomendadas</strong>
-        <div className="cards">
-          {
-            sideDish.map((sideDataObject, i) => {
-              const { id, image, name } = prettifyRecipe(sideDataObject);
-              return <Card
-                key={id} imageSrc={image}
-                title={name} index={i} className={i < 2 ? '' : 'hidden'}
-                testIdArray={['-recomendation-card', '', '-recomendation-title']}
-              />
-            })
-          }
-        </div>
       </div>
-      <button
-        data-testid="finish-recipe-btn"
-        disabled={!(ingredients.length === checked)}
-        id="finalizar-receita"
-        className="btn"
-        onClick={() => { finishRecipe(recipe, redirect); }}
-      >
-        Finalizar Receita
-      </button>
+      <div className="footer">
+          <strong className="title">Recomendadas</strong>
+          <div className="cards">
+            {
+              sideDish.map((sideDataObject, i) => {
+                const { id, image, name } = prettifyRecipe(sideDataObject);
+                return <Card
+                  key={id} imageSrc={image}
+                  title={name} index={i} className={i < 2 ? '' : 'hidden'}
+                  testIdArray={['-recomendation-card', '', '-recomendation-title']}
+                />
+              })
+            }
+          </div>
+          <button
+            data-testid="finish-recipe-btn"
+            disabled={!(ingredients.length === checked)}
+            id="finalizar-receita"
+            className="btn white black-text"
+            onClick={() => { finishRecipe(recipe, redirect); }}
+          >
+            <i class="material-icons left">check</i>
+            Finalizar Receita
+          </button>
+        </div>
     </div>
   );
 };
