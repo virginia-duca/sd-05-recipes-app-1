@@ -1,13 +1,14 @@
 /** @format */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import './MenuInferior.css';
-import {appPage} from '../Services/Utils'
+import { appPage } from '../Services/Utils';
 
-const MenuInferior = ({redirect}) => {
+const MenuInferior = ({ redirect }) => {
   return (
     <footer data-testid="footer">
       <div>
@@ -23,6 +24,10 @@ const MenuInferior = ({redirect}) => {
       </div>
     </footer>
   );
-}
+};
 
-export default appPage(MenuInferior)
+MenuInferior.propTypes = {
+  redirect: PropTypes.func.isRequired,
+};
+
+export default appPage(MenuInferior);

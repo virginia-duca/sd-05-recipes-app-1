@@ -34,7 +34,7 @@ function Rotas() {
         <Route exact path="/explorar" component={Explore} />
         <Route exact path="/explorar/comidas" component={MainExplore} />
         <Route exact path="/explorar/bebidas" component={MainExplore} />
-        <Route path="/explorar/comidas/ingredientes" component={ExploreIngredients}/>
+        <Route path="/explorar/comidas/ingredientes" component={ExploreIngredients} />
         <Route path="/explorar/bebidas/ingredientes" component={ExploreIngredients} />
         <Route exact path="/explorar/comidas/area" />
         <Route path="/perfil" component={Profile} />
