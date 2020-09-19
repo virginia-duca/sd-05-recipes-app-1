@@ -6,6 +6,7 @@ import HeaderTwo from '../Header/HeaderTwo';
 import MenuInferior from '../Header/MenuInferior';
 import { appPage, prettifyRecipe } from '../Services/Utils';
 import api from '../Services/FetchAPI';
+import './Explore.css'
 
 const MainExplore = ({ pathname, redirect }) => {
   const [surprise, setSurprise] = useState([]);
@@ -26,20 +27,40 @@ const MainExplore = ({ pathname, redirect }) => {
       <HeaderTwo
         titulo={pathname === '/explorar/comidas' ? 'Explorar Comidas' : 'Explorar Bebidas'}
       />
-      <button onClick={() => handleClick('ingredientes')} data-testid="explore-by-ingredient">
-        Por Ingredientes
-      </button>
-      {pathname === '/explorar/comidas' ? (
-        <button onClick={() => handleClick('area')} data-testid="explore-by-area">
-          Por Local de Origem
-        </button>
-      ) : null}
-      <button
-        onClick={() => redirect(`/${surprise.type}s/${surprise.id}`)}
-        data-testid="explore-surprise"
-      >
-        Me Surpreenda!
-      </button>
+      <div className="explore-btns">
+        <div className="btn1">
+          <button 
+          onClick={() => handleClick('ingredientes')} 
+          data-testid="explore-by-ingredient"
+          className="btn waves-light btn-large white black-text"
+          >
+            <i class="left material-icons">kitchen</i>
+            Por Ingredientes
+          </button>
+          </div>
+          {pathname === '/explorar/comidas' ? (
+            <div className="btn1">
+            <button 
+            onClick={() => handleClick('area')} 
+            data-testid="explore-by-area"
+            className="btn waves-light btn-large white black-text"
+            >
+              <i class="left material-icons">location_city</i>
+              Por Local de Origem
+            </button>
+            </div>
+          ) : null}
+          <div className="btn1"> 
+          <button
+            onClick={() => redirect(`/${surprise.type}s/${surprise.id}`)}
+            data-testid="explore-surprise"
+            className="btn waves-light btn-large white black-text "
+          >
+            <i class="left material-icons">explore</i>
+            Me Surpreenda!
+          </button>
+        </div>
+      </div>
       <MenuInferior />
     </div>
   );

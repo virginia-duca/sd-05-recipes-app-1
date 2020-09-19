@@ -46,20 +46,29 @@ function Detail({ id, type, path, pathname, redirect }) {
   }, []);
 
   return (
-    <div className="detail">
+    <div className="detail-container">
       <Header recipe={recipe} path={pathname} />
       <div className="container">
         <strong className="title">Ingredients</strong>
-        {(recipe.ingredientsAndMesures || []).map(({ ingredient, measure }, i) =>
-          <div key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
-            {`- ${ingredient} - ${measure}`}
-          </div>,
-        )}
+        <div className="type-container">
+          <div />
+          <div className="ingredients-container">
+            {(recipe.ingredientsAndMesures || []).map(({ ingredient, measure }, i) =>
+              <div key={ingredient} data-testid={`${i}-ingredient-name-and-measure`}>
+                {`- ${ingredient} - ${measure}`}
+              </div>,
+            )}
+          </div>
+          <div />
+        </div>
         <strong className="title">Instructions</strong>
         <div data-testid="instructions">
           { recipe.instructions }
         </div>
         <YouTube recipe={recipe} />
+      </div>
+      
+      <div className="footer">
         <strong className="title">Recomendadas</strong>
         <div className="cards">
           {sideDish.map((sideDataObject, i) => {
@@ -71,8 +80,9 @@ function Detail({ id, type, path, pathname, redirect }) {
             />;
           })}
         </div>
+
         <button
-          className={`btn btn-start ${isRecipeFinished(id, type) ? 'hidden' : '' }`}
+          className={`btn btn-start white black-text ${isRecipeFinished(id, type) ? 'hidden' : '' }`}
           data-testid="start-recipe-btn"
           onClick={() => {
             const product = path[1] === 'comidas' ? 'meals' : 'cocktails';
@@ -83,8 +93,10 @@ function Detail({ id, type, path, pathname, redirect }) {
             redirect(`${pathname}/in-progress`);
           }}
         >
+          <i class="left material-icons">add</i>
           {isRecipeStarted(id, recipe.typeBizarre) ? 'Continuar Receita' : 'Iniciar Receita'}
         </button>
+
       </div>
     </div>
   );

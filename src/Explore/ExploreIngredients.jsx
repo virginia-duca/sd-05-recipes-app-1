@@ -34,9 +34,10 @@ const ExploreIngredients = ({ pathname, redirect }) => {
   return (
     <div>
       <HeaderTwo titulo={explore} />
-      <div>
+      <div className="btn-container">
         {ingredients.map((igr) => (
-          <button onClick={() => handleClick(igr)}>
+          <div className="btn-igr">
+          <button onClick={() => handleClick(igr)} className="btn-ingredient btn waves-light btn-large white black-text">
             <div>
               <img
                 alt=""
@@ -49,6 +50,7 @@ const ExploreIngredients = ({ pathname, redirect }) => {
               <p>{path ? igr.strIngredient : igr.strIngredient1}</p>
             </div>
           </button>
+          </div>
         ))}
       </div>
       {console.log(ingredients)}

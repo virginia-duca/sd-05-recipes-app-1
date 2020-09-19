@@ -1,7 +1,4 @@
-.teste {
-  /* border: 1px solid blue; */
-}
-/* vivi, ta ai? tou */
+
 .container-explore {
   /* border: 1px solid red; */
   display: flex;
@@ -9,18 +6,43 @@
   height: 100vh;
   justify-content: space-between;
 }
-.btn1 {
-  border: 10px solid red;
-}
 
 .explore-btns {
-  border: 10px solid green;
+  /* border: 10px solid green; */
+  min-height: 450px !important;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-content: center;
   align-items: center;
+  justify-content: flex-start;
   height: 30%;
   min-height: fill-available;
+}
+
+.btn-ingredient {
+  height: 150px !important;
+  max-width: 150px !important;
+  line-height: 0px !important;
+}
+
+.btn-igr {
+  padding-top: 50px;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn1 {
+  padding-top: 50px;
+}
+
+.explore-btns .btn {
+  width: 300px;
 }
 
 .footer {

@@ -1,0 +1,16 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-container .btn {
+  width: 250px;
+  margin: 8px 0;
+}

@@ -9,13 +9,20 @@
 
 .detail {
   display: flex;
+  text-align: justify;
   flex-direction: column;
   padding-bottom: 36px;
 }
 
+.ingredients-container {
+  text-align: left;
+}
+
 .btn-start {
   bottom: 0;
-  left: 30%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   position: fixed;
 }
 

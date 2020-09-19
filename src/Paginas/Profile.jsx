@@ -6,6 +6,8 @@ import MenuInferior from '../Header/MenuInferior';
 import storage from '../Services/LocalStorage';
 import { appPage } from '../Services/Utils';
 
+import './style.css';
+
 const Profile = ({ redirect }) => {
   const [email1, setEmail] = useState('');
 
@@ -17,25 +19,37 @@ const Profile = ({ redirect }) => {
   }, []);
 
   return (
-    <div>
+    <div className="profile-container">
       <HeaderTwo titulo={'Perfil'} />
-      <h1 data-testid="profile-email">{email1}</h1>
-      <button onClick={() => redirect('/receitas-feitas')} data-testid="profile-done-btn">
-        Receitas Feitas
-      </button>
-      <button onClick={() => redirect('/receitas-favoritas')} data-testid="profile-favorite-btn">
-        {' '}
-        Receitas Favoritas
-      </button>
-      <button
-        onClick={() => {
-          localStorage.clear();
-          redirect('/');
-        }}
-        data-testid="profile-logout-btn"
-      >
-        Sair
-      </button>
+      <div className="btn-container">
+        <button
+          className="btn"
+          onClick={() => redirect('/receitas-feitas')}
+          data-testid="profile-done-btn"
+        >
+          <i class="left material-icons white-text">check</i>
+          Receitas Feitas
+        </button>
+        <button
+          className="btn"
+          onClick={() => redirect('/receitas-favoritas')}
+          data-testid="profile-favorite-btn"
+        >
+          <i class="left material-icons white-text">favorite</i>
+          Receitas Favoritas
+        </button>
+        <hr />
+        <button
+          className="btn white black-text"
+          onClick={() => {
+            localStorage.clear();
+            redirect('/');
+          }}
+          data-testid="profile-logout-btn"
+        >
+          Sair
+        </button>
+      </div>
       <MenuInferior />
     </div>
   );

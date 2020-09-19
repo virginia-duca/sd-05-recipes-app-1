@@ -11,35 +11,30 @@ const Explore = ({ redirect }) => {
   const explore = 'Explorar';
   return (
     <div>
-      <div className="container-explore">
-        <div className="teste">
-        	<HeaderTwo titulo={explore} />
-        </div>
+        <HeaderTwo titulo={explore} />
         <div className="explore-btns">
-          <div className="btn1">
-          <button 
-            data-testid="explore-food" 
-            onClick={() => redirect('/explorar/comidas')}
-            className="btn waves-light btn-large white black-text"
-          >
-            Explorar Comidas
-          </button>
-          </div>
-          <div className="btn1">
-          <button 
-          data-testid="explore-drinks" 
-          onClick={() => redirect('/explorar/bebidas')}
+        <div className="btn1">
+        <button 
+          data-testid="explore-food" 
+          onClick={() => redirect('/explorar/comidas')}
           className="btn waves-light btn-large white black-text"
-          >
-            Explorar Bebidas
-          </button>
-          </div>
+        >
+          <i class="left material-icons">restaurant_menu</i>
+          Explorar Comidas
+        </button>
         </div>
-        <div />
-      </div>
-      <div>
-        <MenuInferior />
-      </div>
+        <div className="btn1">
+        <button 
+        data-testid="explore-drinks" 
+        onClick={() => redirect('/explorar/bebidas')}
+        className="btn waves-light btn-large white black-text"
+        >
+          <i class="left material-icons">local_cafe</i>
+          Explorar Bebidas
+        </button>
+        </div>
+        </div>
+      <MenuInferior />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { appPage } from '../Services/Utils';
 import storage from '../Services/LocalStorage';
-
+import logoAppReceitasOFICIAL from '../images/logoAppReceitasOFICIAL.svg'
 import cookhat from '../images/cookhat.svg';
 import './style.css';
 
@@ -48,7 +48,7 @@ const LogIn = ({ redirect }) => {
   return (
     <div className="login-container">
       <div className="brand-container">
-        <img src={cookhat} className="brand-logo" alt="" />
+        <img src={logoAppReceitasOFICIAL} className="brand-logo" alt="" />
       </div>
       <div className="container">
         <h4>Login</h4>
