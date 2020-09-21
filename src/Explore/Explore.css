@@ -29,8 +29,8 @@
   padding-top: 50px;
 }
 
-.dropdown-container {
-height: 200px !important;
+.select.dropdown-select {
+  color: brown !important;
 }
 
 .btn-container {
@@ -52,4 +52,22 @@ height: 200px !important;
 
 .footer {
   /* border: 1px solid springgreen; */
+}
+
+/* Materialize components*/
+
+.dropdown-content li>span {
+  color: var(--cinza) !important;
+}
+
+.dropdown-content li>a {
+  color: var(--cinza) !important;
+}
+
+.select-content li>span {
+  color: var(--cinza) !important;
+}
+
+.select-content li>a {
+  color: var(--cinza) !important;
 }

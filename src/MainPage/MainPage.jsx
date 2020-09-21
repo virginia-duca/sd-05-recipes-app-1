@@ -21,7 +21,7 @@ const item = {
   category: '',
 };
 
-let categories = [];
+// let categories = [];
 let apis = {};
 let fetchs = {};
 
@@ -60,10 +60,12 @@ const MainPage = ({ location: { pathname } }) => {
     fetch, comidas12, bebidas12, comidasFiltradas, bebidasFiltradas,
   } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentCategories, setCurrentCategories] = useState([]);
 
   useEffect(() => {
     Loader.init();
     Loader.setColor({ bg: 'white' });
+    Loader.start()
     
     // Seta os states locais
     item.path = pathname;
@@ -72,8 +74,9 @@ const MainPage = ({ location: { pathname } }) => {
     fetchs(apis.searchByName(''));
     // Seta as categorias
     apis.getCategories().then((list) => {
-      categories = [{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)];
-    }).then(() => { setIsLoading(false); });
+      setCurrentCategories([{ strCategory: 'All', idCategory: 0 }, ...list.slice(0, 5)]);
+      // categories = ;
+    }).then(() => { setIsLoading(false); Loader.stop(); });
   }, [pathname]);
 
   useEffect(() => {
@@ -111,7 +114,7 @@ const MainPage = ({ location: { pathname } }) => {
       <MainHeader titulo={toUpper(item.path)} />
       <div className="card-container">
         <RenderCategories
-          categories={categories}
+          categories={currentCategories}
           getValue={(r) => { setItemListByCategory(r); }}
         />
       </div>

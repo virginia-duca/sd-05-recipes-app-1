@@ -14,11 +14,9 @@ class HeaderTwo extends React.Component {
         <i className="medium material-icons">account_box</i>
           {/* <img src={profileIcon} alt="Profile" data-testid="profile-top-btn" /> */}
         </Link>
-        <div className="titles">
-          <h1 data-testid="page-title profile-email" className="titles">
-            {titulo}
-          </h1>
-        </div>
+        <h1 data-testid="page-title profile-email" className="titles">
+          {titulo}
+        </h1>
         <div></div>
       </div>
     );

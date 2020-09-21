@@ -5,13 +5,8 @@ import { isRecipeFavorited, toggleFavorite, toClipboard } from '../Services/Util
 import './style.css';
 
 const Header = ({ recipe, path }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState();
   const { id, type, image, name, category, alcoholicOrNot } = recipe;
-
-  useEffect(() => {
-    setIsFavorite(isRecipeFavorited(id, type));
-    console.log(isRecipeFavorited(id, type));
-  }, [isFavorite]);
 
   return (
   <header className="header-container basic">
@@ -36,7 +31,7 @@ const Header = ({ recipe, path }) => {
               className="btn-floating btn white" data-testid="favorite-btn"
               onClick={() => { setIsFavorite(toggleFavorite(recipe)) }}
             >
-              <i className="material-icons black-text">{isFavorite ? 'favorite' : 'favorite_border'}</i>
+              <i className="material-icons black-text">{isRecipeFavorited(id, type) ? 'favorite' : 'favorite_border'}</i>
             </button>
           </div>
         </div>

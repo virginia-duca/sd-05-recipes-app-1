@@ -5,6 +5,11 @@
   padding: 0 16px;
   background-color: whitesmoke;
 }
+
+.header-container>h1 , .header-container>h4 {
+  margin:0;
+}
+
 .searchbar-container {
   display: flex;
   align-items: center;
@@ -63,7 +68,7 @@
   font-family: "Raleway", sans-serif;
   font-weight: bold;
   text-align: center;
-  font-size: 30px;
+  font-size: 23px;
 }
 
 [type="radio"]:checked + span:after,

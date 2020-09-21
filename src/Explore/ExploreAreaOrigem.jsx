@@ -6,6 +6,9 @@ import api from '../Services/FetchAPI';
 import Card from '../Components/Card';
 import Header from '../Header/MainHeader';
 import MenuInferior from '../Header/MenuInferior';
+import { Select, Icon } from 'react-materialize';
+
+
 
 const MEAL = '/comidas/area';
 
@@ -22,7 +25,7 @@ const RenderItems = () => {
     <div className="card-container">
       {Array.isArray(itemArray) &&
         itemArray.slice(0, 12).map((data, i) => (
-          <Link to={`comidas/${data.idMeal || data.idDrink}`}>
+          <Link to={`/comidas/${data.idMeal || data.idDrink}`}>
             <Card
               key={data.idMeal || data.idDrink}
               imageSrc={data.strMealThumb || data.strDrinkThumb}
@@ -49,11 +52,6 @@ const ExploreAreaOrigem = ({ location: { pathname } }) => {
       .then(() => {
         setIsLoading(false);
       });
-      /* document.addEventListener('DOMContentLoaded', function() {
-        let elems = document.querySelectorAll('select');
-        let instances = M.FormSelect.init(elems, options);
-      });
-      instance.getSelectedValues(); */
   }, [pathname]);
 
   useEffect(() => {
@@ -68,13 +66,34 @@ const ExploreAreaOrigem = ({ location: { pathname } }) => {
 
   const RenderDropdown = () => {
     return (
-      <div className="dropdown-container input-field col s12 m6">
-        <select name="areas" onChange={(event) => handleChange(event)}>
-          <option>All</option>
+      <div className="">
+        <Select
+        className="black-text"
+        id="Select"
+        multiple={false}
+        icon={<Icon>location_city</Icon>}
+        options={{
+          className:"black-text",
+          classes: 'black-text',
+          dropdownOptions: {
+            className:"black-text",
+            alignment: 'left',
+            autoTrigger: false,
+            closeOnClick: true,
+            constrainWidth: true,
+            coverTrigger: true,
+            hover: false,
+            inDuration: 150,
+            outDuration: 250,
+          }
+        }}
+        onChange={(event) => handleChange(event)}
+        >
+          <option className="black-text">All</option>
           {areaList.map((area) => {
-            return <option>{area.strArea}</option>;
+            return <option className="black-text" value={area.strArea}>{area.strArea}</option>;
           })}
-        </select>
+        </ Select>
       </div>
     );
   };

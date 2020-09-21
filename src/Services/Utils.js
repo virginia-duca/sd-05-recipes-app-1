@@ -43,11 +43,18 @@ export const isRecipeFinished = (id, type) => {
   );
 };
 
-export const isRecipeFavorited = (id, type) => {
-  const cType = type === 'cocktails' ? 'bebidas' : 'comidas';
-  const f = storage.getValueByKey('favoriteRecipes') || [{ id: -1 }];
-  return (
-    f.reduce((i, { id: rid, type: rtype }) => (rid !== id && cType === rtype ? i : id), -1) !== -1
+export const isRecipeFavorited = (idt, typet) => {
+  console.log(idt)
+  /* 
+  const cType = typet === 'cocktails' ? 'bebidas' : 'comidas'; */
+  const f = storage.getValueByKey('favoriteRecipes') /* || [{ id: -1 } */;
+    console.log(f)
+  const array1 = f.map(item => item.id === idt /* && typet === item.type  */? true : false)
+    console.log(array1)
+  const arrayFiltered = array1.filter(item => item === true)
+  const verify = arrayFiltered.length > 0 ? true : false
+  return ( verify
+    /* f.reduce((i, { id: rid, type: rtype }) => (i === -1 && rid !== id && cType === rtype ? i : id), -1) !== -1 */
   );
 };
 

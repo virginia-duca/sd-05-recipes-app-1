@@ -12,9 +12,3 @@ button {
   border: none;
   padding: 8px;
 }
-
-button:hover , button:focus {
-  background-color: transparent !important;
-  border: 1px dotted brown;
-  border-radius: 30%;
-}
