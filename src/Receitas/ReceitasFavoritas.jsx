@@ -4,10 +4,11 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import HeaderTwo from '../Header/HeaderTwo';
 import storage from '../Services/LocalStorage';
-import NewCardFavoritos from './NewCardFavoritos';
+import RecipeCard from './RecipeCard';
+/* import NewCardFavoritos from './NewCardFavoritos'; */
 import { appPage } from '../Services/Utils';
 
-function ReceitasFavoritas({ redirect }) {
+function ReceitasFavoritas({ redirect, pathname }) {
   const rcps = storage.getValueByKey('favoriteRecipes');
   const [receitasFavoritas, setReceitasFavoritas] = useState([]);
 
@@ -22,26 +23,29 @@ function ReceitasFavoritas({ redirect }) {
 
   return (
     <div>
-      <h1>Receitas Favoritas</h1>
       <HeaderTwo titulo={'Receitas Favoritas'} />
+      <div className="select done-list ">
       <button
+        className="btn"
         onClick={() => setReceitasFavoritas(rcps)}
         data-testid="filter-by-all-btn"
-      >
+        >
         All
       </button>
-      <button onClick={() => filtro('comida')} data-testid="filter-by-food-btn">
+      <button className="btn" onClick={() => filtro('comida')} data-testid="filter-by-food-btn">
         Food
       </button>
       <button
+        className="btn"
         onClick={() => filtro('bebida')}
         data-testid="filter-by-drink-btn"
-      >
+        >
         Drinks
       </button>
+      </div>
       {receitasFavoritas.map((recipe, i) => (
         <div>
-          <NewCardFavoritos recipe={recipe} index={i} redirect={redirect} />
+          <RecipeCard recipe={recipe} index={i} redirect={redirect} pathname={pathname} />
         </div>
       ))}
     </div>

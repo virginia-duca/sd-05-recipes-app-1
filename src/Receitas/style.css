@@ -2,10 +2,25 @@
   text-align: center;
 }
 
+.select {
+  margin-bottom: 30px;
+}
+
 .title {
   display: block;
   color: var(--cinza);
   padding-top: 22px;
+}
+
+.butn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
+.all-container {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .footer {
@@ -17,6 +32,10 @@
 
 .footer .title {
   color: whitesmoke;
+}
+
+.favorite {
+  background-color: whitesmoke !important;
 }
 
 .list {

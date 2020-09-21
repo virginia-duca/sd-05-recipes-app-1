@@ -29,7 +29,12 @@
   padding-top: 50px;
 }
 
+.dropdown-container {
+height: 200px !important;
+}
+
 .btn-container {
+  /* border: 10px solid green; */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

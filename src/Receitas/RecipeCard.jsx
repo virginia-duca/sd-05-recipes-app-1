@@ -1,16 +1,24 @@
 /** @format */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import './carddss.css';
-import { toClipboard } from '../Services/Utils';
+import {
+  toggleFavorite,
+  isRecipeFavorited,
+  toClipboard,
+} from '../Services/Utils';
 
-const NewCard = ({ recipe, index, redirect }) => {
+const NewCard = ({ recipe, index, redirect, pathname }) => {
   const { type, id, area, category, alcoholicOrNot, name, image, tags, doneDate } = recipe;
-
+  const [isFavorite, setIsFavorite] = useState(isRecipeFavorited(id, type));
+  const path = pathname.includes('receitas-feitas');
+  
   return (
-    <div className="clipboard">
+    <div className="clipboard all-container">
       <button
         onClick={() => redirect(`/${type}s/${id}`)}
         className="card-panel grey lighten-5 z-depth-1"
@@ -33,16 +41,22 @@ const NewCard = ({ recipe, index, redirect }) => {
                 >{`${area} - ${category}`}</strong>
               )}
             </div>
-            {tags.map((tag) => (
-              <div className="card-title" data-testid={`${index}-${tag}-horizontal-tag`}>
-                {tag}
-              </div>
-            ))}
-            <div className="card-title" data-testid={`${index}-horizontal-done-date`}>
-              Feita em: {doneDate}
-            </div>
+            {path 
+              ? tags.map((tag) => (
+                <div className="card-title" data-testid={`${index}-${tag}-horizontal-tag`}>
+                  {tag}
+                </div>
+              ))
+              : null
+            }
+            {path 
+              ?  <div className="card-title" data-testid={`${index}-horizontal-done-date`}>
+                  Feita em: {doneDate}
+                </div>
+              :  null  
+            }
             <hr />
-            <div className="navigation">
+            <div className="navigation butn-container">
               <button
                 className="btn-floating btn"
                 src={shareIcon}
@@ -51,7 +65,20 @@ const NewCard = ({ recipe, index, redirect }) => {
               >
                 <i class="material-icons white-text">share</i>
               </button>
-
+              {path 
+              ? null
+              : <button
+                  className="btn-floating btn favorite"
+                  data-testid={`${index}-horizontal-favorite-btn`}
+                  src={isFavorite ? blackHeartIcon : whiteHeartIcon}
+                  onClick={() => {
+                    setIsFavorite(toggleFavorite(recipe));
+                    document.location.reload();
+                  }}
+                >
+                <i className="material-icons black-text">{isFavorite ? 'favorite' : 'favorite_border'}</i>
+              </button>
+              }
             </div>
           </div>
         </div>

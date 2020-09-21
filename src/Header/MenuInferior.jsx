@@ -11,14 +11,17 @@ const MenuInferior = ({ redirect }) => {
   return (
     <div>
     <footer data-testid="footer">
-      <button onClick={() => redirect('/bebidas')}>
-        <img src={drinkIcon} alt="Drink" data-testid="drinks-bottom-btn" />
+      <button className="btn" onClick={() => redirect('/bebidas')}>
+      <i className="medium material-icons white-text">local_bar</i>
+        {/* <img src={drinkIcon} alt="Drink" data-testid="drinks-bottom-btn" /> */}
       </button>
-      <button onClick={() => redirect('/explorar')}>
-        <img src={exploreIcon} alt="Explore" data-testid="explore-bottom-btn" />
+      <button className="btn" onClick={() => redirect('/explorar')}>
+        <i className="medium material-icons white-text">explore</i>
+       {/*  <img src={exploreIcon} alt="Explore" data-testid="explore-bottom-btn" /> */}
       </button>
-      <button onClick={() => redirect('/comidas')}>
-        <img src={mealIcon} alt="Meal" data-testid="food-bottom-btn" />
+      <button className="btn" onClick={() => redirect('/comidas')}>
+        <i className="medium material-icons white-text">local_dining</i>
+        {/* <img src={mealIcon} alt="Meal" data-testid="food-bottom-btn" /> */}
       </button>
     </footer>
     </div>

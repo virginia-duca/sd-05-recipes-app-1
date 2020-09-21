@@ -49,6 +49,11 @@ const ExploreAreaOrigem = ({ location: { pathname } }) => {
       .then(() => {
         setIsLoading(false);
       });
+      /* document.addEventListener('DOMContentLoaded', function() {
+        let elems = document.querySelectorAll('select');
+        let instances = M.FormSelect.init(elems, options);
+      });
+      instance.getSelectedValues(); */
   }, [pathname]);
 
   useEffect(() => {
@@ -63,12 +68,14 @@ const ExploreAreaOrigem = ({ location: { pathname } }) => {
 
   const RenderDropdown = () => {
     return (
-      <select name="areas" onChange={(event) => handleChange(event)}>
-        <option>All</option>
-        {areaList.map((area) => {
-          return <option>{area.strArea}</option>;
-        })}
-      </select>
+      <div className="dropdown-container input-field col s12 m6">
+        <select name="areas" onChange={(event) => handleChange(event)}>
+          <option>All</option>
+          {areaList.map((area) => {
+            return <option>{area.strArea}</option>;
+          })}
+        </select>
+      </div>
     );
   };
 

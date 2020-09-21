@@ -8,7 +8,7 @@ import { appPage } from '../Services/Utils';
 
 import './style.css';
 
-const ReceitasFeitas = ({ redirect }) => {
+const ReceitasFeitas = ({ redirect, pathname }) => {
   const [doneRecipes, setDoneRecipes] = useState([]);
 
   const handleClick = (param) => {
@@ -24,7 +24,7 @@ const ReceitasFeitas = ({ redirect }) => {
   return (
     <div>
       <HeaderTwo titulo={'Receitas Feitas'} />
-      <div className="menu-container done-list">
+      <div className="select done-list ">
       	<button
           className="btn"
       	  data-testid="filter-by-all-btn"
@@ -50,7 +50,7 @@ const ReceitasFeitas = ({ redirect }) => {
       </div>
       
       {doneRecipes.map((recipe, i) => (
-        <RecipeCard recipe={recipe} index={i} redirect={redirect} />
+        <RecipeCard recipe={recipe} index={i} redirect={redirect} pathname={pathname} />
         // <NewCard recipe={recipe} index={i} redirect={redirect} />
       ))}
     </div>
