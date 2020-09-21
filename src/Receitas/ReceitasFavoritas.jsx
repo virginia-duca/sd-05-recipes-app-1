@@ -44,7 +44,7 @@ function ReceitasFavoritas({ redirect, pathname }) {
       </button>
       </div>
       {receitasFavoritas.map((recipe, i) => (
-        <div>
+        <div className="recipeCard-container">
           <RecipeCard recipe={recipe} index={i} redirect={redirect} pathname={pathname} />
         </div>
       ))}

@@ -21,6 +21,9 @@ const Profile = ({ redirect }) => {
   return (
     <div className="profile-container">
       <HeaderTwo titulo={'Perfil'} />
+      <div className="email">
+      <h4 className="header-title gray-text">{email1}</h4>
+      </div>
       <div className="btn-container">
         <button
           className="btn"

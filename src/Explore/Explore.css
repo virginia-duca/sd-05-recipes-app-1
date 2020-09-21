@@ -26,7 +26,7 @@
 }
 
 .btn-igr {
-  padding-top: 50px;
+  padding-top: 15px;
 }
 
 .select.dropdown-select {
@@ -42,9 +42,6 @@
   justify-content: space-between;
 }
 
-.btn1 {
-  padding-top: 50px;
-}
 
 .explore-btns .btn {
   width: 300px;
@@ -70,4 +67,8 @@
 
 .select-content li>a {
   color: var(--cinza) !important;
+}
+
+.btn1 {
+  padding-top: 50px;
 }

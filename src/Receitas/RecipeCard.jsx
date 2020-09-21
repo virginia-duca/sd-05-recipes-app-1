@@ -29,6 +29,9 @@ const NewCard = ({ recipe, index, redirect, pathname }) => {
           </div>
           <div className="col s8">
             <div>
+              <strong className="card-title" data-testid={`${index}-horizontal-name`}>{name}</strong>
+            </div>
+            <div>
               {type === 'bebida' ? (
                 <strong
                   className="card-title"

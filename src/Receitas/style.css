@@ -67,3 +67,8 @@
 .done-list .btn{
   width: 33.3%;
 }
+
+.recipeCard-container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
