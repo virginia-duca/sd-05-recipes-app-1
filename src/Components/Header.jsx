@@ -16,11 +16,11 @@ const Header = ({ recipe, path }) => {
         <img className="image" src={image} data-testid="recipe-photo" alt="" />
       </div>
       <div className="card-stacked">
-        <div className="card-content">
+        <div className="card-content clipboard">
           <p className="header-title" data-testid="recipe-title">{name}</p>
           <hr />
           <p data-testid="recipe-category">{alcoholicOrNot || category}</p>
-          <div className="card-links">
+          <div className="card-links" >
             <button
               className="btn-floating btn white" data-testid="share-btn"
               onClick={() => { toClipboard(`http://localhost:3000${path}`); }}
