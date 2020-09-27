@@ -1,6 +1,6 @@
 # Boas vindas ao repositório do projeto App de Receitas!
 
-A aplicacao é um protótipo front-end, utilizando um banco de dados aberto (theMealDB e  !
+A aplicacao é um protótipo front-end, utilizando um banco de dados aberto (theMealDB e theCockTailDB !)
 
 Tecnologias utilizadas :
 - React, com context API e Hooks.
