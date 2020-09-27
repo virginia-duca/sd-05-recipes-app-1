@@ -29,4 +29,4 @@ Bem similar (inclusive mantida pela mesma entidade) a TheMealDB API, só que foc
 
 ### Resultado
 
-![](name-of-giphy.gif)
+![](Gravação-de-Tela-2020-09-21-às-18 (1).gif)
