@@ -19,9 +19,9 @@ Bem similar (inclusive mantida pela mesma entidade) a TheMealDB API, só que foc
 
 ## Instruções para entregar seu projeto:
 1. Clone o repositório
- Entre na pasta do repositório que você acabou de clonar:
+ e entre na pasta do repositório que você acabou de clonar:
     * `cd sd-05-recipes-app-1`
- 2. Instale as dependências, inicialize o projeto e rode os testes
+ 2. Instale as dependências, inicialize o projeto 
   * Instale as dependências:
     * `npm install`
   * Inicialize o projeto:
