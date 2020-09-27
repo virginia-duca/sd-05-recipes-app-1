@@ -16,8 +16,6 @@ O [TheMealDB](https://www.themealdb.com/) é um banco de dados aberto, mantido p
 Bem similar (inclusive mantida pela mesma entidade) a TheMealDB API, só que focado em bebidas (https://www.thecocktaildb.com/api.php).
 
 ### Para instalar e rodar localmente:
-
-## Instruções para entregar seu projeto:
 1. Clone o repositório
  e entre na pasta do repositório que você acabou de clonar:
     * `cd sd-05-recipes-app-1`
