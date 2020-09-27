@@ -4,7 +4,7 @@ A aplicacao é um protótipo front-end, utilizando um banco de dados aberto (the
 
 Tecnologias utilizadas :
 - React, com context API e Hooks.
--localStorage
+- localStorage.
 - Materialize e CSS para construção do layout (moblie first).
 
 ### TheMealDB API
@@ -24,6 +24,8 @@ Bem similar (inclusive mantida pela mesma entidade) a TheMealDB API, só que foc
  2. Instale as dependências, inicialize o projeto 
   * Instale as dependências:
     * `npm install`
+   * Mude para a branch virginia/style
+   *`git checkout virginia/style`
   * Inicialize o projeto:
     * `npm start` (uma nova página deve abrir no seu navegador com um texto simples)
 
