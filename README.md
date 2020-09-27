@@ -22,7 +22,7 @@ Bem similar (inclusive mantida pela mesma entidade) a TheMealDB API, só que foc
  2. Instale as dependências, inicialize o projeto 
   * Instale as dependências:
     * `npm install`
-   * Mude para a branch virginia/style
+  * Mude para a branch virginia/style:
     * `git checkout virginia/style`
   * Inicialize o projeto:
     * `npm start` (uma nova página deve abrir no seu navegador com um texto simples)
